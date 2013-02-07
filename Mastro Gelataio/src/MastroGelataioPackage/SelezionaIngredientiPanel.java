@@ -3,10 +3,8 @@ package MastroGelataioPackage;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.Vector;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -320,7 +318,6 @@ public class SelezionaIngredientiPanel extends JPanel {
 	
 	private void btnRimuoviSelected()
 	{	
-		String sAzione;
 		fireMyEvent(new MioEvento("Rimuovi"));
 	}
 	

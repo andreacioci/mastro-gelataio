@@ -125,7 +125,6 @@ public class DBManager {
 	 */
 	public boolean UpdateAll(String sTable, Vector<String> sTableColumn, Vector<Vector<Object>> data, Vector<String> sCondCols)
 	{
-		String sQuery;
 		boolean bEseguito = false;
 		
 		/**
@@ -180,8 +179,6 @@ public class DBManager {
 			/* Rimuovere tutte le righe */
 			return;
 		}
-		
-		String sQuery;
 		
 		/**
 		 * Estraggo dalla sTable tutte le righe identificate da sExtractCols

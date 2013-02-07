@@ -1,12 +1,9 @@
 package MastroGelataioPackage;
 
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;

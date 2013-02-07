@@ -3,18 +3,13 @@ package MastroGelataioPackage;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JList;
 import javax.swing.border.EtchedBorder;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.BorderLayout;
 import java.util.Vector;
 
 public class RicettaPanel extends JPanel {
 
-	private JLabel lblRicetta;
 	private SelezionaIngredientiPanel pnlSelectIngredienti;
 	private RicettaComposizionePanel pnlComposizione;
 	private DBMgrWrap DBMgr;

@@ -1,9 +1,7 @@
 package MastroGelataioPackage;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -12,9 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JList;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
 public class SelezionaRicettaPanel extends JPanel {
 

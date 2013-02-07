@@ -1,26 +1,20 @@
 package MastroGelataioPackage;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterJob;
 
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
 
 public class PrintRicetta implements Printable {
 
 	//--- Private instances declarations
-	  private final double INCH = 72;
 	  private PrinterJob printJob;
 	  private String sTitoloRicetta;
 	  private JTable tableIng;

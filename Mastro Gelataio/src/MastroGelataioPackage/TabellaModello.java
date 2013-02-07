@@ -1,8 +1,5 @@
 package MastroGelataioPackage;
 
-import java.util.Vector;
-
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class TabellaModello extends DefaultTableModel {

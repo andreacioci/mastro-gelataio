@@ -1,14 +1,11 @@
 package MastroGelataioPackage;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.util.Vector;
 
-import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
 
 public class TabellaCellRender extends DefaultTableCellRenderer 
 {

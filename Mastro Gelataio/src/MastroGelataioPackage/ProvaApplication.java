@@ -1,26 +1,18 @@
 package MastroGelataioPackage;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Frame;
-import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-
-import java.sql.*;
 import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JOptionPane;
-import javax.swing.JRootPane;
 import javax.swing.JToolBar;
 import javax.swing.JButton;
 import javax.swing.UIManager;
@@ -33,14 +25,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
-import java.awt.Color;
-import javax.swing.JSplitPane;
 import javax.swing.ImageIcon;
 import javax.swing.border.EtchedBorder;
 
-import java.awt.Window.Type;
 import javax.swing.JLabel;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class ProvaApplication {
 
@@ -312,7 +300,7 @@ public class ProvaApplication {
 		 * Creo il bottone Ricettario
 		 */
 		btnRicettario = new JButton("");
-		btnRicettario.setIcon(new ImageIcon("D:\\Documents and Settings\\ancioci\\workspace\\Mastro Gelataio\\icons\\Ricettario2.png"));
+		btnRicettario.setIcon(new ImageIcon(".\\icons\\Ricettario2.png"));
 		btnRicettario.setToolTipText("Ricettario");
 		toolBar.add(btnRicettario);
 		
@@ -326,7 +314,7 @@ public class ProvaApplication {
 		 * Creo il bottone Nuova Ricetta
 		 */
 		btnNuovaRicetta = new JButton("");
-		btnNuovaRicetta.setIcon(new ImageIcon("D:\\Documents and Settings\\ancioci\\workspace\\Mastro Gelataio\\icons\\NewDocument2.png"));
+		btnNuovaRicetta.setIcon(new ImageIcon(".\\icons\\NewDocument2.png"));
 		btnNuovaRicetta.setToolTipText("Nuova Ricetta");
 		toolBar.add(btnNuovaRicetta);
 		
@@ -340,7 +328,7 @@ public class ProvaApplication {
 		 * Creo il bottone Ingredienti
 		 */
 		btnIngredienti = new JButton("");
-		btnIngredienti.setIcon(new ImageIcon("D:\\Documents and Settings\\ancioci\\workspace\\Mastro Gelataio\\icons\\Ingredienti2.png"));
+		btnIngredienti.setIcon(new ImageIcon(".\\icons\\Ingredienti2.png"));
 		btnIngredienti.setToolTipText("Ingredienti");
 		toolBar.add(btnIngredienti);
 		
@@ -354,7 +342,7 @@ public class ProvaApplication {
 		 * Creo il bottone Impostazioni
 		 */
 		btnImpostazioni = new JButton("");
-		btnImpostazioni.setIcon(new ImageIcon("D:\\Documents and Settings\\ancioci\\workspace\\Mastro Gelataio\\icons\\Settings2.png"));
+		btnImpostazioni.setIcon(new ImageIcon(".\\icons\\Settings2.png"));
 		btnImpostazioni.setToolTipText("Impostazioni");
 		toolBar.add(btnImpostazioni);
 		
@@ -368,7 +356,7 @@ public class ProvaApplication {
 		 * Creo il bottone Help
 		 */
 		btnHelp = new JButton("");
-		btnHelp.setIcon(new ImageIcon("D:\\Documents and Settings\\ancioci\\workspace\\Mastro Gelataio\\icons\\Settings2.png"));
+		btnHelp.setIcon(new ImageIcon(".\\icons\\Settings2.png"));
 		btnHelp.setToolTipText("Help");
 		toolBar.add(btnHelp);
 		
@@ -395,7 +383,7 @@ public class ProvaApplication {
 		 * Creo il bottone per Minimizzare
 		 */
 		btnMin = new JButton("");
-		btnMin.setIcon(new ImageIcon("D:\\Documents and Settings\\ancioci\\workspace\\Mastro Gelataio\\icons\\Minimize2.png"));
+		btnMin.setIcon(new ImageIcon(".\\icons\\Minimize2.png"));
 		btnMin.setToolTipText("Minimizza");
 		toolBar.add(btnMin);
 		
@@ -409,7 +397,7 @@ public class ProvaApplication {
 		 * Creo il bottone per Massimizzare
 		 */
 		btnMax = new JButton("");
-		btnMax.setIcon(new ImageIcon("D:\\Documents and Settings\\ancioci\\workspace\\Mastro Gelataio\\icons\\Maximize2.png"));
+		btnMax.setIcon(new ImageIcon(".\\icons\\Maximize2.png"));
 		btnMax.setToolTipText("Massimizza");
 		toolBar.add(btnMax);
 		
@@ -423,7 +411,7 @@ public class ProvaApplication {
 		 * Creo il bottone Exit
 		 */
 		btnExit = new JButton("");
-		btnExit.setIcon(new ImageIcon("D:\\Documents and Settings\\ancioci\\workspace\\Mastro Gelataio\\icons\\Close2.png"));
+		btnExit.setIcon(new ImageIcon(".\\icons\\Close2.png"));
 		btnExit.setToolTipText("Esci");
 		toolBar.add(btnExit);
 		

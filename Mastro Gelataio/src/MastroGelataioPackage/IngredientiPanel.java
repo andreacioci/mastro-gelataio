@@ -332,7 +332,6 @@ public class IngredientiPanel extends JPanel {
 	public void CancellaRowTipo()
 	{
 		Integer iRow, iDataRow;
-		Long iID;
 		
 		/**
 		 * Ricavo la riga selezionata nella JTable 
@@ -417,7 +416,6 @@ public class IngredientiPanel extends JPanel {
 	private void CancellaRowIng()
 	{
 		Integer iRow, iDataRow;
-		Long iID;
 		
 		/**
 		 * Ricavo la riga selezionata nella JTable 
