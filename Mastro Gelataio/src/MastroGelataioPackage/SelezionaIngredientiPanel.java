@@ -257,7 +257,7 @@ public class SelezionaIngredientiPanel extends JPanel {
 		/**
 		 * Setto le colonne invisibili
 		 */
-		String[] sInvisibleColumns = new String[8];
+		String[] sInvisibleColumns = new String[10];
 		sInvisibleColumns[0] = "ID";
 		sInvisibleColumns[1] = "Acqua";
 		sInvisibleColumns[2] = "Zuccheri";
@@ -266,6 +266,8 @@ public class SelezionaIngredientiPanel extends JPanel {
 		sInvisibleColumns[5] = "AltriSolidi";
 		sInvisibleColumns[6] = "Deleted";
 		sInvisibleColumns[7] = "TipoIngID";
+		sInvisibleColumns[8] = "POD";
+		sInvisibleColumns[9] = "PAC";
 		
 		tabellaIngredienti.setInvisibleColumn(sInvisibleColumns);
 		

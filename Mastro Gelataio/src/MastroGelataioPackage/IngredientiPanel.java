@@ -401,6 +401,8 @@ public class IngredientiPanel extends JPanel {
 		tabellaIngredienti.setDataAt(0, iRow, DBMgrWrap.INGREDIENTI_AltriSolidi);
 		tabellaIngredienti.setDataAt("N", iRow, DBMgrWrap.INGREDIENTI_Deleted);
 		tabellaIngredienti.setDataAt(Long.parseLong(tabellaTipiIng.getSelectedValue("ID").toString()), iRow, DBMgrWrap.INGREDIENTI_TipoIngID);
+		tabellaIngredienti.setDataAt(0, iRow, DBMgrWrap.INGREDIENTI_POD);
+		tabellaIngredienti.setDataAt(0, iRow, DBMgrWrap.INGREDIENTI_PAC);
 		iNextIDIng++;
 		tabellaIngredienti.MostraDati();
 		
@@ -552,6 +554,16 @@ public class IngredientiPanel extends JPanel {
 				data_obj.set(7, "N");
 			}
 			ing.setDeleted(data_obj.get(7).toString());
+			if (data_obj.get(9) == null)
+			{
+				data_obj.set(9, 0);
+			}
+			ing.setPOD(Long.parseLong(data_obj.get(9).toString()));
+			if (data_obj.get(10) == null)
+			{
+				data_obj.set(10, 0);
+			}
+			ing.setPAC(Long.parseLong(data_obj.get(10).toString()));
 
 			/**
 			 * Inserisco il vettore Ingredienti nel vettore di uscita

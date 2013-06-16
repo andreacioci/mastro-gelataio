@@ -10,6 +10,8 @@ public class Ingredienti {
 	private Double SLNG;
 	private Double AltriSolidi;
 	private String Deleted;
+	private Long POD;
+	private Long PAC;
 	public static final Integer NUM_ELEMENTI = 8;
 	
 	public Integer getID()
@@ -52,6 +54,16 @@ public class Ingredienti {
 		return Deleted;
 	}
 	
+	public Long getPOD()
+	{
+		return POD;
+	}
+	
+	public Long getPAC()
+	{
+		return PAC;
+	}
+	
 	public void setID(Integer iID)
 	{
 		ID = iID;
@@ -90,5 +102,15 @@ public class Ingredienti {
 	public void setDeleted(String sDeleted)
 	{
 		Deleted = sDeleted;
+	}
+	
+	public void setPOD(Long lPOD)
+	{
+		POD = lPOD;
+	}
+	
+	public void setPAC(Long lPAC)
+	{
+		PAC = lPAC;
 	}
 }

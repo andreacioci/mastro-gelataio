@@ -352,6 +352,8 @@ public class RicettaComposizionePanel extends JPanel {
 		sColumnNameComp.add("SLNG");
 		sColumnNameComp.add("AltriSolidi");
 		sColumnNameComp.add("Deleted");
+		sColumnNameComp.add("POD");
+		sColumnNameComp.add("PAC");
 		
 		tabellaComposizione.setColumnName(sColumnNameComp);
 		
@@ -379,6 +381,8 @@ public class RicettaComposizionePanel extends JPanel {
 		sColumnNameTot.add("Grassi");
 		sColumnNameTot.add("SLNG");
 		sColumnNameTot.add("AltriSolidi");
+		sColumnNameTot.add("POD");
+		sColumnNameTot.add("PAC");
 		
 		tabellaTotali.setColumnName(sColumnNameTot);
 		
@@ -548,6 +552,8 @@ public class RicettaComposizionePanel extends JPanel {
 				dataRow.add(sColumnNameComp.indexOf("SLNG"), 0);
 				dataRow.add(sColumnNameComp.indexOf("AltriSolidi"), 0);
 				dataRow.add(sColumnNameComp.indexOf("Deleted"), data_tmp.get(i).get(7));
+				dataRow.add(sColumnNameComp.indexOf("POD"), 0);
+				dataRow.add(sColumnNameComp.indexOf("PAC"), 0);
 				
 				data.add(dataRow);	
 			}
@@ -659,14 +665,18 @@ public class RicettaComposizionePanel extends JPanel {
 		Double newGrassi = Arrotonda(dQuant * data_ing.get(iIngRow).getGrassi() / 100);
 		Double newSLNG = Arrotonda(dQuant * data_ing.get(iIngRow).getSLNG() / 100);
 		Double newAltriSolidi = Arrotonda(dQuant * data_ing.get(iIngRow).getAltriSolidi() / 100);
+		Double newPOD = Arrotonda(newZucchero * data_ing.get(iIngRow).getPOD() / 100);
+		Double newPAC = Arrotonda(newZucchero * data_ing.get(iIngRow).getPAC() / 100);
 		
 		tabellaComposizione.setDataAt(newAcqua, iTblRow, tabellaComposizione.getColumnIndex("Acqua"));
 		tabellaComposizione.setDataAt(newZucchero, iTblRow, tabellaComposizione.getColumnIndex("Zuccheri"));
 		tabellaComposizione.setDataAt(newGrassi, iTblRow, tabellaComposizione.getColumnIndex("Grassi"));
 		tabellaComposizione.setDataAt(newSLNG, iTblRow, tabellaComposizione.getColumnIndex("SLNG"));
 		tabellaComposizione.setDataAt(newAltriSolidi, iTblRow, tabellaComposizione.getColumnIndex("AltriSolidi"));
+		tabellaComposizione.setDataAt(newPOD, iTblRow, tabellaComposizione.getColumnIndex("POD"));
+		tabellaComposizione.setDataAt(newPAC, iTblRow, tabellaComposizione.getColumnIndex("PAC"));
 	}
-
+	
 	/**
 	 * Viene chiamata quando viene cambiato il valore di una quantità nella tabella
 	 */
@@ -675,7 +685,7 @@ public class RicettaComposizionePanel extends JPanel {
 		/**
 		 * Calcolo il nuovo totale e le nuove percentuali
 		 */
-		Double dQuantTot, dPercAcqua, dPercZucchero, dPercGrassi, dPercSLNG, dPercAltriSolidi;
+		Double dQuantTot, dPercAcqua, dPercZucchero, dPercGrassi, dPercSLNG, dPercAltriSolidi, dPercPOD, dPercPAC;
 		
 		dQuantTot = Arrotonda(tabellaComposizione.getSum("Quantità"));
 		dPercAcqua = Arrotonda(tabellaComposizione.getSum("Acqua") / dQuantTot * 100);
@@ -683,6 +693,8 @@ public class RicettaComposizionePanel extends JPanel {
 		dPercGrassi = Arrotonda(tabellaComposizione.getSum("Grassi") / dQuantTot * 100);
 		dPercSLNG = Arrotonda(tabellaComposizione.getSum("SLNG") / dQuantTot * 100);
 		dPercAltriSolidi = Arrotonda(tabellaComposizione.getSum("AltriSolidi") / dQuantTot * 100);
+		dPercPOD = Arrotonda(tabellaComposizione.getSum("POD") / dQuantTot * 100);
+		dPercPAC = Arrotonda(tabellaComposizione.getSum("PAC") / dQuantTot * 100);
 		
 		/**
 		 * Aggiorno i dati in tabella
@@ -697,6 +709,8 @@ public class RicettaComposizionePanel extends JPanel {
 		dataTotRow.add(tabellaTotali.getColumnIndex("Grassi"), dPercGrassi);
 		dataTotRow.add(tabellaTotali.getColumnIndex("SLNG"), dPercSLNG);
 		dataTotRow.add(tabellaTotali.getColumnIndex("AltriSolidi"), dPercAltriSolidi);
+		dataTotRow.add(tabellaTotali.getColumnIndex("POD"), dPercPOD);
+		dataTotRow.add(tabellaTotali.getColumnIndex("PAC"), dPercPAC);
 		
 		dataTot.add(dataTotRow);
 		tabellaTotali.ImportaDati(dataTot, sColumnNameTot);

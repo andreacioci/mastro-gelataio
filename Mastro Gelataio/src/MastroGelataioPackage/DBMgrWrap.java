@@ -9,7 +9,7 @@ public class DBMgrWrap extends DBManager{
 	 * DB File
 	 */
 	public static final String DBPath = "";
-	public static final String DBFile = "Gelati21.db";
+	public static final String DBFile = "Gelati31.db";
 	
 	/**
 	 * Tabella Ricette
@@ -42,6 +42,8 @@ public class DBMgrWrap extends DBManager{
 	public static final int INGREDIENTI_AltriSolidi = 6;
 	public static final int INGREDIENTI_Deleted = 7;
 	public static final int INGREDIENTI_TipoIngID = 8;
+	public static final int INGREDIENTI_POD = 9;
+	public static final int INGREDIENTI_PAC = 10;
 	public static final Vector<String> INGREDIENTI_COLS = new Vector<String>() {};
 	
 	/**
@@ -86,6 +88,8 @@ public class DBMgrWrap extends DBManager{
 		INGREDIENTI_COLS.add("AltriSolidi");
 		INGREDIENTI_COLS.add("Deleted");
 		INGREDIENTI_COLS.add("TipoIngID");
+		INGREDIENTI_COLS.add("POD");
+		INGREDIENTI_COLS.add("PAC");
 		
 		RICETTE_COLS.add("ID");
 		RICETTE_COLS.add("Nome");
@@ -127,7 +131,7 @@ public class DBMgrWrap extends DBManager{
 	    {
 	    	stat.execute("CREATE TABLE " + TABELLA_INGREDIENTI + " (ID Long, Nome varchar(50), Acqua Double, "
 	    			+ "Zuccheri Double, Grassi Double, SLNG Double, AltriSolidi Double, "
-	    			+ "Deleted varchar(1), TipoIngID Long, PRIMARY KEY (ID));");	
+	    			+ "Deleted varchar(1), TipoIngID Long, POD Long, PAC Long, PRIMARY KEY (ID));");	
 	    }
 	    catch (Exception e)
 	    {
@@ -274,7 +278,17 @@ public class DBMgrWrap extends DBManager{
 				data_obj.set(INGREDIENTI_Deleted, "N");
 			}
 			ing.setDeleted(data_obj.get(INGREDIENTI_Deleted).toString());
-
+			if (data_obj.get(INGREDIENTI_POD) == null)
+			{
+				data_obj.set(INGREDIENTI_POD, 0);
+			}
+			ing.setPOD(Long.parseLong(data_obj.get(INGREDIENTI_POD).toString()));
+			if (data_obj.get(INGREDIENTI_PAC) == null)
+			{
+				data_obj.set(INGREDIENTI_PAC, 0);
+			}
+			ing.setPAC(Long.parseLong(data_obj.get(INGREDIENTI_PAC).toString()));
+			
 			/**
 			 * Inserisco il vettore Ingredienti nel vettore di uscita
 			 */
@@ -366,7 +380,9 @@ public class DBMgrWrap extends DBManager{
 					+ "SLNG=" + dataNewRow.get(INGREDIENTI_SLNG) + ", "
 					+ "AltriSolidi=" + dataNewRow.get(INGREDIENTI_AltriSolidi) + ", " 
 					+ "Deleted='" + dataNewRow.get(INGREDIENTI_Deleted) + "', "
-					+ "TipoIngID=" + dataNewRow.get(INGREDIENTI_TipoIngID) + " "
+					+ "TipoIngID=" + dataNewRow.get(INGREDIENTI_TipoIngID) + ", "
+					+ "POD=" + dataNewRow.get(INGREDIENTI_POD) + ", "
+					+ "PAC=" + dataNewRow.get(INGREDIENTI_PAC) + " "
 					+ "WHERE ID=" + dataNewRow.get(INGREDIENTI_ID);
 			
 			/**
@@ -406,7 +422,9 @@ public class DBMgrWrap extends DBManager{
 						+ dataNewRow.get(INGREDIENTI_SLNG) + ", "
 						+ dataNewRow.get(INGREDIENTI_AltriSolidi) + ", '" 
 						+ dataNewRow.get(INGREDIENTI_Deleted) + "', "
-						+ dataNewRow.get(INGREDIENTI_TipoIngID) + ")";
+						+ dataNewRow.get(INGREDIENTI_TipoIngID) + ", "
+						+ dataNewRow.get(INGREDIENTI_POD) + ", "
+						+ dataNewRow.get(INGREDIENTI_PAC) + ")";
 				
 				/**
 				 * Eseguo la query
