@@ -70,7 +70,7 @@ public class ProvaApplication {
 	/**
 	 * Pannelli Ricettario
 	 */
-	private RicettarioPanel pnlRicettario;
+	private Ricettario pnlRicettario;
 	
 	/**
 	 * Pannello Impostazioni
@@ -315,7 +315,7 @@ public class ProvaApplication {
 		 */
 		btnNuovaRicetta = new JButton("");
 		btnNuovaRicetta.setIcon(new ImageIcon(".\\icons\\NewDocument2.png"));
-		btnNuovaRicetta.setToolTipText("Nuova Ricetta");
+		btnNuovaRicetta.setToolTipText("Crea/Modifica Ricetta");
 		toolBar.add(btnNuovaRicetta);
 		
 		btnNuovaRicetta.addActionListener(new ActionListener() {
@@ -455,7 +455,7 @@ public class ProvaApplication {
 	 */
 	private void CreatePnlRicettario()
 	{	
-		pnlRicettario = new RicettarioPanel(DBMgr);
+		pnlRicettario = new Ricettario(DBMgr);
 		pnlMain.add(pnlRicettario);
 		pnlRicettario.setVisible(false);
 	}
