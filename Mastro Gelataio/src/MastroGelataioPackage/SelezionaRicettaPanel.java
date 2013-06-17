@@ -18,7 +18,7 @@ public class SelezionaRicettaPanel extends JPanel {
 	JLabel lblRicettario;
 	TabellaGenerica tabellaRicette;
 	JButton btnCancellaRicetta;
-	JButton btnApriRicetta;
+	//JButton btnApriRicetta;
 	Integer iRicettaViewed;
 	
 	private int listRic_X, listRic_Y, listRic_Width, listRic_Height;
@@ -49,8 +49,6 @@ public class SelezionaRicettaPanel extends JPanel {
 		 * Creo il titolo
 		 */
 		lblRicettario = new JLabel("Elenco Ricette");
-		//GraphicsEnvironment gEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		//String envfonts[] = gEnv.getAvailableFontFamilyNames();
 		lblRicettario.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
 		lblRicettario.setBounds(lblRic_X, lblRic_Y, lblRic_Width, lblRic_Height);
 		lblRicettario.setHorizontalAlignment(SwingConstants.CENTER);
@@ -76,9 +74,9 @@ public class SelezionaRicettaPanel extends JPanel {
 		});
 		
 		/**
-		 * Creo il JButton per la cancellazione della ricetta selezionata
+		 * Creo il JButton per l'apertura della ricetta selezionata
 		 */
-		btnApriRicetta = new JButton("Apri");
+		/*btnApriRicetta = new JButton("Apri");
 		btnApriRicetta.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
 		add(btnApriRicetta);
 		
@@ -86,10 +84,11 @@ public class SelezionaRicettaPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				btnApriRicettaSelected();
 			}
-		});
+		});*
 		
 		/**
-		 * Creo il listener per l'evento di selezione della ricetta
+		 * Creo il listener per l'evento di selezione della ricetta.
+		 * Questo evento viene scatenato dalla tabella stessa.
 		 */
 		tabellaRicette.addMioEventoListener(new MioEventoListener() {
 		    public void myEventOccurred(MioEvento evt) {
@@ -123,8 +122,8 @@ public class SelezionaRicettaPanel extends JPanel {
 		this.setPreferredSize(new Dimension(iWidth, iHeight));
 		CalcolaCoordinate();
 		tabellaRicette.setBounds(listRic_X, listRic_Y, listRic_Width, listRic_Height);
-		btnCancellaRicetta.setBounds(tabellaRicette.getX(), tabellaRicette.getY() + tabellaRicette.getHeight() + 10, 80, 40);
-		btnApriRicetta.setBounds(tabellaRicette.getX() + tabellaRicette.getWidth() - 83, tabellaRicette.getY() + tabellaRicette.getHeight() + 10, 80, 40);
+		btnCancellaRicetta.setBounds(tabellaRicette.getX() + (tabellaRicette.getWidth() / 2) - (80 / 2), tabellaRicette.getY() + tabellaRicette.getHeight() + 10, 80, 40);
+		//btnApriRicetta.setBounds(tabellaRicette.getX() + tabellaRicette.getWidth() - 83, tabellaRicette.getY() + tabellaRicette.getHeight() + 10, 80, 40);
 		lblRicettario.setBounds(lblRic_X, lblRic_Y, lblRic_Width, lblRic_Height);
 	}
 	
@@ -249,8 +248,8 @@ public class SelezionaRicettaPanel extends JPanel {
 		}
 	}
 	
-	private void btnApriRicettaSelected()
+	/*private void btnApriRicettaSelected()
 	{
 		ApriRicetta();
-	}
+	}*/
 }
