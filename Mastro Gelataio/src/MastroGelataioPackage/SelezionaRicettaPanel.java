@@ -19,6 +19,7 @@ public class SelezionaRicettaPanel extends JPanel {
 	TabellaGenerica tabellaRicette;
 	JButton btnCancellaRicetta;
 	//JButton btnApriRicetta;
+  JButton btnModificaRicetta;
 	Integer iRicettaViewed;
 	
 	private int listRic_X, listRic_Y, listRic_Width, listRic_Height;
@@ -84,7 +85,20 @@ public class SelezionaRicettaPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				btnApriRicettaSelected();
 			}
-		});*
+		});*/
+      
+    /**
+		 * Creo il JButton per la modifica della ricetta selezionata
+		 */
+    btnModificaRicetta = new JButton("Modifica");
+		btnModificaRicetta.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
+		add(btnModificaRicetta);
+		
+		btnModificaRicetta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnModificaRicettaSelected();
+			}
+		});
 		
 		/**
 		 * Creo il listener per l'evento di selezione della ricetta.
@@ -122,8 +136,9 @@ public class SelezionaRicettaPanel extends JPanel {
 		this.setPreferredSize(new Dimension(iWidth, iHeight));
 		CalcolaCoordinate();
 		tabellaRicette.setBounds(listRic_X, listRic_Y, listRic_Width, listRic_Height);
-		btnCancellaRicetta.setBounds(tabellaRicette.getX() + (tabellaRicette.getWidth() / 2) - (80 / 2), tabellaRicette.getY() + tabellaRicette.getHeight() + 10, 80, 40);
+		btnCancellaRicetta.setBounds(tabellaRicette.getX(), tabellaRicette.getY() + tabellaRicette.getHeight() + 10, 80, 40);
 		//btnApriRicetta.setBounds(tabellaRicette.getX() + tabellaRicette.getWidth() - 83, tabellaRicette.getY() + tabellaRicette.getHeight() + 10, 80, 40);
+    btnModificaRicetta.setBounds(tabellaRicette.getX() + tabellaRicette.getWidth() - 83, tabellaRicette.getY() + tabellaRicette.getHeight() + 10, 80, 40);
 		lblRicettario.setBounds(lblRic_X, lblRic_Y, lblRic_Width, lblRic_Height);
 	}
 	
@@ -170,6 +185,34 @@ public class SelezionaRicettaPanel extends JPanel {
 		 */
 		iRicettaViewed = iID;
 	}
+   
+  /**
+	 * Funzione chiamata per modificare la ricetta selezionata.
+	 */
+	private void ModificaRicetta()
+	{
+		/**
+		 * Ricavo l'ID della ricetta selezionata
+		 */
+		Integer iID;
+		iID = Integer.parseInt(tabellaRicette.getSelectedValue("ID").toString());
+		
+		/**
+		 * Ricavo i dati
+		 */
+		Vector<Vector<Object>> data_ing = new Vector<Vector<Object>>();
+		data_ing = DBMgr.Select("Composizione", " WHERE ID=" + iID);
+		
+		/**
+		 * Scateno l'evento per riempire la tabella di Composizione della ricetta
+		 */
+		fireMyEvent(new MioEvento(data_ing));	
+		
+		/**
+		 * Memorizzo l'ID della ricetta correntemente vista 
+		 */
+		iRicettaViewed = iID;
+	}
 	
 	private void fireMyEvent(MioEvento evt) 
 	{
@@ -188,7 +231,7 @@ public class SelezionaRicettaPanel extends JPanel {
 	private void btnCancellaRicettaSelected()
 	{
 		/**
-		 * Se non è stata selezionata nessuna ricetta esco subito
+		 * Se non Ã¨ stata selezionata nessuna ricetta esco subito
 		 */
 		if (tabellaRicette.getSelectedValue("ID") == null)
 		{
@@ -252,4 +295,9 @@ public class SelezionaRicettaPanel extends JPanel {
 	{
 		ApriRicetta();
 	}*/
+   
+  private void btnModificaRicettaSelected()
+	{
+		ModificaRicetta();
+	}
 }
