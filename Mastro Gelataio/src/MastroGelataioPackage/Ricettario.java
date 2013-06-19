@@ -2,7 +2,8 @@ package MastroGelataioPackage;
 
 import java.awt.Dimension;
 import java.util.Vector;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -52,10 +53,22 @@ public class Ricettario extends JPanel {
 		pnlSelectRicetta.addMioEventoListener(new MioEventoListener() {
 		    public void myEventOccurred(MioEvento evt) {
 		    	
-		    	ApriRicetta(evt);
+		    	if (evt.getMioEventoName() == "Modifica")
+		    	{
+		    		ModificaRicetta(evt);
+		    	}
+		    	if (evt.getMioEventoName() == "Apri")
+		    	{
+		    		ApriRicetta(evt);
+		    	}
 		    }
 		});
 	}
+	
+	public void addMioEventoListener(MioEventoListener listener) 
+    {
+        listenerList.add(MioEventoListener.class, listener);
+    }
 	
 	private void CalcolaCoordinate()
 	{
@@ -177,5 +190,28 @@ public class Ricettario extends JPanel {
 	public void CaricaRicette()
 	{
 		pnlSelectRicetta.CaricaRicette();
+	}
+	
+	/*
+	 * Viene chiamata quando il pulsante Modifica viene premuto nel SelezionaRicettaPanel.
+	 * Genera un evento per l'applicazione padre in modo che possa essere aperta la ricetta in un nuovo pannello.
+	 */
+	private void ModificaRicetta(MioEvento evt)
+	{
+		fireMyEvent(evt);
+	}
+	
+	private void fireMyEvent(MioEvento evt) 
+	{
+		Object[] listeners = listenerList.getListenerList();
+        // Each listener occupies two elements - the first is the listener class
+        // and the second is the listener instance
+        for (int i=0; i<listeners.length; i+=2) 
+        {
+            if (listeners[i]==MioEventoListener.class) 
+            {
+                ((MioEventoListener)listeners[i+1]).myEventOccurred(evt);
+            }
+        }
 	}
 }
