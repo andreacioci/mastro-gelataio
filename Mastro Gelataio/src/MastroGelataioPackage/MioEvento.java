@@ -5,6 +5,8 @@ import java.util.Vector;
 
 public class MioEvento extends EventObject{
 
+	String sName;
+	
 	public MioEvento(Object source)
 	{
 		super(source);
@@ -30,5 +32,15 @@ public class MioEvento extends EventObject{
 		{
 			return null;
 		}
+	}
+	
+	public void setMioEventoName(String sInput)
+	{
+		sName = sInput;
+	}
+	
+	public String getMioEventoName()
+	{
+		return sName;
 	}
 }
