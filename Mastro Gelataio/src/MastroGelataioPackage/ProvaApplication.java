@@ -1,6 +1,8 @@
 package MastroGelataioPackage;
 
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -458,6 +460,18 @@ public class ProvaApplication {
 		pnlRicettario = new Ricettario(DBMgr);
 		pnlMain.add(pnlRicettario);
 		pnlRicettario.setVisible(false);
+		
+		/**
+		 * Creo il listener per l'evento di modifica della ricetta
+		 */
+		pnlRicettario.addMioEventoListener(new MioEventoListener() {
+		    public void myEventOccurred(MioEvento evt) {
+		    	if (evt.getMioEventoName() == "Modifica")
+		    	{
+		    		ModificaRicetta(evt);
+		    	}
+		    }
+		});
 	}
 	
 	/**
@@ -602,6 +616,14 @@ public class ProvaApplication {
 		pnlIngredienti.setVisible(false);
 		pnlNuovaRicetta.setVisible(false);
 		pnlImpostazioni.setVisible(true);
+	}
+	
+	/**
+	 * 
+	 */
+	private void ModificaRicetta(MioEvento evt)
+	{
+		// ARRIVATO FINO A QUI
 	}
 	
 	/**
