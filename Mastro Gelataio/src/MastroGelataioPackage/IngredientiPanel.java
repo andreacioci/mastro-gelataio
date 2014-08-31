@@ -4,7 +4,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+
+import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.border.EtchedBorder;
 
@@ -50,6 +54,7 @@ public class IngredientiPanel extends JPanel {
 		 */
 		pnlTipo = new JPanel();
 		pnlTipo.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+		pnlTipo.setLayout(null);
 		add(pnlTipo);
 		
 		/**
@@ -57,6 +62,7 @@ public class IngredientiPanel extends JPanel {
 		 */
 		pnlIng = new JPanel();
 		pnlIng.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+		pnlIng.setLayout(null);
 		add(pnlIng);
 		
 		/**
@@ -65,7 +71,7 @@ public class IngredientiPanel extends JPanel {
 		lblIngredienti = new JLabel("Ingredienti");
 		lblIngredienti.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
 		lblIngredienti.setHorizontalAlignment(JLabel.CENTER);
-		add(lblIngredienti);
+		pnlIng.add(lblIngredienti);
 		
 		/**
 		 * Creo il titolo deii Tipi
@@ -73,12 +79,12 @@ public class IngredientiPanel extends JPanel {
 		lblTipiIng = new JLabel("Classi di ingredienti");
 		lblTipiIng.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
 		lblTipiIng.setHorizontalAlignment(JLabel.CENTER);
-		add(lblTipiIng);
+		pnlTipo.add(lblTipiIng);
 		
 		/**
 		 * Creo la tabella dei tipi
 		 */
-		tabellaTipiIng = new TabellaGenerica(this, 20, 120, 200, (int)(getHeight() * 0.40));
+		tabellaTipiIng = new TabellaGenerica(pnlTipo, 20, 120, 100, 100);
 		
 		tabellaTipiIng.addMioEventoListener(new MioEventoListener() {
 		    public void myEventOccurred(MioEvento evt) 
@@ -104,14 +110,14 @@ public class IngredientiPanel extends JPanel {
 		/**
 		 * Creo la tabella Ingredienti
 		 */
-		tabellaIngredienti = new TabellaGenerica(this, tabellaTipiIng.getX() + tabellaTipiIng.getWidth() + 40, 120, getWidth() - tabellaTipiIng.getWidth() - 80, tabellaTipiIng.getHeight());
+		tabellaIngredienti = new TabellaGenerica(pnlIng, tabellaTipiIng.getX() + tabellaTipiIng.getWidth() + 40, 120, getWidth() - tabellaTipiIng.getWidth() - 80, tabellaTipiIng.getHeight());
 		
 		/**
 		 * Bottone per aggiungere una riga nella tabella Tipi
 		 */
 		btnAggiungiTipo = new JButton("Aggiungi");
-		btnAggiungiTipo.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-		add(btnAggiungiTipo);
+		btnAggiungiTipo.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		pnlTipo.add(btnAggiungiTipo);
 		
 		btnAggiungiTipo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -123,8 +129,8 @@ public class IngredientiPanel extends JPanel {
 		 * Bottone per aggiungere una riga nella tabella Tipi
 		 */
 		btnCancellaTipo = new JButton("Elimina");
-		btnCancellaTipo.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-		add(btnCancellaTipo);
+		btnCancellaTipo.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		pnlTipo.add(btnCancellaTipo);
 		
 		btnCancellaTipo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -136,8 +142,8 @@ public class IngredientiPanel extends JPanel {
 		 * Bottone per aggiungere una riga nella tabella Ingredienti
 		 */
 		btnAggiungiIng = new JButton("Aggiungi");
-		btnAggiungiIng.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-		add(btnAggiungiIng);
+		btnAggiungiIng.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		pnlIng.add(btnAggiungiIng);
 		
 		btnAggiungiIng.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -149,8 +155,8 @@ public class IngredientiPanel extends JPanel {
 		 * Bottone per cancellare una riga nella tabella Ingredienti
 		 */
 		btnCancellaIng = new JButton("Elimina");
-		btnCancellaIng.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-		add(btnCancellaIng);
+		btnCancellaIng.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		pnlIng.add(btnCancellaIng);
 		
 		btnCancellaIng.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -162,7 +168,7 @@ public class IngredientiPanel extends JPanel {
 		 * Bottone per salvare le modifiche fatte
 		 */
 		btnSalva = new JButton("Salva");
-		btnSalva.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
+		btnSalva.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		add(btnSalva);
 		
 		btnSalva.addActionListener(new ActionListener() {
@@ -181,18 +187,87 @@ public class IngredientiPanel extends JPanel {
 	 */
 	public void CambiaSize(int X, int Y, int Width, int Height)
 	{
+		int pnlIng_X, pnlIng_Y, pnlIng_W, pnlIng_H;
+		int pnlTipo_X, pnlTipo_Y, pnlTipo_W, pnlTipo_H;
+		int lblTipo_X, lblTipo_Y, lblTipo_W, lblTipo_H;
+		int lblIng_X, lblIng_Y, lblIng_W, lblIng_H;
+		int tabTipo_X, tabTipo_Y, tabTipo_W, tabTipo_H;
+		int tabIng_X, tabIng_Y, tabIng_W, tabIng_H;
+		int addTipo_X, addTipo_Y, addTipo_W, addTipo_H;
+		int delTipo_X, delTipo_Y, delTipo_W, delTipo_H;
+		int addIng_X, addIng_Y, addIng_W, addIng_H;
+		int delIng_X, delIng_Y, delIng_W, delIng_H;
+		int btnSave_X, btnSave_Y, btnSave_W, btnSave_H;
+		
 		setBounds(X, Y, Width, Height);
-		lblTipiIng.setBounds(20, 70, 200, 40);
-		lblIngredienti.setBounds(260, 70, Width - 260 - 20, 30);
-		tabellaTipiIng.setBounds(20, 120, 200, (int)(Height * 0.40));
-		tabellaIngredienti.setBounds(tabellaTipiIng.getX() + tabellaTipiIng.getWidth() + 40, 120, getWidth() - tabellaTipiIng.getWidth() - 80, tabellaTipiIng.getHeight());
-		btnAggiungiTipo.setBounds(20, tabellaIngredienti.getY() + tabellaIngredienti.getHeight() + 10, 90, 40);
-		btnCancellaTipo.setBounds(130, tabellaIngredienti.getY() + tabellaIngredienti.getHeight() + 10, 90, 40);
-		btnAggiungiIng.setBounds(tabellaIngredienti.getX(), tabellaIngredienti.getY() + tabellaIngredienti.getHeight() + 10, 90, 40);
-		btnCancellaIng.setBounds(tabellaIngredienti.getX() + 110, tabellaIngredienti.getY() + tabellaIngredienti.getHeight() + 10, 90, 40);
-		pnlTipo.setBounds(0, 0, 240, btnAggiungiTipo.getY() + btnAggiungiTipo.getHeight() + 40);
-		pnlIng.setBounds(240, 0, Width - 240, btnAggiungiIng.getY() + btnAggiungiIng.getHeight() + 40);
-		btnSalva.setBounds(pnlIng.getX() + pnlIng.getWidth() - 110, pnlIng.getY() + pnlIng.getHeight() + 30, 90, 40);
+		
+		pnlTipo_X = 0;
+		pnlTipo_Y = 0;
+		pnlTipo_W = 240;
+		pnlTipo_H = getHeight() - 80;
+		
+		pnlIng_X = pnlTipo_X + pnlTipo_W;
+		pnlIng_Y = pnlTipo_Y;
+		pnlIng_W = getWidth() - pnlTipo_W;
+		pnlIng_H = pnlTipo_H;
+		
+		lblTipo_X = 0;
+		lblTipo_Y = 0;
+		lblTipo_W = pnlTipo_W;
+		lblTipo_H = 40;
+		
+		lblIng_X = 0;
+		lblIng_Y = 0;
+		lblIng_W = pnlIng_W;
+		lblIng_H = 40;
+		
+		tabTipo_X = 20;
+		tabTipo_Y = lblTipo_Y + lblTipo_H + 30;
+		tabTipo_W = pnlTipo_W - 20 * 2;
+		tabTipo_H = pnlTipo_H - tabTipo_Y - 60;
+		
+		tabIng_X = 20;
+		tabIng_Y = lblIng_Y + lblIng_H + 30;
+		tabIng_W = pnlIng_W - 20 * 2;
+		tabIng_H = tabTipo_H;
+		
+		addTipo_X = 20;
+		addTipo_Y = tabTipo_Y + tabTipo_H + 10;
+		addTipo_W = Globals.BUTTON_WIDTH;
+		addTipo_H = Globals.BUTTON_HEIGHT;
+		
+		delTipo_X = tabTipo_X + tabTipo_W - 90;
+		delTipo_Y = tabTipo_Y + tabTipo_H + 10;
+		delTipo_W = Globals.BUTTON_WIDTH;
+		delTipo_H = Globals.BUTTON_HEIGHT;
+		
+		addIng_X = 20;
+		addIng_Y = tabIng_Y + tabIng_H + 10;
+		addIng_W = Globals.BUTTON_WIDTH;
+		addIng_H = Globals.BUTTON_HEIGHT;
+		
+		delIng_X = addIng_X + addIng_W + 20;
+		delIng_Y = tabIng_Y + tabIng_H + 10;
+		delIng_W = Globals.BUTTON_WIDTH;
+		delIng_H = Globals.BUTTON_HEIGHT;
+		
+		btnSave_X = pnlIng_X + pnlIng_W - Globals.BUTTON_WIDTH;
+		btnSave_Y = pnlIng_Y + pnlIng_H + 10;
+		btnSave_W = Globals.BUTTON_WIDTH;
+		btnSave_H = Globals.BUTTON_HEIGHT;
+		
+		pnlTipo.setBounds(pnlTipo_X, pnlTipo_Y, pnlTipo_W, pnlTipo_H);
+		pnlIng.setBounds(pnlIng_X, pnlIng_Y, pnlIng_W, pnlIng_H);
+		lblTipiIng.setBounds(lblTipo_X, lblTipo_Y, lblTipo_W, lblTipo_H);
+		lblIngredienti.setBounds(lblIng_X, lblIng_Y, lblIng_W, lblIng_H);
+		tabellaTipiIng.setBounds(tabTipo_X, tabTipo_Y, tabTipo_W, tabTipo_H);
+		tabellaIngredienti.setBounds(tabIng_X, tabIng_Y, tabIng_W, tabIng_H);
+		btnAggiungiTipo.setBounds(addTipo_X, addTipo_Y, addTipo_W, addTipo_H);
+		btnCancellaTipo.setBounds(delTipo_X, delTipo_Y, delTipo_W, delTipo_H);
+		btnAggiungiIng.setBounds(addIng_X, addIng_Y, addIng_W, addIng_H);
+		btnCancellaIng.setBounds(delIng_X, delIng_Y, delIng_W, delIng_H);
+		
+		btnSalva.setBounds(btnSave_X, btnSave_Y, btnSave_W, btnSave_H);
 	}
 	
 	public boolean IsModified()
@@ -322,6 +397,10 @@ public class IngredientiPanel extends JPanel {
 		tabellaTipiIng.setDataAt("N", iRow, DBMgrWrap.TIPI_ING_Deleted);
 		iNextIDTipo++;
 		tabellaTipiIng.MostraDati();
+		tabellaTipiIng.setSelectedRow(iRow);
+		
+		tabellaIngredienti.SvuotaDati();
+		tabellaIngredienti.MostraDati();
 		
 		/**
 		 * Marco che ciò che è stato modificato non è stato salvato
