@@ -19,8 +19,6 @@ import javax.swing.JToolBar;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
@@ -102,7 +100,7 @@ public class ProvaApplication {
 		
 		try
 		{
-			UIManager.setLookAndFeel("com.easynth.lookandfeel.EaSynthLookAndFeel");
+			//UIManager.setLookAndFeel("com.easynth.lookandfeel.EaSynthLookAndFeel");
 		}
 		catch (Exception e){}
 		/**
@@ -172,7 +170,8 @@ public class ProvaApplication {
 		bResizePressed = false;
 		
 		frmMain = new JFrame();
-		frmMain.setBounds(100, 100, 610, 300);
+		frmMain.setBounds(100, 100, 700, 500);
+		frmMain.setMinimumSize(new Dimension(700,500));
 		frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMain.setUndecorated(true);
 		frmMain.getContentPane().setLayout(null);
