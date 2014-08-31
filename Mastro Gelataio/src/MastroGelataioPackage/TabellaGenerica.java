@@ -1,5 +1,6 @@
 package MastroGelataioPackage;
 
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -352,6 +353,14 @@ public class TabellaGenerica implements TableModelListener {
 	public Integer getSelectedRow()
 	{
 		return table.getSelectedRow();
+	}
+	
+	/**
+	 * Setta come selezionata la riga passata in ingresso
+	 */
+	public void setSelectedRow(Integer iRow)
+	{
+		table.setRowSelectionInterval(iRow - 1, iRow - 1);
 	}
 
 	public Integer getDataRowFromTableRow(Integer iRow, String sColumn)
