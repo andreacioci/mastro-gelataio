@@ -24,8 +24,6 @@ public class PrintRicetta implements Printable {
 	  private Graphics2D g2d;
 	  double titleX;
 	  
-	  private int iMargineBordo;
-	  private int iMargineTotali;
 	  
 	public PrintRicetta() 
 	{
@@ -146,12 +144,6 @@ public class PrintRicetta implements Printable {
     	//--- Compute the horizontal center of the page
     	FontMetrics fontMetrics = g2d.getFontMetrics();
         titleX = (pageFormat.getImageableWidth() / 2) - (fontMetrics.stringWidth(sTitoloRicetta) / 2);
-        
-    	/**
-    	 * Imposto le variabili di stampa
-    	 */
-    	iMargineBordo = 10;
-    	iMargineTotali = 20;
 	}
 	
 	private void StampaBordo(int X, int Y, Graphics g, PageFormat pageFormat)
