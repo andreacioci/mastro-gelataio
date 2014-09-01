@@ -42,11 +42,11 @@ public class ImpostazioniPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public ImpostazioniPanel(DBMgrWrap prtDBMgr) 
-	{
-		setLayout(null);
-		
+	{	
 		DBMgr = new DBMgrWrap();
 		DBMgr = prtDBMgr;
+	
+		setLayout(null);
 		
 		/**
 		 * Creo parte delle soglie
@@ -67,6 +67,7 @@ public class ImpostazioniPanel extends JPanel {
 		pnlSoglie = new JPanel();
 		pnlSoglie.setBounds(20, 50, 240, 330);
 		pnlSoglie.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+		pnlSoglie.setLayout(null);
 		add(pnlSoglie);
 		
 		/**
@@ -75,16 +76,16 @@ public class ImpostazioniPanel extends JPanel {
 		lblSoglie = new JLabel("Valori di Controllo");
 		lblSoglie.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
 		lblSoglie.setHorizontalAlignment(JLabel.CENTER);
-		lblSoglie.setBounds(pnlSoglie.getX(), pnlSoglie.getY(), pnlSoglie.getWidth(), 30);
-		add(lblSoglie);
+		lblSoglie.setBounds(0, 0, pnlSoglie.getWidth(), 30);
+		pnlSoglie.add(lblSoglie);
 		
 		/**
 		 * Creo la JComboBox per scegliere il tipo di base
 		 */
 		cbbTipoBase = new JComboBox<String>();
 		cbbTipoBase.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-		cbbTipoBase.setBounds(pnlSoglie.getX() + 40, pnlSoglie.getY() + 50, 120, 20);
-		add(cbbTipoBase);
+		cbbTipoBase.setBounds(40, 50, 120, 20);
+		pnlSoglie.add(cbbTipoBase);
 		
 		cbbTipoBase.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
@@ -97,29 +98,29 @@ public class ImpostazioniPanel extends JPanel {
 		 */
 		lblBase = new JLabel("Nome");
 		lblBase.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-		lblBase.setBounds(pnlSoglie.getX() + 20, pnlSoglie.getY() + 90, 80, 20);
-		add(lblBase);
+		lblBase.setBounds(20, 90, 80, 20);
+		pnlSoglie.add(lblBase);
 		
 		/**
 		 * Creo la JTextField per il nome della base
 		 */
 		txtNomeBase = new JTextField();
 		txtNomeBase.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-		txtNomeBase.setBounds(lblBase.getX() + 80, pnlSoglie.getY() + 90, 120, 20);
-		add(txtNomeBase);
+		txtNomeBase.setBounds(lblBase.getX() + 80, 90, 120, 20);
+		pnlSoglie.add(txtNomeBase);
 		
 		/**
 		 * Creo la tabella delle soglie
 		 */
-		tabellaSoglie = new TabellaGenerica(this, pnlSoglie.getX() + 20, txtNomeBase.getY() + txtNomeBase.getHeight() + 10, 200, 130);
+		tabellaSoglie = new TabellaGenerica(pnlSoglie, 20, txtNomeBase.getY() + txtNomeBase.getHeight() + 10, 200, 130);
 		
 		/**
 		 * Creo il JButton per eliminare una base
 		 */
 		btnElimina = new JButton("Elimina");
-		btnElimina.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-		btnElimina.setBounds(pnlSoglie.getX() + 20, tabellaSoglie.getY() + tabellaSoglie.getHeight() + 20, 80, 40);
-		add(btnElimina);
+		btnElimina.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		btnElimina.setBounds(20, tabellaSoglie.getY() + tabellaSoglie.getHeight() + 20, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
+		pnlSoglie.add(btnElimina);
 		
 		btnElimina.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
@@ -131,9 +132,9 @@ public class ImpostazioniPanel extends JPanel {
 		 * Creo il JButton per salvare una base
 		 */
 		btnSalva = new JButton("Salva");
-		btnSalva.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-		btnSalva.setBounds(tabellaSoglie.getX() + tabellaSoglie.getWidth() - 80, btnElimina.getY(), 80, 40);
-		add(btnSalva);
+		btnSalva.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		btnSalva.setBounds(tabellaSoglie.getX() + tabellaSoglie.getWidth() - Globals.BUTTON_WIDTH, btnElimina.getY(), Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
+		pnlSoglie.add(btnSalva);
 		
 		btnSalva.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
@@ -158,8 +159,9 @@ public class ImpostazioniPanel extends JPanel {
 		 * Creo il JPanel per il contorno
 		 */
 		pnlDB = new JPanel();
-		pnlDB.setBounds(tabellaSoglie.getX() + tabellaSoglie.getWidth() + 150, 50, 130, 210);
+		pnlDB.setBounds(tabellaSoglie.getX() + tabellaSoglie.getWidth() + 150, 50, 150, 210);
 		pnlDB.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+		pnlDB.setLayout(null);
 		add(pnlDB);
 		
 		/**
@@ -168,16 +170,16 @@ public class ImpostazioniPanel extends JPanel {
 		lblDB = new JLabel("Database");
 		lblDB.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
 		lblDB.setHorizontalAlignment(JLabel.CENTER);
-		lblDB.setBounds(pnlDB.getX(), pnlDB.getY(), pnlDB.getWidth(), 30);
-		add(lblDB);
+		lblDB.setBounds(0, 0, pnlDB.getWidth(), 30);
+		pnlDB.add(lblDB);
 		
 		/**
 		 * Creo il JButton per svuotare il DB
 		 */
 		btnSvuotaDB = new JButton("Cancella");
-		btnSvuotaDB.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-		btnSvuotaDB.setBounds(pnlDB.getX() + 20, pnlDB.getY() + 50, 90, 40);
-		add(btnSvuotaDB);
+		btnSvuotaDB.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		btnSvuotaDB.setBounds(30, 50, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
+		pnlDB.add(btnSvuotaDB);
 		
 		btnSvuotaDB.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
@@ -189,9 +191,9 @@ public class ImpostazioniPanel extends JPanel {
 		 * Creo il JButton per esportare il DB
 		 */
 		btnEsportaDB = new JButton("Esporta");
-		btnEsportaDB.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-		btnEsportaDB.setBounds(pnlDB.getX() + 20, pnlDB.getY() + 50 + 50, 90, 40);
-		add(btnEsportaDB);
+		btnEsportaDB.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		btnEsportaDB.setBounds(30, 50 + 50, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
+		pnlDB.add(btnEsportaDB);
 		
 		btnEsportaDB.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
@@ -203,9 +205,9 @@ public class ImpostazioniPanel extends JPanel {
 		 * Creo il JButton per importare il DB
 		 */
 		btnImportaDB = new JButton("Importa");
-		btnImportaDB.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-		btnImportaDB.setBounds(pnlDB.getX() + 20, pnlDB.getY() + 50 + 100, 90, 40);
-		add(btnImportaDB);
+		btnImportaDB.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		btnImportaDB.setBounds(30, 50 + 100, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
+		pnlDB.add(btnImportaDB);
 		
 		btnImportaDB.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
@@ -369,7 +371,7 @@ public class ImpostazioniPanel extends JPanel {
 		Integer iID = -1;
 		String sNomeBase;
 		
-		if ((objTipiBasi != null) && (objTipiBasi.size() != 0) && (iBase < objTipiBasi.size()))
+		if ((objTipiBasi != null) && (objTipiBasi.size() != 0) && (iBase < objTipiBasi.size()) && (objTipiBasi.get(iBase).get(1).toString() != "Nuovi Valori"))
 		{
 			/**
 			 * Ricavo l'ID della Base selezionata
@@ -398,7 +400,12 @@ public class ImpostazioniPanel extends JPanel {
 				/**
 				 * Elimino la riga da objTipiBasi
 				 */
-				objTipiBasi.remove(iBase);
+				objTipiBasi.removeElementAt(iBase);
+				
+				/**
+				 * Rimuovo la base dalla JComboBox
+				 */
+				cbbTipoBase.removeItemAt(iBase);
 				
 				/**
 				 * Cambio la selezione nella JComboBox
@@ -409,13 +416,8 @@ public class ImpostazioniPanel extends JPanel {
 				}
 				else
 				{
-					cbbTipoBase.setSelectedIndex(iBase + 1);
+					cbbTipoBase.setSelectedIndex(iBase);
 				}
-				
-				/**
-				 * Rimuovo la base dalla JComboBox
-				 */
-				cbbTipoBase.removeItemAt(iBase);
 				
 				/**
 				 * Rimuovo la riga dalla tabella Soglie
@@ -492,7 +494,6 @@ public class ImpostazioniPanel extends JPanel {
 		 * UPDATE del DB
 		 */
 		DBMgr.UpdateSoglieTable(data);
-		//DBMgr.UpdateAll("Soglie", sColumnSoglie, data, sCondColsSoglie);
 		
 		/**
 		 * Se è una nuova base devo anche aggiornare la tabella Basi
@@ -516,6 +517,7 @@ public class ImpostazioniPanel extends JPanel {
 			 * Aggiungo la base aggiunta alla JComboBox
 			 */
 			cbbTipoBase.insertItemAt(txtNomeBase.getText(), objTipiBasi.size() - 1);
+			cbbTipoBase.setSelectedIndex(objTipiBasi.size() - 1);
 			
 			/**
 			 * UPDATE del DB
