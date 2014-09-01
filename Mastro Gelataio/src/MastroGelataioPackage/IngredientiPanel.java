@@ -411,13 +411,13 @@ public class IngredientiPanel extends JPanel {
                 tabellaTipiIng.setSelectedRow("ID", iNextIDTipo - 1, true);
                 
                 /**
-                 * Svuoto la tabella Ingredienti perchÃ¨ il tipo selezionato Ã¨ quello nuovo
+                 * Svuoto la tabella Ingredienti perchè il tipo selezionato è quello nuovo
                  */
-                tabellaIngredienti.SvuotaDati();
+                
                 tabellaIngredienti.MostraDati();
                 
                 /**
-                 * Marco che ciÃ² che Ã¨ stato modificato non Ã¨ stato salvato
+                 * Marco che ciò che è stato modificato non è stato salvato
                  */
                 bModificato = true;
         }
@@ -500,7 +500,7 @@ public class IngredientiPanel extends JPanel {
                 tabellaIngredienti.MostraDati();
                 
                 /**
-                 * Marco che ciÃ² che Ã¨ stato modificato non Ã¨ stato salvato
+                 * Marco che ciò che è stato modificato non è stato salvato
                  */
                 bModificato = true;
         }
