@@ -573,7 +573,7 @@ public class IngredientiPanel extends JPanel {
                  */
                 for (int i=0; i < data.size(); i++)
                 {
-                	if (tabellaTipiIng.getValueAt(i, DBMgr.TIPI_ING_Nome) == "")
+                	if ((tabellaTipiIng.getValueAt(i, DBMgr.TIPI_ING_Nome).toString() == null) || (tabellaTipiIng.getValueAt(i, DBMgr.TIPI_ING_Nome).toString().trim().equals("")))
                 	{
                 		JOptionPane.showMessageDialog(this, "Almeno una classe di ingredienti non ha un nome definito.", "Attenzione", JOptionPane.WARNING_MESSAGE);
                         return false;
