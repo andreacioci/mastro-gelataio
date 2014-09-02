@@ -38,7 +38,7 @@ public class TabellaGenerica implements TableModelListener {
         protected javax.swing.event.EventListenerList listenerList = new javax.swing.event.EventListenerList();
         
         public TabellaGenerica(JPanel pnlContainer, int iX, int iY, int iWidth, int iHeight)
-        {               
+        {            
                 /**
                  * Creo la JTable
                  */
@@ -414,7 +414,6 @@ public class TabellaGenerica implements TableModelListener {
         
         public Object getValueAt(int iRow, int iColumn)
         {
-                //return table.getValueAt(iRow, iColumn);
                 return data.get(iRow).get(iColumn);
         }
         
@@ -431,8 +430,13 @@ public class TabellaGenerica implements TableModelListener {
         
         public void setBounds(int X, int Y, int Width, int Height)
         {
-                table.setBounds(X, Y, Width, Height);
-                scrollPane.setBounds(X, Y, Width, Height);
+        	scrollPane.setBounds(X, Y, Width, Height);
+        	
+        	
+        	/**
+        	 * Commentata questa funzione perchè non refreshava bene le tabelle
+        	 */
+            //table.setBounds(X, Y, Width, Height);
         }
         
         /**
