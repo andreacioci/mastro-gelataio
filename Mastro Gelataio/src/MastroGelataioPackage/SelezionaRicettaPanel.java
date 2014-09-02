@@ -21,8 +21,8 @@ public class SelezionaRicettaPanel extends JPanel {
 	JButton btnModificaRicetta;
 	Integer iRicettaViewed;
 	
-	private int listRic_X, listRic_Y, listRic_Width, listRic_Height;
-	private int lblRic_X, lblRic_Y, lblRic_Width, lblRic_Height;
+	private int listRic_X, listRic_Y, listRic_W, listRic_H;
+	private int lblRic_X, lblRic_Y, lblRic_W, lblRic_H;
 	
 	protected javax.swing.event.EventListenerList listenerList = new javax.swing.event.EventListenerList();
 	
@@ -50,7 +50,7 @@ public class SelezionaRicettaPanel extends JPanel {
 		 */
 		lblRicettario = new JLabel("Elenco Ricette");
 		lblRicettario.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-		lblRicettario.setBounds(lblRic_X, lblRic_Y, lblRic_Width, lblRic_Height);
+		lblRicettario.setBounds(lblRic_X, lblRic_Y, lblRic_W, lblRic_H);
 		lblRicettario.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRicettario.setVerticalAlignment(SwingConstants.TOP);
 		add(lblRicettario);
@@ -58,13 +58,13 @@ public class SelezionaRicettaPanel extends JPanel {
 		/**
 		 * Creo la lista degli Ingredienti tramite una JTable
 		 */
-		tabellaRicette = new TabellaGenerica(this, listRic_X, listRic_Y, listRic_Width, listRic_Height);
+		tabellaRicette = new TabellaGenerica(this, listRic_X, listRic_Y, listRic_W, listRic_H);
 		
 		/**
 		 * Creo il JButton per la cancellazione della ricetta selezionata
 		 */
 		btnCancellaRicetta = new JButton("Elimina");
-		btnCancellaRicetta.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
+		btnCancellaRicetta.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		add(btnCancellaRicetta);
 		
 		btnCancellaRicetta.addActionListener(new ActionListener() {
@@ -77,7 +77,7 @@ public class SelezionaRicettaPanel extends JPanel {
 		 * Creo il JButton per la modifica della ricetta selezionata
 		 */
 		btnModificaRicetta = new JButton("Modifica");
-		btnModificaRicetta.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
+		btnModificaRicetta.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		add(btnModificaRicetta);
 		
 		btnModificaRicetta.addActionListener(new ActionListener() {
@@ -107,13 +107,13 @@ public class SelezionaRicettaPanel extends JPanel {
 	{
 		lblRic_X = 20;
 		lblRic_Y = 10;
-		lblRic_Width = getWidth() - ((listRic_X) * 2);
-		lblRic_Height = 60;
+		lblRic_W = getWidth() - ((listRic_X) * 2);
+		lblRic_H = 60;
 		
 		listRic_X = lblRic_X;
-		listRic_Y = lblRic_Y + lblRic_Height;
-		listRic_Width = getWidth() - ((listRic_X) * 2);
-		listRic_Height = (int)(getHeight() * 0.40);
+		listRic_Y = lblRic_Y + lblRic_H;
+		listRic_W = getWidth() - ((listRic_X) * 2);
+		listRic_H = (int)(getHeight() * 0.40);
 	}
 	
 	public void CambiaSize(int iX, int iY, int iWidth, int iHeight)
@@ -121,10 +121,10 @@ public class SelezionaRicettaPanel extends JPanel {
 		this.setBounds(iX, iY, iWidth, iHeight);
 		this.setPreferredSize(new Dimension(iWidth, iHeight));
 		CalcolaCoordinate();
-		tabellaRicette.setBounds(listRic_X, listRic_Y, listRic_Width, listRic_Height);
-		btnCancellaRicetta.setBounds(tabellaRicette.getX(), tabellaRicette.getY() + tabellaRicette.getHeight() + 10, 85, 40);
-		btnModificaRicetta.setBounds(tabellaRicette.getX() + tabellaRicette.getWidth() - 85, tabellaRicette.getY() + tabellaRicette.getHeight() + 10, 85, 40);
-		lblRicettario.setBounds(lblRic_X, lblRic_Y, lblRic_Width, lblRic_Height);
+		tabellaRicette.setBounds(listRic_X, listRic_Y, listRic_W, listRic_H);
+		btnCancellaRicetta.setBounds(listRic_X, listRic_Y + listRic_H + 10, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
+		btnModificaRicetta.setBounds(listRic_X + listRic_W - Globals.BUTTON_WIDTH, listRic_Y + listRic_H + 10, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
+		lblRicettario.setBounds(lblRic_X, lblRic_Y, lblRic_W, lblRic_H);
 	}
 	
 	public void CaricaRicette()
@@ -219,65 +219,80 @@ public class SelezionaRicettaPanel extends JPanel {
 	
 	private void btnCancellaRicettaSelected()
 	{
+		Integer iRow, iDataRow;	
+	
 		/**
-		 * Se non è stata selezionata nessuna ricetta esco subito
+         * Ricavo la riga selezionata nella JTable 
+         */
+        iRow = tabellaRicette.getSelectedRow();
+		
+        if (iRow != -1)
+        {
+                /**
+                 * Ricavo la riga selezionata nella matrice "data"
+                 */
+                iDataRow = tabellaRicette.getDataRowFromTableRow(iRow, "ID");
+                Object ID = tabellaRicette.getSelectedValue("ID");
+                
+                tabellaRicette.RimuoviRowDati(iDataRow);
+                tabellaRicette.MostraDati();
+                
+                /**
+        		 * Scateno l'evento per svuotare la tabella di Composizione della ricetta se stavo
+        		 * visualizzando proprio quella cancellata
+        		 */
+        		if (iRicettaViewed == Integer.parseInt(ID.toString()))
+        		{
+        			Vector<Vector<Object>> obj = new Vector<Vector<Object>>();
+        			fireMyEvent(new MioEvento(obj));	
+        			iRicettaViewed = -1;
+        		}
+        		
+                return;
+        }
+        
+        /**
+		 * Se non Ã¨ stata selezionata nessuna ricetta esco subito
 		 */
 		if (tabellaRicette.getSelectedValue("ID") == null)
 		{
 			return;
-		}		
+		}
 		
 		/**
 		 * UPDATE del DB
 		 */
-		Object ID = tabellaRicette.getSelectedValue("ID");
+		//Object ID = tabellaRicette.getSelectedValue("ID");
 		
 		/**
 		 * Creo il vettore delle colonne su cui fare la selezione
 		 */
-		Vector<String> sColumns = new Vector<String>();
-		sColumns.add("ID");
+		//Vector<String> sColumns = new Vector<String>();
+		//sColumns.add("ID");
 		
 		/**
 		 * Creo il vettore dei valori per fare la selezione
 		 */
-		Vector<Object> objValues = new Vector<Object>();
-		objValues.add(ID);
+		//Vector<Object> objValues = new Vector<Object>();
+		//objValues.add(ID);
 		
 		/**
 		 * Ricavo la matrice "data" da salvare in tabella
 		 */
-		if (DBMgr.Delete("Ricette", sColumns, objValues) == false)
-		{
-			JOptionPane.showMessageDialog(this, "Impossibile eliminare la ricetta.", "Attenzione", JOptionPane.WARNING_MESSAGE);
-			return;
-		}
+		//if (DBMgr.Delete("Ricette", sColumns, objValues) == false)
+		//{
+		//	JOptionPane.showMessageDialog(this, "Impossibile eliminare la ricetta.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+		//	return;
+		//}
 		
 		/**
 		 * Elimino la ricetta anche dalla tabella di Composizione delle ricette
 		 */
-		if (DBMgr.Delete("Composizione", sColumns, objValues) == false)
-		{
-			JOptionPane.showMessageDialog(this, "Impossibile eliminare completamente la ricetta. Contattare l'amministratore del sistema.", "Attenzione", JOptionPane.WARNING_MESSAGE);
-			return;
-		}
-		
-		/**
-		 * Sulla base dell'ID selezionato aggiorno la tabella delle ricette e la visualizzazione
-		 */
-		tabellaRicette.RimuoviRowDati(ID, "ID");
-		tabellaRicette.MostraDati();
-		
-		/**
-		 * Scateno l'evento per svuotare la tabella di Composizione della ricetta se stavo
-		 * visualizzando proprio quella cancellata
-		 */
-		if (iRicettaViewed == Integer.parseInt(ID.toString()))
-		{
-			Vector<Vector<Object>> obj = new Vector<Vector<Object>>();
-			fireMyEvent(new MioEvento(obj));	
-			iRicettaViewed = -1;
-		}
+		//if (DBMgr.Delete("Composizione", sColumns, objValues) == false)
+		//{
+		//	JOptionPane.showMessageDialog(this, "Impossibile eliminare completamente la ricetta. Contattare l'amministratore del sistema.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+		//	return;
+		//}
 	}
    
 	private void btnModificaRicettaSelected()
