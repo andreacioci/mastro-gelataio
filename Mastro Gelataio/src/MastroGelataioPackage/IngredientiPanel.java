@@ -90,8 +90,8 @@ public class IngredientiPanel extends JPanel {
                     public void myEventOccurred(MioEvento evt) 
                     {   
                         /**
-                         * Devo inserire il try perchè il casting su MouseEvent potrebbe generare un eccezione
-                         * se evt non è un MouseEvent
+                         * Devo inserire il try perchÃ¨ il casting su MouseEvent potrebbe generare un eccezione
+                         * se evt non Ã¨ un MouseEvent
                          */
                         try
                         {
@@ -307,7 +307,7 @@ public class IngredientiPanel extends JPanel {
                 tabellaTipiIng.CaricaDati("Tipi_Ingredienti", null, DBMgr);
                 
                 /**
-                 * Ricavo l'ID più grande per determinare iNextIDTipo dei Tipi
+                 * Ricavo l'ID piÃ¹ grande per determinare iNextIDTipo dei Tipi
                  */
                 iNextIDTipo = tabellaTipiIng.getMaxInt("ID") + 1; 
                 
@@ -327,7 +327,7 @@ public class IngredientiPanel extends JPanel {
                 tabellaTipiIng.setRegexFilter(new String[] {"^(?!Y)"}, new String[] {"Deleted"});
                 
                 /**
-                 * Marco che ciò che è stato modificato è salvato
+                 * Marco che ciÃ² che Ã¨ stato modificato Ã¨ salvato
                  */
                 bModificato = false;
         }
@@ -347,7 +347,7 @@ public class IngredientiPanel extends JPanel {
                 tabellaIngredienti.CaricaDati("Ingredienti", null, DBMgr);
                 
                 /**
-                 * Ricavo l'ID più grande per determinare iNextIDIng degli Ingredienti
+                 * Ricavo l'ID piÃ¹ grande per determinare iNextIDIng degli Ingredienti
                  */
                 iNextIDIng = tabellaIngredienti.getMaxInt("ID") + 1; 
                 
@@ -371,7 +371,7 @@ public class IngredientiPanel extends JPanel {
                 tabellaIngredienti.setColumnWidth(sWidthColumns, iWidthCols);
                 
                 /**
-                 * Marco che ciò che è stato modificato è salvato
+                 * Marco che ciÃ² che Ã¨ stato modificato Ã¨ salvato
                  */
                 bModificato = false;
         }
@@ -411,13 +411,13 @@ public class IngredientiPanel extends JPanel {
                 tabellaTipiIng.setSelectedRow("ID", iNextIDTipo - 1, true);
                 
                 /**
-                 * Svuoto la tabella Ingredienti perch� il tipo selezionato � quello nuovo
+                 * Svuoto la tabella Ingredienti perchè il tipo selezionato è quello nuovo
                  */
-                
+                FiltraTabellaIngredienti(Long.parseLong(tabellaTipiIng.getSelectedValue("ID").toString()));
                 tabellaIngredienti.MostraDati();
                 
                 /**
-                 * Marco che ci� che � stato modificato non � stato salvato
+                 * Marco che ciò che è stato modificato non è stato salvato
                  */
                 bModificato = true;
         }
@@ -461,7 +461,7 @@ public class IngredientiPanel extends JPanel {
                         tabellaIngredienti.MostraDati();
                         
                         /**
-                         * Marco che ciò che è stato modificato non è stato salvato
+                         * Marco che ciÃ² che Ã¨ stato modificato non Ã¨ stato salvato
                          */
                         bModificato = true;
                 }                       
@@ -500,7 +500,7 @@ public class IngredientiPanel extends JPanel {
                 tabellaIngredienti.MostraDati();
                 
                 /**
-                 * Marco che ci� che � stato modificato non � stato salvato
+                 * Marco che ciò che è stato modificato non è stato salvato
                  */
                 bModificato = true;
         }
@@ -535,7 +535,7 @@ public class IngredientiPanel extends JPanel {
                         tabellaIngredienti.MostraDati();
                         
                         /**
-                         * Marco che ciò che è stato modificato non è stato salvato
+                         * Marco che ciÃ² che Ã¨ stato modificato non Ã¨ stato salvato
                          */
                         bModificato = true;
                 }               
@@ -551,7 +551,7 @@ public class IngredientiPanel extends JPanel {
                  */
                 if (SalvaTipo() == false)
                 {
-                	return;
+                        return;
                 }
                 
                 /**
@@ -573,11 +573,11 @@ public class IngredientiPanel extends JPanel {
                  */
                 for (int i=0; i < data.size(); i++)
                 {
-                	if ((tabellaTipiIng.getValueAt(i, DBMgr.TIPI_ING_Nome).toString() == null) || (tabellaTipiIng.getValueAt(i, DBMgr.TIPI_ING_Nome).toString().trim().equals("")))
-                	{
-                		JOptionPane.showMessageDialog(this, "Almeno una classe di ingredienti non ha un nome definito.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                        if ((tabellaTipiIng.getValueAt(i, DBMgr.TIPI_ING_Nome).toString() == null) || (tabellaTipiIng.getValueAt(i, DBMgr.TIPI_ING_Nome).toString().trim().equals("")))
+                        {
+                                JOptionPane.showMessageDialog(this, "Almeno una classe di ingredienti non ha un nome definito.", "Attenzione", JOptionPane.WARNING_MESSAGE);
                         return false;
-                	}
+                        }
                 }
                 
                 /**
@@ -610,7 +610,7 @@ public class IngredientiPanel extends JPanel {
                 else
                 {
                         /**
-                         * Marco che ciò che è stato modificato è stato salvato
+                         * Marco che ciÃ² che Ã¨ stato modificato Ã¨ stato salvato
                          */
                         bModificato = false;    
                 }
