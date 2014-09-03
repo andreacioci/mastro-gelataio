@@ -2,6 +2,8 @@ package MastroGelataioPackage;
 
 import java.awt.Dimension;
 import java.util.Vector;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -33,7 +35,6 @@ public class Ricettario extends JPanel {
 		pnlSelectRicetta = new SelezionaRicettaPanel(prtDBMgr);
 		pnlSelectRicetta.setBounds(pnlSel_X, pnlSel_Y, pnlSel_Width, pnlSel_Height);
 		pnlSelectRicetta.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
-		pnlSelectRicetta.setPreferredSize(new Dimension(pnlSel_Width, pnlSel_Height));
 		add(pnlSelectRicetta);
 		
 		/**
@@ -42,7 +43,6 @@ public class Ricettario extends JPanel {
 		pnlComposizione = new RicettaComposizionePanel(prtDBMgr);
 		pnlComposizione.setBounds(pnlRic_X, pnlRic_Y, pnlRic_Width, pnlRic_Height);
 		pnlComposizione.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
-		pnlComposizione.setPreferredSize(new Dimension(pnlRic_Width, pnlRic_Height));
 		add(pnlComposizione);
 		
 		/**
@@ -70,15 +70,15 @@ public class Ricettario extends JPanel {
 	
 	private void CalcolaCoordinate()
 	{
-		pnlSel_X = 10;
-		pnlSel_Y = 30;
-		pnlSel_Width = 250;
+		pnlSel_X = 0;
+		pnlSel_Y = 0;
+		pnlSel_Width = 230;
 		pnlSel_Height = (int)(getHeight() * 0.60);
 		
 		pnlRic_X = pnlSel_X + pnlSel_Width + 20;
 		pnlRic_Y = pnlSel_Y;
-		pnlRic_Width = getWidth() - pnlRic_X - 20;
-		pnlRic_Height = getHeight() - pnlRic_Y - 50;
+		pnlRic_Width = getWidth() - pnlRic_X - 40;
+		pnlRic_Height = getHeight() - pnlRic_Y;
 	}
 	
 	/**
@@ -101,7 +101,7 @@ public class Ricettario extends JPanel {
 		Vector<String> sColumns = new Vector<String>();
 		sColumns.add("ID");
 		sColumns.add("ID_Ing");
-		sColumns.add("Quantit‡");
+		sColumns.add("Quantit√†");
 		
 		ApriRicetta(evt.getSourceVector(), sColumns);	
 	}
@@ -109,7 +109,7 @@ public class Ricettario extends JPanel {
 	private void ApriRicetta(Vector<Vector<Object>> data_ing, Vector<String> sColumns)
 	{
 		/**
-		 * Se il dato in ingresso Ë null o vuoto allora svuoto la tabella
+		 * Se il dato in ingresso √® null o vuoto allora svuoto la tabella
 		 */
 		if (data_ing == null)
 		{
@@ -136,7 +136,7 @@ public class Ricettario extends JPanel {
 		pnlComposizione.setNote(RicavaNote(Long.parseLong(data_ing.get(0).get(sColumns.indexOf("ID")).toString())));
 		
 		/**
-		 * Carico gli ingredienti e le quantit‡ in tabella di Composizione
+		 * Carico gli ingredienti e le quantit√† in tabella di Composizione
 		 */
 		pnlComposizione.SvuotaTabelle();
 		for (int i=0; i < data_ing.size(); i++)
@@ -145,7 +145,7 @@ public class Ricettario extends JPanel {
 			Double dQuant;
 			
 			iID = Long.parseLong(data_ing.get(i).get(sColumns.indexOf("ID_Ing")).toString());
-			dQuant = Double.parseDouble(data_ing.get(i).get(sColumns.indexOf("Quantit‡")).toString());
+			dQuant = Double.parseDouble(data_ing.get(i).get(sColumns.indexOf("Quantit√†")).toString());
 			
 			pnlComposizione.AggiungiIngrediente(iID, dQuant);	
 		}
