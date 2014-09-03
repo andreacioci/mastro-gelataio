@@ -93,6 +93,7 @@ public class DBMgrWrap extends DBManager{
 		
 		RICETTE_COLS.add("ID");
 		RICETTE_COLS.add("Nome");
+		RICETTE_COLS.add("Note");
 		
 		COMPOSIZIONE_COLS.add("ID");	
 		COMPOSIZIONE_COLS.add("ID_Ing");
@@ -637,6 +638,100 @@ public class DBMgrWrap extends DBManager{
 		}
 		
 		output = bEseguito;
+		return output;
+	}
+	
+	/**
+	 * Questa funzione viene chiamata quando è stata cancellata una o più ricette ma le
+	 * modifiche non sono state ancora riporate sul DB
+	 * @param dataNew - l'elenco aggiornato delle ricette
+	 * @return true = salvato, false altrimenti
+	 */
+	public boolean UpdateRicetteTable(Vector<Vector<Object>> dataNew)
+	{
+		boolean output = false;
+		
+		Vector<Vector<Object>> dataDB = new Vector<Vector<Object>>(); 
+		dataDB = Select("Ricette", null);
+		
+		/**
+		 * Elimino le righe della tabella che non devono essere più presenti
+		 */
+		output = DeleteRicetteRows(dataNew, dataDB);
+		
+		return output;
+	}
+	
+	/**
+	 * Elimina dalla tabella Ricette quelle righe di dataDB che non sono presenti in dataNew
+	 * @param dataNew - Nuova tabella
+	 * @param dataDB - Tabella presente nel DB
+	 * @return - true se l'aggiornamento ha avuto successo, false altrimenti
+	 */
+	private boolean DeleteRicetteRows(Vector<Vector<Object>> dataNew, Vector<Vector<Object>> dataDB)
+	{
+		boolean output = true;
+	
+		/**
+		 * Ciclo su tutte le righe della tabella del DB
+		 */
+		for (int i=0; i < dataDB.size(); i++)
+		{
+			/**
+			 * Estraggo la riga
+			 */
+			Vector<Object> dataDBRow = new Vector<Object>();
+			dataDBRow = dataDB.get(i);
+			
+			/**
+			 * Ciclo su tutte le righe della matrice "data" 
+			 */
+			int j = 0;
+			boolean bFound = false;
+			while ((j < dataNew.size()) && (bFound == false))
+			{
+				/**
+				 * Estraggo la riga dalla matrice "data"
+				 */
+				Vector<Object> dataNewRow = new Vector<Object>();
+				dataNewRow = dataNew.get(j);
+				
+				/**
+				 * Confronto le due righe
+				 */
+				if(dataDBRow.get(RICETTE_ID).equals(dataNewRow.get(RICETTE_ID)) == true)
+				{
+					if (dataDBRow.get(RICETTE_ID).equals(dataNewRow.get(RICETTE_ID)) == true)
+					{
+						bFound = true;
+					}
+				}
+
+				j++;
+			}
+			
+			/**
+			 * Se la riga è da togliere esegue la Delete
+			 */
+			if (bFound == false)
+			{
+				String sQuery = "DELETE FROM " + TABELLA_RICETTE + " WHERE "
+						+ "ID=" + dataDBRow.get(RICETTE_ID).toString();
+			
+				try
+				{
+					if (stat.executeUpdate(sQuery) != 0)
+					{
+						output = output && true;
+					}	
+				}
+				catch (Exception e)
+				{	
+					output = false;
+				}
+			}
+		}
+		
 		return output;
 	}
 	
