@@ -14,11 +14,12 @@ import javax.swing.SwingConstants;
 
 public class SelezionaRicettaPanel extends JPanel {
 
-        private DBManager DBMgr;
+        private DBMgrWrap DBMgr;
         private JLabel lblRicettario;
         private TabellaGenerica tabellaRicette;
         private JButton btnCancellaRicetta;
         private JButton btnModificaRicetta;
+        private JButton btnSalva;
         private Integer iRicettaViewed;
         
         private int listRic_X, listRic_Y, listRic_W, listRic_H;
@@ -31,14 +32,14 @@ public class SelezionaRicettaPanel extends JPanel {
         /**
          * Create the panel.
          */
-        public SelezionaRicettaPanel(DBManager prtDBMgr) 
+        public SelezionaRicettaPanel(DBMgrWrap prtDBMgr) 
         {
                 setLayout(null);
                 
                 /**
                  * Inizializza le variabili
                  */
-                DBMgr = new DBManager();
+                DBMgr = new DBMgrWrap();
                 DBMgr = prtDBMgr;
                 iRicettaViewed = -1;
                 bModificato = false;
@@ -90,6 +91,19 @@ public class SelezionaRicettaPanel extends JPanel {
                 });
                 
                 /**
+                 * Creo il bottone per le modifiche alla lista delle ricette nel DB
+                 */
+                btnSalva = new JButton("Salva");
+                btnSalva.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+                add(btnSalva);
+                
+                btnSalva.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent arg0) {
+                                Salva();        
+                        }
+                });
+                
+                /**
                  * Creo il listener per l'evento di selezione della ricetta.
                  * Questo evento viene scatenato dalla tabella stessa.
                  */
@@ -127,6 +141,7 @@ public class SelezionaRicettaPanel extends JPanel {
                 tabellaRicette.setBounds(listRic_X, listRic_Y, listRic_W, listRic_H);
                 btnCancellaRicetta.setBounds(listRic_X, listRic_Y + listRic_H + 10, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
                 btnModificaRicetta.setBounds(listRic_X + listRic_W - Globals.BUTTON_WIDTH, listRic_Y + listRic_H + 10, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
+                btnSalva.setBounds(iX + (iWidth - Globals.BUTTON_WIDTH)/2 , iY + iHeight - Globals.BUTTON_HEIGHT - 10, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
                 lblRicettario.setBounds(lblRic_X, lblRic_Y, lblRic_W, lblRic_H);
         }
         
@@ -178,34 +193,72 @@ public class SelezionaRicettaPanel extends JPanel {
                 iRicettaViewed = iID;
         }
    
-  /**
+        /**
          * Funzione chiamata per modificare la ricetta selezionata.
          */
         private void ModificaRicetta()
         {
-                /**
-                 * Ricavo l'ID della ricetta selezionata
-                 */
-                Integer iID;
-                iID = Integer.parseInt(tabellaRicette.getSelectedValue("ID").toString());
-                
-                /**
-                 * Ricavo i dati
-                 */
-                Vector<Vector<Object>> data_ing = new Vector<Vector<Object>>();
-                data_ing = DBMgr.Select("Composizione", " WHERE ID=" + iID);
-                
-                /**
-                 * Scateno l'evento per riempire la tabella di Composizione della ricetta
-                 */
-                MioEvento evt = new MioEvento(data_ing);
-                evt.setMioEventoName("Modifica");
-                fireMyEvent(evt);       
-                
-                /**
-                 * Memorizzo l'ID della ricetta correntemente vista 
-                 */
-                iRicettaViewed = iID;
+        		Integer iRow;
+        	
+	        	/**
+		         * Ricavo la riga selezionata nella JTable 
+		         */
+		        iRow = tabellaRicette.getSelectedRow();
+		                
+		        if (iRow != -1)
+		        {
+	                /**
+	                 * Ricavo l'ID della ricetta selezionata
+	                 */
+	                Integer iID;
+	                iID = Integer.parseInt(tabellaRicette.getSelectedValue("ID").toString());
+	                
+	                /**
+	                 * Ricavo i dati
+	                 */
+	                Vector<Vector<Object>> data_ing = new Vector<Vector<Object>>();
+	                data_ing = DBMgr.Select("Composizione", " WHERE ID=" + iID);
+	                
+	                /**
+	                 * Scateno l'evento per riempire la tabella di Composizione della ricetta
+	                 */
+	                MioEvento evt = new MioEvento(data_ing);
+	                evt.setMioEventoName("Modifica");
+	                fireMyEvent(evt);       
+	                
+	                /**
+	                 * Memorizzo l'ID della ricetta correntemente vista 
+	                 */
+	                iRicettaViewed = iID;
+		        }
+        }
+        
+        /**
+         * Funzione chiamata per salvare l'elenco delle ricette.
+         */
+        private void Salva()
+        {   
+        	/** 
+        	 * Ricavo la matrice "data" da salvare nel DB
+        	 */
+        	Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+        	data = tabellaRicette.GetDataVector();
+        	
+        	/**
+             * UPDATE tabella Composizione nel DB
+             */
+            if (DBMgr.UpdateRicetteTable(data) == false)
+            {
+                    JOptionPane.showMessageDialog(null, "Impossibile salvare la ricetta.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                    return;
+            }
+            
+            /**
+             * Notifico all'utente che il salvataggio è avvenuto con successo
+             */
+            JOptionPane.showMessageDialog(null, "Salvataggio riuscito!", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+            
+            bModificato = false;
         }
         
         private void fireMyEvent(MioEvento evt) 
@@ -258,49 +311,6 @@ public class SelezionaRicettaPanel extends JPanel {
 		                      
 		                bModificato = true;
 		        }
-        
-		        /**
-                 * Se non Ã¨ stata selezionata nessuna ricetta esco subito
-                 */
-                //if (tabellaRicette.getSelectedValue("ID") == null)
-                //{
-                //        return;
-                //}
-                
-                /**
-                 * UPDATE del DB
-                 */
-                //Object ID = tabellaRicette.getSelectedValue("ID");
-                
-                /**
-                 * Creo il vettore delle colonne su cui fare la selezione
-                 */
-                //Vector<String> sColumns = new Vector<String>();
-                //sColumns.add("ID");
-                
-                /**
-                 * Creo il vettore dei valori per fare la selezione
-                 */
-                //Vector<Object> objValues = new Vector<Object>();
-                //objValues.add(ID);
-                
-                /**
-                 * Ricavo la matrice "data" da salvare in tabella
-                 */
-                //if (DBMgr.Delete("Ricette", sColumns, objValues) == false)
-                //{
-                //      JOptionPane.showMessageDialog(this, "Impossibile eliminare la ricetta.", "Attenzione", JOptionPane.WARNING_MESSAGE);
-                //      return;
-                //}
-                
-                /**
-                 * Elimino la ricetta anche dalla tabella di Composizione delle ricette
-                 */
-                //if (DBMgr.Delete("Composizione", sColumns, objValues) == false)
-                //{
-                //      JOptionPane.showMessageDialog(this, "Impossibile eliminare completamente la ricetta. Contattare l'amministratore del sistema.", "Attenzione", JOptionPane.WARNING_MESSAGE);
-                //      return;
-                //}
         }
    
         private void btnModificaRicettaSelected()
