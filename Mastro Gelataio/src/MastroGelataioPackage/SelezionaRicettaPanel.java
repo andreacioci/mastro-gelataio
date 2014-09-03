@@ -14,15 +14,17 @@ import javax.swing.SwingConstants;
 
 public class SelezionaRicettaPanel extends JPanel {
 
-        DBManager DBMgr;
-        JLabel lblRicettario;
-        TabellaGenerica tabellaRicette;
-        JButton btnCancellaRicetta;
-        JButton btnModificaRicetta;
-        Integer iRicettaViewed;
+        private DBManager DBMgr;
+        private JLabel lblRicettario;
+        private TabellaGenerica tabellaRicette;
+        private JButton btnCancellaRicetta;
+        private JButton btnModificaRicetta;
+        private Integer iRicettaViewed;
         
         private int listRic_X, listRic_Y, listRic_W, listRic_H;
         private int lblRic_X, lblRic_Y, lblRic_W, lblRic_H;
+        
+        private boolean bModificato;
         
         protected javax.swing.event.EventListenerList listenerList = new javax.swing.event.EventListenerList();
         
@@ -39,6 +41,7 @@ public class SelezionaRicettaPanel extends JPanel {
                 DBMgr = new DBManager();
                 DBMgr = prtDBMgr;
                 iRicettaViewed = -1;
+                bModificato = false;
                 
                 /**
                  * Modifica dati generali del pannello
@@ -119,7 +122,7 @@ public class SelezionaRicettaPanel extends JPanel {
         public void CambiaSize(int iX, int iY, int iWidth, int iHeight)
         {
                 this.setBounds(iX, iY, iWidth, iHeight);
-                this.setPreferredSize(new Dimension(iWidth, iHeight));
+
                 CalcolaCoordinate();
                 tabellaRicette.setBounds(listRic_X, listRic_Y, listRic_W, listRic_H);
                 btnCancellaRicetta.setBounds(listRic_X, listRic_Y + listRic_H + 10, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
@@ -141,6 +144,8 @@ public class SelezionaRicettaPanel extends JPanel {
                 tabellaRicette.setInvisibleColumn(sInvisibleColumns);
                 tabellaRicette.setEditableColumns(null);
                 tabellaRicette.MostraDati();
+                
+                bModificato = false;
         }
         
         /**
@@ -206,58 +211,61 @@ public class SelezionaRicettaPanel extends JPanel {
         private void fireMyEvent(MioEvento evt) 
         {
                 Object[] listeners = listenerList.getListenerList();
-        // Each listener occupies two elements - the first is the listener class
-        // and the second is the listener instance
-        for (int i=0; i<listeners.length; i+=2) 
-        {
-            if (listeners[i]==MioEventoListener.class) 
-            {
-                ((MioEventoListener)listeners[i+1]).myEventOccurred(evt);
-            }
-        }
-        }
+		        // Each listener occupies two elements - the first is the listener class
+		        // and the second is the listener instance
+		        for (int i=0; i<listeners.length; i+=2) 
+		        {
+		            if (listeners[i]==MioEventoListener.class) 
+		            {
+		                ((MioEventoListener)listeners[i+1]).myEventOccurred(evt);
+		            }
+		        }
+		}
         
         private void btnCancellaRicettaSelected()
         {
                 Integer iRow, iDataRow; 
         
                 /**
-         * Ricavo la riga selezionata nella JTable 
-         */
-        iRow = tabellaRicette.getSelectedRow();
-                
-        if (iRow != -1)
-        {
-                /**
-                 * Ricavo la riga selezionata nella matrice "data"
-                 */
-                iDataRow = tabellaRicette.getDataRowFromTableRow(iRow, "ID");
-                Object ID = tabellaRicette.getSelectedValue("ID");
-                
-                tabellaRicette.RimuoviRowDati(iDataRow);
-                tabellaRicette.MostraDati();
-                
-                /**
-                         * Scateno l'evento per svuotare la tabella di Composizione della ricetta se stavo
-                         * visualizzando proprio quella cancellata
-                         */
-                        if (iRicettaViewed == Integer.parseInt(ID.toString()))
-                        {
-                                Vector<Vector<Object>> obj = new Vector<Vector<Object>>();
-                                fireMyEvent(new MioEvento(obj));        
-                                iRicettaViewed = -1;
-                        }
-                        
-                return;
-        }
+		         * Ricavo la riga selezionata nella JTable 
+		         */
+		        iRow = tabellaRicette.getSelectedRow();
+		                
+		        if (iRow != -1)
+		        {
+		                /**
+		                 * Ricavo la riga selezionata nella matrice "data"
+		                 */
+		                iDataRow = tabellaRicette.getDataRowFromTableRow(iRow, "ID");
+		                Object ID = tabellaRicette.getSelectedValue("ID");
+		                
+		                tabellaRicette.RimuoviRowDati(iDataRow);
+		                tabellaRicette.MostraDati();
+		                
+		                /**
+		                * Scateno l'evento per svuotare la tabella di Composizione della ricetta se stavo
+		                * visualizzando proprio quella cancellata
+		                */
+		                if (iRicettaViewed == Integer.parseInt(ID.toString()))
+		                {
+		                	Vector<Vector<Object>> obj = new Vector<Vector<Object>>();
+		                	MioEvento evt = new MioEvento(obj);
+		                    evt.setMioEventoName("Elimina");
+		                    fireMyEvent(evt);   
+		                    
+		                    iRicettaViewed = -1;
+		                }
+		                      
+		                bModificato = true;
+		        }
         
-        /**
+		        /**
                  * Se non è stata selezionata nessuna ricetta esco subito
                  */
-                if (tabellaRicette.getSelectedValue("ID") == null)
-                {
-                        return;
-                }
+                //if (tabellaRicette.getSelectedValue("ID") == null)
+                //{
+                //        return;
+                //}
                 
                 /**
                  * UPDATE del DB
@@ -298,5 +306,10 @@ public class SelezionaRicettaPanel extends JPanel {
         private void btnModificaRicettaSelected()
         {
                 ModificaRicetta();
+        }
+        
+        public boolean IsModified()
+        {
+        	return bModificato;
         }
 }
