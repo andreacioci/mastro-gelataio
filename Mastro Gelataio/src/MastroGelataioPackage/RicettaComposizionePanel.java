@@ -948,4 +948,23 @@ public class RicettaComposizionePanel extends JPanel {
                 
                 txtRicalcola.setText("");
         }
+        
+        /**
+         * Setto la colonna Quantità come editabile o no. Questo viene utilizzato per 
+         * consultare o modificare una ricetta.
+         * @param bEditable - true = editabile, false = altrimenti
+         */
+        public void setRicettaEditable(boolean bEditable)
+        {
+        	if (bEditable == true)
+        	{
+        		tabellaComposizione.setEditableColumns(new String[] {"Quantità"});
+        		tabellaComposizione.MostraDati();
+        	}
+        	else
+        	{
+        		tabellaComposizione.setEditableColumns(new String[] {});
+        		tabellaComposizione.MostraDati();
+        	}
+        }
 }
