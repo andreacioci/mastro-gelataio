@@ -478,7 +478,7 @@ public class IngredientiPanel extends JPanel {
                 
                 if (iTmp == -1)
                 {
-                        JOptionPane.showMessageDialog(this, "Selezionare la tipologia prima di aggiungere l'ingrediente.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Selezionare la tipologia prima di aggiungere l'ingrediente.", "Attenzione", JOptionPane.WARNING_MESSAGE);
                         return;
                 }
                 
@@ -575,7 +575,7 @@ public class IngredientiPanel extends JPanel {
                 {
                         if ((tabellaTipiIng.getValueAt(i, DBMgr.TIPI_ING_Nome).toString() == null) || (tabellaTipiIng.getValueAt(i, DBMgr.TIPI_ING_Nome).toString().trim().equals("")))
                         {
-                                JOptionPane.showMessageDialog(this, "Almeno una classe di ingredienti non ha un nome definito.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Almeno una classe di ingredienti non ha un nome definito.", "Attenzione", JOptionPane.WARNING_MESSAGE);
                         return false;
                         }
                 }
@@ -585,7 +585,7 @@ public class IngredientiPanel extends JPanel {
                  */
                 if (DBMgr.UpdateTipiIng(data) == false)
                 {
-                        JOptionPane.showMessageDialog(this, "Si sono verificati problemi durante il salvataggio. Contattare l'amministratore di sistema.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Si sono verificati problemi durante il salvataggio. Contattare l'amministratore di sistema.", "Attenzione", JOptionPane.WARNING_MESSAGE);
                         return false;
                 }
                 
@@ -605,7 +605,7 @@ public class IngredientiPanel extends JPanel {
                  */
                 if (DBMgr.UpdateAllIngredienti(data) == false)
                 {
-                        JOptionPane.showMessageDialog(this, "Si sono verificati problemi durante il salvataggio. Contattare l'amministratore di sistema.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Si sono verificati problemi durante il salvataggio. Contattare l'amministratore di sistema.", "Attenzione", JOptionPane.WARNING_MESSAGE);
                 }
                 else
                 {
