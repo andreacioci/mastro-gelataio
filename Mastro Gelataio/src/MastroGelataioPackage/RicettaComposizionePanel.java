@@ -784,7 +784,7 @@ public class RicettaComposizionePanel extends JPanel {
                  */
                 if(txtNomeRicetta.getText().isEmpty() == true)
                 {
-                        JOptionPane.showMessageDialog(this, "Impossibile salvare la ricetta. Il nome ricetta non è impostato", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Impossibile salvare la ricetta. Il nome ricetta non è impostato", "Attenzione", JOptionPane.WARNING_MESSAGE);
                         return;
                 }
                 
@@ -814,12 +814,12 @@ public class RicettaComposizionePanel extends JPanel {
                  */
                 if (data == null)
                 {
-                        JOptionPane.showMessageDialog(this, "Impossibile salvare la ricetta. Almeno un ingrediente deve essere selezionato.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Impossibile salvare la ricetta. Almeno un ingrediente deve essere selezionato.", "Attenzione", JOptionPane.WARNING_MESSAGE);
                         return;
                 }
                 if (data.size() == 0)
                 {
-                        JOptionPane.showMessageDialog(this, "Impossibile salvare la ricetta. Almeno un ingrediente deve essere selezionato.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Impossibile salvare la ricetta. Almeno un ingrediente deve essere selezionato.", "Attenzione", JOptionPane.WARNING_MESSAGE);
                         return;
                 }
                 
@@ -841,7 +841,7 @@ public class RicettaComposizionePanel extends JPanel {
                  */
                 if (DBMgr.UpdateComposizioneTable(data) == false)
                 {
-                        JOptionPane.showMessageDialog(this, "Impossibile salvare la ricetta.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Impossibile salvare la ricetta.", "Attenzione", JOptionPane.WARNING_MESSAGE);
                         return;
                 }
                 
@@ -858,9 +858,14 @@ public class RicettaComposizionePanel extends JPanel {
                  */
                 if (DBMgr.AggiornoRicetteTable(dataRow) == false)
                 {
-                        JOptionPane.showMessageDialog(this, "Impossibile salvare completamente la ricetta. Contattare l'amministratore del sistema.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Impossibile salvare completamente la ricetta. Contattare l'amministratore del sistema.", "Attenzione", JOptionPane.WARNING_MESSAGE);
                         return;
                 }
+                
+                /**
+                 * Notifico all'utente che il salvataggio � avvenuto con successo
+                 */
+                JOptionPane.showMessageDialog(null, "Ricetta salvata!", "", JOptionPane.INFORMATION_MESSAGE);
         }
         
         private void Stampa()
