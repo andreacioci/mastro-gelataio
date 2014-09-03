@@ -10,7 +10,9 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 
 import javax.swing.JFrame;
+
 import java.util.Locale;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -27,7 +29,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.border.EtchedBorder;
-
 import javax.swing.JLabel;
 
 public class ProvaApplication {
@@ -558,6 +559,18 @@ public class ProvaApplication {
          */
         private void btnIngredientiSelected()
         {
+        	/**
+             * Se il pannello correntemente aperto è quello del ricettario controllo se sono state
+             * fatte delle modifiche e chiedo conferma.
+             */
+            if (pnlRicettario.IsModified() == true)
+            {
+                    int option = JOptionPane.showConfirmDialog(null, "Le modifiche al ricettario verrano perse. Continuare?", "Attenzione", JOptionPane.YES_NO_OPTION);
+                    if (option == JOptionPane.NO_OPTION)
+                    {
+                            return; 
+                    }
+            }
                 pnlIngredienti.CaricaIngredienti();
                 
                 pnlNuovaRicetta.setVisible(false);
@@ -578,6 +591,19 @@ public class ProvaApplication {
                 if (pnlIngredienti.IsModified() == true)
                 {
                         int option = JOptionPane.showConfirmDialog(null, "Le modifiche alla lista ingredienti verrano perse. Continuare?", "Attenzione", JOptionPane.YES_NO_OPTION);
+                        if (option == JOptionPane.NO_OPTION)
+                        {
+                                return; 
+                        }
+                }
+                
+                /**
+                 * Se il pannello correntemente aperto è quello del ricettario controllo se sono state
+                 * fatte delle modifiche e chiedo conferma.
+                 */
+                if (pnlRicettario.IsModified() == true)
+                {
+                        int option = JOptionPane.showConfirmDialog(null, "Le modifiche al ricettario verrano perse. Continuare?", "Attenzione", JOptionPane.YES_NO_OPTION);
                         if (option == JOptionPane.NO_OPTION)
                         {
                                 return; 
@@ -610,6 +636,19 @@ public class ProvaApplication {
                         }
                 }
                 
+                /**
+                 * Se il pannello correntemente aperto è quello del ricettario controllo se sono state
+                 * fatte delle modifiche e chiedo conferma.
+                 */
+                if (pnlRicettario.IsModified() == true)
+                {
+                        int option = JOptionPane.showConfirmDialog(null, "Le modifiche al ricettario verrano perse. Continuare?", "Attenzione", JOptionPane.YES_NO_OPTION);
+                        if (option == JOptionPane.NO_OPTION)
+                        {
+                                return; 
+                        }
+                }
+                
                 pnlRicettario.setVisible(false);
                 pnlIngredienti.setVisible(false);
                 pnlNuovaRicetta.setVisible(false);
@@ -621,7 +660,19 @@ public class ProvaApplication {
          */
         private void ModificaRicetta(MioEvento evt)
         {
-                // ARRIVATO FINO A QUI
+        	pnlNuovaRicetta.CaricaPannello();
+        	
+        	Vector<String> sColumns = new Vector<String>();
+    		sColumns.add("ID");
+    		sColumns.add("ID_Ing");
+    		sColumns.add("Quantità");
+    		
+        	pnlNuovaRicetta.ApriRicetta(evt.getSourceVector(), sColumns);
+        	
+        	pnlRicettario.setVisible(false);
+            pnlIngredienti.setVisible(false);
+            pnlNuovaRicetta.setVisible(true);
+            pnlImpostazioni.setVisible(false);
         }
         
         /**
