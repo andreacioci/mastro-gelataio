@@ -59,6 +59,10 @@ public class Ricettario extends JPanel {
 		    	{
 		    		ApriRicetta(evt);
 		    	}
+		    	if (evt.getMioEventoName() == "Elimina")
+		    	{
+		    		EliminaRicetta(evt);
+		    	}
 		    }
 		});
 	}
@@ -106,7 +110,7 @@ public class Ricettario extends JPanel {
 		ApriRicetta(evt.getSourceVector(), sColumns);	
 	}
 	
-	private void ApriRicetta(Vector<Vector<Object>> data_ing, Vector<String> sColumns)
+	public void ApriRicetta(Vector<Vector<Object>> data_ing, Vector<String> sColumns)
 	{
 		/**
 		 * Se il dato in ingresso è null o vuoto allora svuoto la tabella
@@ -149,6 +153,11 @@ public class Ricettario extends JPanel {
 			
 			pnlComposizione.AggiungiIngrediente(iID, dQuant);	
 		}
+		
+		/**
+         * Setto le quantità come non editabili perchè sono in consultazione
+         */
+        pnlComposizione.setRicettaEditable(false);
 	}
 	
 	/**
@@ -190,13 +199,33 @@ public class Ricettario extends JPanel {
 		pnlSelectRicetta.CaricaRicette();
 	}
 	
-	/*
+	/**
 	 * Viene chiamata quando il pulsante Modifica viene premuto nel SelezionaRicettaPanel.
 	 * Genera un evento per l'applicazione padre in modo che possa essere aperta la ricetta in un nuovo pannello.
 	 */
 	private void ModificaRicetta(MioEvento evt)
 	{
 		fireMyEvent(evt);
+	}
+	
+	/**
+	 * Viene chiamata quando il pulsante Elimina viene premuto nel SelezionaRicettaPanel.
+	 * Svuota la ricetta mostrata nel RicettaComposizionePanel.
+	 */
+	private void EliminaRicetta(MioEvento evt)
+	{
+		pnlComposizione.SvuotaTabelle();
+		pnlComposizione.setRicettaNome("");
+	}
+	
+	/**
+	 * Viene chiamata per verificare se sono state fatte modifiche al ricettario
+	 * (tipo eliminare una ricetta) senza aver salvato.
+	 * @return - true = modifica fatta ma non salvata, false = altrimenti
+	 */
+	public boolean IsModified()
+	{
+		return pnlSelectRicetta.IsModified();
 	}
 	
 	private void fireMyEvent(MioEvento evt) 
