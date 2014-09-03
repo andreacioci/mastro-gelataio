@@ -185,7 +185,7 @@ public class RicettaComposizionePanel extends JPanel {
                         /**
                          * Aggiorno la tabella di Composizione
                          */
-                        CalcolaQuantità();      
+                        CalcolaQuantity();      
                         tabellaComposizione.MostraDati();
                         
                         /**
@@ -567,7 +567,7 @@ public class RicettaComposizionePanel extends JPanel {
                 /**
                  * Aggiorno le quantità dei campi non editabili
                  */
-                CalcolaQuantità();
+                CalcolaQuantity();
                 
                 /**
                  * Aggiorno i Totali
@@ -619,7 +619,7 @@ public class RicettaComposizionePanel extends JPanel {
         /**
          * Viene chiamata quando l'utente cambia il valore di una quantità nella tabella
          */
-        private void CalcolaQuantità()
+        private void CalcolaQuantity()
         {
                 int i, j;
                 boolean bFound;
@@ -764,7 +764,7 @@ public class RicettaComposizionePanel extends JPanel {
                 /**
                  * Aggiorno tabella di Composizione
                  */
-                CalcolaQuantità();
+                CalcolaQuantity();
                 tabellaComposizione.MostraDati();
                 
                 /**
