@@ -161,6 +161,16 @@ public class SelezionaRicettaPanel extends JPanel {
                 tabellaRicette.MostraDati();
                 
                 bModificato = false;
+                
+                /**
+                 * Se non è la prima volta che carico il pannello potrebbe essere che c'era una ricetta precedentemente selezionata.
+                 * Setto di nuovo la selezione e riapro la ricetta.
+                 */
+                if (iRicettaViewed != -1)
+                {
+                	tabellaRicette.setSelectedRow("ID", iRicettaViewed, false);
+                	ApriRicetta();
+                }
         }
         
         /**
