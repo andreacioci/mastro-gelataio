@@ -60,7 +60,7 @@ public class DBMgrWrap extends DBManager{
 	public static final String TABELLA_COMPOSIZIONE = "Composizione";
 	public static final int COMPOSIZIONE_ID = 0;
 	public static final int COMPOSIZIONE_ID_Ing = 1;
-	public static final int COMPOSIZIONE_Quantità = 2;
+	public static final int COMPOSIZIONE_Quantita = 2;
 	public static final Vector<String> COMPOSIZIONE_COLS = new Vector<String>() {};
 	
 	/**
@@ -97,7 +97,7 @@ public class DBMgrWrap extends DBManager{
 		
 		COMPOSIZIONE_COLS.add("ID");	
 		COMPOSIZIONE_COLS.add("ID_Ing");
-		COMPOSIZIONE_COLS.add("Quantità");
+		COMPOSIZIONE_COLS.add("Quantita");
 		
 		BASI_COLS.add("ID");
 		BASI_COLS.add("Nome");
@@ -155,7 +155,7 @@ public class DBMgrWrap extends DBManager{
     	 */
 	    try
 	    {	
-	    	stat.execute("CREATE TABLE " + TABELLA_COMPOSIZIONE + " (ID Long, ID_Ing Long, Quantità Double, "
+	    	stat.execute("CREATE TABLE " + TABELLA_COMPOSIZIONE + " (ID Long, ID_Ing Long, Quantita Double, "
 	    			+ "PRIMARY KEY (ID, ID_Ing));");
 	    }
 	    catch (Exception e)
@@ -568,7 +568,7 @@ public class DBMgrWrap extends DBManager{
 			 */
 			String sQuery;
 			sQuery = "UPDATE " + TABELLA_COMPOSIZIONE + " SET " 
-					+ "Quantità=" + dataNewRow.get(COMPOSIZIONE_Quantità).toString() 
+					+ "Quantita=" + dataNewRow.get(COMPOSIZIONE_Quantita).toString() 
 					+ " WHERE "
 					+ "ID=" + dataNewRow.get(COMPOSIZIONE_ID).toString() + " AND "
 					+ "ID_Ing=" + dataNewRow.get(COMPOSIZIONE_ID_Ing).toString();	
@@ -586,7 +586,7 @@ public class DBMgrWrap extends DBManager{
 				sQuery = "INSERT INTO " + TABELLA_COMPOSIZIONE + " VALUES (" 
 						+ dataNewRow.get(COMPOSIZIONE_ID).toString() + ", "
 						+ dataNewRow.get(COMPOSIZIONE_ID_Ing).toString() + ", "	
-						+ dataNewRow.get(COMPOSIZIONE_Quantità).toString() + ")";
+						+ dataNewRow.get(COMPOSIZIONE_Quantita).toString() + ")";
 				
 				/**
 				 * Eseguo la query
