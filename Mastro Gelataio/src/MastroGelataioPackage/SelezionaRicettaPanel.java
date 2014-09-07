@@ -82,6 +82,7 @@ public class SelezionaRicettaPanel extends JPanel {
                  */
                 btnModificaRicetta = new JButton("Modifica");
                 btnModificaRicetta.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+                btnModificaRicetta.setEnabled(false);
                 add(btnModificaRicetta);
                 
                 btnModificaRicetta.addActionListener(new ActionListener() {
@@ -95,6 +96,7 @@ public class SelezionaRicettaPanel extends JPanel {
                  */
                 btnSalva = new JButton("Salva");
                 btnSalva.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+                btnSalva.setEnabled(false);
                 add(btnSalva);
                 
                 btnSalva.addActionListener(new ActionListener() {
@@ -171,6 +173,11 @@ public class SelezionaRicettaPanel extends JPanel {
                 	tabellaRicette.setSelectedRow("ID", iRicettaViewed);
                 	ApriRicetta();
                 }
+                
+                /**
+                 * Disabilito il pulsante di salvataggio perchè ho appena ricaricato l'elenco delle ricette dal DB.
+                 */
+                btnSalva.setEnabled(false);
         }
         
         /**
@@ -201,6 +208,11 @@ public class SelezionaRicettaPanel extends JPanel {
                  * Memorizzo l'ID della ricetta correntemente vista 
                  */
                 iRicettaViewed = iID;
+                
+                /**
+                 * Abilito il pulsante per modificare la ricetta selezionata
+                 */
+                btnModificaRicetta.setEnabled(true);
         }
    
         /**
@@ -269,6 +281,11 @@ public class SelezionaRicettaPanel extends JPanel {
             JOptionPane.showMessageDialog(null, "Salvataggio riuscito!", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
             
             bModificato = false;
+            
+            /**
+             * Disabilito il pulsante Salva perchè l'elenco ricette è allineato al DB.
+             */
+            btnSalva.setEnabled(false);
         }
         
         private void fireMyEvent(MioEvento evt) 
@@ -319,6 +336,8 @@ public class SelezionaRicettaPanel extends JPanel {
 		                    iRicettaViewed = -1;
 		                }
 		                      
+		                btnSalva.setEnabled(true);
+		                
 		                bModificato = true;
 		        }
         }
