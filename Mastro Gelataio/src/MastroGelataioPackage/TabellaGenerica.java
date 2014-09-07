@@ -356,15 +356,28 @@ public class TabellaGenerica implements TableModelListener {
         }
         
         /**
-         * Setta come selezionata la riga la cui colonna (sColumn) ha il valore uguale a objValue
+         * Setta come selezionata la riga la cui colonna (sColumn) ha il valore uguale a objValue.
          */
-        public void setSelectedRow(String sColumn, Object objValue, boolean bEdit)
+        public void setSelectedRow(String sColumn, Object objValue)
         {
         	Integer iRow;
         	
         	iRow = getRow(sColumn, objValue);
         	
-        	table.changeSelection(iRow, 1, false, false);
+        	table.setRowSelectionInterval(iRow, iRow);
+        }
+        
+        /**
+         * Setta come selezionata la cella della riga la cui colonna (sColumn) ha il valore uguale a objValue. La colonna
+         * che identifica la cella è specificata da sCellColumn
+         */
+        public void setSelectedCell(String sCellColumn, String sColumn, Object objValue, boolean bEdit)
+        {
+        	Integer iRow;
+        	
+        	iRow = getRow(sColumn, objValue);
+        	
+        	table.changeSelection(iRow, getColumnIndex(sCellColumn), false, false);
         	
         	if (bEdit == true)
         	{
