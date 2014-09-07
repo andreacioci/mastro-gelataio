@@ -34,8 +34,7 @@ public class IngredientiPanel extends JPanel {
         private Integer iNextIDIng; 
         private Integer iNextIDTipo;
         private boolean bModificato;
-
-        //protected javax.swing.event.EventListenerList listenerList = new javax.swing.event.EventListenerList();
+        private int iTipoIngViewed;
         
         /**
          * Create the panel.
@@ -46,6 +45,7 @@ public class IngredientiPanel extends JPanel {
                 DBMgr = prtDBMgr;
                 
                 bModificato = false;
+                iTipoIngViewed = -1;
                 
                 setLayout(null);
                 
@@ -284,7 +284,6 @@ public class IngredientiPanel extends JPanel {
                  * Riempio la tabella dei tipi
                  */
                 CaricaTipiIng();
-                tabellaTipiIng.MostraDati();
                 
                 /**
                  * Riempio la tabella degli Ingredienti
@@ -330,6 +329,17 @@ public class IngredientiPanel extends JPanel {
                  * Marco che ciÃ² che Ã¨ stato modificato Ã¨ salvato
                  */
                 bModificato = false;
+                
+                tabellaTipiIng.MostraDati();
+                
+                /**
+                 * Setto la riga selezionata se ce n'� una. Questo serve quando si esce e si rientra nel pannello, perch�
+                 * la selezione viene persa.
+                 */
+                if (iTipoIngViewed != -1)
+                {
+                	tabellaTipiIng.setSelectedRow("ID", iTipoIngViewed);
+                }
         }
         
         public void CaricaDettagliIng()
@@ -378,6 +388,7 @@ public class IngredientiPanel extends JPanel {
         
         private void TipoSelected()
         {
+        		iTipoIngViewed = (int)tabellaTipiIng.getSelectedValue("ID");
                 FiltraTabellaIngredienti(Long.parseLong(tabellaTipiIng.getSelectedValue("ID").toString()));
                 tabellaIngredienti.MostraDati();
         }
@@ -408,7 +419,7 @@ public class IngredientiPanel extends JPanel {
                 /**
                  * Seleziono la nuova riga
                  */
-                tabellaTipiIng.setSelectedRow("ID", iNextIDTipo - 1, true);
+                tabellaTipiIng.setSelectedCell("Quantit�", "ID", iNextIDTipo - 1, true);
                 
                 /**
                  * Svuoto la tabella Ingredienti perchè il tipo selezionato è quello nuovo
@@ -464,6 +475,8 @@ public class IngredientiPanel extends JPanel {
                          * Marco che ciÃ² che Ã¨ stato modificato non Ã¨ stato salvato
                          */
                         bModificato = true;
+                        
+                        iTipoIngViewed = -1;
                 }                       
         }
         
