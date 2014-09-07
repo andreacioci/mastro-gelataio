@@ -113,6 +113,26 @@ public class IngredientiPanel extends JPanel {
                 tabellaIngredienti = new TabellaGenerica(pnlIng, tabellaTipiIng.getX() + tabellaTipiIng.getWidth() + 40, 120, getWidth() - tabellaTipiIng.getWidth() - 80, tabellaTipiIng.getHeight());
                 
                 /**
+                 * Creo il listener per l'evento di aggiornamento delle percentuali  in tabella
+                 */
+                tabellaIngredienti.addMioEventoListener(new MioEventoListener() {
+                    public void myEventOccurred(MioEvento evt) {
+                        
+                        if (evt.getSource().getClass().getName() == "java.awt.event.MouseEvent")
+                        {
+                                return;
+                        }
+                        
+                        /**
+                         * Marco che è stato modificato qualcosa. In realtà potrebbe anche non essere cambiato il valore, ma basta
+                         * che sia stata fatta una operazione di editing di un campo.
+                         */
+                        bModificato = true;
+                    }
+                });
+                    
+                
+                /**
                  * Bottone per aggiungere una riga nella tabella Tipi
                  */
                 btnAggiungiTipo = new JButton("Aggiungi");
@@ -357,7 +377,7 @@ public class IngredientiPanel extends JPanel {
                 tabellaIngredienti.CaricaDati("Ingredienti", null, DBMgr);
                 
                 /**
-                 * Ricavo l'ID piÃƒÂ¹ grande per determinare iNextIDIng degli Ingredienti
+                 * Ricavo l'ID più grande per determinare iNextIDIng degli Ingredienti
                  */
                 iNextIDIng = tabellaIngredienti.getMaxInt("ID") + 1; 
                 
@@ -381,9 +401,16 @@ public class IngredientiPanel extends JPanel {
                 tabellaIngredienti.setColumnWidth(sWidthColumns, iWidthCols);
                 
                 /**
-                 * Marco che ciÃƒÂ² che ÃƒÂ¨ stato modificato ÃƒÂ¨ salvato
+                 * Marco che ciò che è stato modificato non è stato salvato
                  */
                 bModificato = false;
+                
+                if (iTipoIngViewed != -1)
+                {
+                	FiltraTabellaIngredienti((long)iTipoIngViewed);
+                }
+                
+                tabellaIngredienti.MostraDati();
         }
         
         private void TipoSelected()
@@ -428,7 +455,7 @@ public class IngredientiPanel extends JPanel {
                 tabellaIngredienti.MostraDati();
                 
                 /**
-                 * Marco che ciÃ² che Ã¨ stato modificato non Ã¨ stato salvato
+                 * Marco che ciò che è stato modificato non è stato salvato
                  */
                 bModificato = true;
         }
@@ -472,7 +499,7 @@ public class IngredientiPanel extends JPanel {
                         tabellaIngredienti.MostraDati();
                         
                         /**
-                         * Marco che ciÃƒÂ² che ÃƒÂ¨ stato modificato non ÃƒÂ¨ stato salvato
+                         * Marco che ciò che è stato modificato non è stato salvato
                          */
                         bModificato = true;
                         
@@ -513,7 +540,7 @@ public class IngredientiPanel extends JPanel {
                 tabellaIngredienti.MostraDati();
                 
                 /**
-                 * Marco che ciÃ² che Ã¨ stato modificato non Ã¨ stato salvato
+                 * Marco che ciò che è stato modificato non è stato salvato
                  */
                 bModificato = true;
         }
@@ -548,7 +575,7 @@ public class IngredientiPanel extends JPanel {
                         tabellaIngredienti.MostraDati();
                         
                         /**
-                         * Marco che ciÃƒÂ² che ÃƒÂ¨ stato modificato non ÃƒÂ¨ stato salvato
+                         * Marco che ciò che è stato modificato non è stato salvato
                          */
                         bModificato = true;
                 }               
@@ -558,19 +585,22 @@ public class IngredientiPanel extends JPanel {
          * Salva nel DB
          */
         public void Salva()
-        {
+        {        		
                 /**
                  * Salvo nella tabella Tipi
                  */
                 if (SalvaTipo() == false)
                 {
-                        return;
+                    return;
                 }
                 
                 /**
                  * Salvo nella tabella Ingredienti
                  */
-                SalvaIng();
+                if (SalvaIng() == false)
+                {
+                    return;
+                }
         }
         
         private boolean SalvaTipo()
@@ -605,7 +635,7 @@ public class IngredientiPanel extends JPanel {
                 return true;
         }
         
-        private void SalvaIng()
+        private boolean SalvaIng()
         {
                 /**
                  * Ricavo la matrice "data"
@@ -614,19 +644,34 @@ public class IngredientiPanel extends JPanel {
                 data = tabellaIngredienti.GetDataVector();
                 
                 /**
+                 * Verifico che ogni tipo abbia un nome
+                 */
+                for (int i=0; i < data.size(); i++)
+                {
+                        if ((tabellaIngredienti.getValueAt(i, DBMgr.INGREDIENTI_Nome).toString() == null) || (tabellaIngredienti.getValueAt(i, DBMgr.INGREDIENTI_Nome).toString().trim().equals("")))
+                        {
+                                JOptionPane.showMessageDialog(null, "Almeno un ingrediente non ha un nome definito.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                                return false;
+                        }
+                }
+                
+                /**
                  * UPDATE del DB
                  */
                 if (DBMgr.UpdateAllIngredienti(data) == false)
                 {
                         JOptionPane.showMessageDialog(null, "Si sono verificati problemi durante il salvataggio. Contattare l'amministratore di sistema.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                        return false;
                 }
                 else
                 {
                         /**
-                         * Marco che ciÃƒÂ² che ÃƒÂ¨ stato modificato ÃƒÂ¨ stato salvato
+                         * Marco che ciò che è stato modificato non è stato salvato
                          */
                         bModificato = false;    
                 }
+                
+                return true;
         }
         
         private Vector<Ingredienti> Object2Ingredienti(Vector<Vector<Object>> data)
