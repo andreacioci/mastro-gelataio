@@ -21,6 +21,7 @@ public class SelezionaIngredientiPanel extends JPanel {
         private int btnRim_X, btnRim_Y, btnRim_Width, btnRim_Height;
         private JButton btnRimuovi;
         private DBManager DBMgr;
+        private int iTipoIngViewed;
         
         private int listTip_X, listTip_Y, listTip_Width, listTip_Height;
         private int listIng_X, listIng_Y, listIng_Width, listIng_Height;
@@ -34,6 +35,8 @@ public class SelezionaIngredientiPanel extends JPanel {
          */
         public SelezionaIngredientiPanel(DBManager prtDBMgr) 
         {
+        		iTipoIngViewed = -1;
+        		
                 /**
                  * Inizializza le variabili
                  */
@@ -206,7 +209,6 @@ public class SelezionaIngredientiPanel extends JPanel {
                  * Carico la tabella dei Tipi
                  */
                 CaricaTipiIng();
-                tabellaTipiIng.MostraDati();
                 
                 /**
                  * Carico la tabella degli Ingredienti
@@ -237,6 +239,17 @@ public class SelezionaIngredientiPanel extends JPanel {
                  * Setto il filtro per non mostrare le righe cancellate
                  */
                 tabellaTipiIng.setRegexFilter(new String[] {"^(?!Y)"}, new String[] {"Deleted"});
+                
+                tabellaTipiIng.MostraDati();
+                
+                /**
+                 * Setto la riga selezionata se ce n'è una. Questo serve quando si esce e si rientra nel pannello, perchè
+                 * la selezione viene persa.
+                 */
+                if (iTipoIngViewed != -1)
+                {
+                	tabellaTipiIng.setSelectedRow("ID", iTipoIngViewed);
+                }
         }
         
         private void CaricaIng()
@@ -283,6 +296,8 @@ public class SelezionaIngredientiPanel extends JPanel {
         
         private void TipoSelected()
         {
+        		iTipoIngViewed = (int)tabellaTipiIng.getSelectedValue("ID");
+        		
                 FiltraTabellaIngredienti(Long.parseLong(tabellaTipiIng.getSelectedValue("ID").toString()));
                 tabellaIngredienti.MostraDati();
         }
@@ -319,6 +334,8 @@ public class SelezionaIngredientiPanel extends JPanel {
         
         private void btnRimuoviSelected()
         {       
+        		iTipoIngViewed = -1;
+        	
                 fireMyEvent(new MioEvento("Rimuovi"));
         }
         
