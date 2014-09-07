@@ -168,7 +168,7 @@ public class SelezionaRicettaPanel extends JPanel {
                  */
                 if (iRicettaViewed != -1)
                 {
-                	tabellaRicette.setSelectedRow("ID", iRicettaViewed, false);
+                	tabellaRicette.setSelectedRow("ID", iRicettaViewed);
                 	ApriRicetta();
                 }
         }
