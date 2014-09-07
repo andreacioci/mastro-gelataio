@@ -298,12 +298,12 @@ public class RicettaComposizionePanel extends JPanel {
                 btnSal_Y = txtNot_Y + txtNot_Height + 20;
                 btnSal_Width = 80;
                 btnSal_Height = 40;
-                btnSal_X = tblTot_X + tblTot_Width - btnSal_Width;
+                btnSal_X = tblTot_X + tblTot_Width - Globals.BUTTON_WIDTH;
                 
                 btnSta_Y = btnSal_Y;
                 btnSta_Width = 80;
                 btnSta_Height = 40;
-                btnSta_X = btnSal_X - btnSta_Width - 20;
+                btnSta_X = btnSal_X - Globals.BUTTON_WIDTH - 20;
                 
                 cbbBas_X = txtNot_X;
                 cbbBas_Y = txtNot_Y + txtNot_Height + 40;
@@ -345,7 +345,7 @@ public class RicettaComposizionePanel extends JPanel {
                 
                 sColumnNameComp.add("ID");
                 sColumnNameComp.add("Nome");
-                sColumnNameComp.add("Quantità");
+                sColumnNameComp.add("Quantita");
                 sColumnNameComp.add("Acqua");
                 sColumnNameComp.add("Zuccheri");
                 sColumnNameComp.add("Grassi");
@@ -358,7 +358,7 @@ public class RicettaComposizionePanel extends JPanel {
                 tabellaComposizione.setColumnName(sColumnNameComp);
                 
                 tabellaComposizione.setInvisibleColumn(new String[] {"ID", "Deleted"});
-                tabellaComposizione.setEditableColumns(new String[] {"Quantità"});
+                tabellaComposizione.setEditableColumns(new String[] {"Quantita"});
                 tabellaComposizione.setRegexFilter(null, null);
 
                 Vector<String> sColorCols = new Vector<String>();
@@ -375,7 +375,7 @@ public class RicettaComposizionePanel extends JPanel {
                 sColumnNameTot = new Vector<String>();  
                 
                 sColumnNameTot.add("Nome");
-                sColumnNameTot.add("Quantità");
+                sColumnNameTot.add("Quantita");
                 sColumnNameTot.add("Acqua");
                 sColumnNameTot.add("Zuccheri");
                 sColumnNameTot.add("Grassi");
@@ -510,14 +510,14 @@ public class RicettaComposizionePanel extends JPanel {
         }
         
         public void AggiungiIngrediente(Long iID, Double dQuant)
-        {
-                /**
-                 * Ricarico gli Ingredienti in memoria perchè ce ne potrebbe essere qualcuno nuovo 
-                 */
-                data_ing = null;
-                data_ing = new Vector<Ingredienti>();
-                data_ing = DBMgr.SelectIngredienti("WHERE Deleted='N'");
-                
+        {       
+	        	/**
+	             * Ricarico gli Ingredienti in memoria perche' ce ne potrebbe essere qualcuno nuovo 
+	             */
+	            data_ing = null;
+	            data_ing = new Vector<Ingredienti>();
+	            data_ing = DBMgr.SelectIngredienti("WHERE Deleted='N'");
+            
                 /**
                  * Tra tutti gli ingredienti seleziono quello con lo stesso ID
                  * Ricavo gli ingredienti dalla tabella Ingredienti tramite l'ID
@@ -545,7 +545,7 @@ public class RicettaComposizionePanel extends JPanel {
                         {
                                 dataRow.add(sColumnNameComp.indexOf("ID"), data_tmp.get(i).get(0));
                                 dataRow.add(sColumnNameComp.indexOf("Nome"), data_tmp.get(i).get(1));
-                                dataRow.add(sColumnNameComp.indexOf("Quantità"), dQuant);
+                                dataRow.add(sColumnNameComp.indexOf("Quantita"), dQuant);
                                 dataRow.add(sColumnNameComp.indexOf("Acqua"), 0);
                                 dataRow.add(sColumnNameComp.indexOf("Zuccheri"), 0);
                                 dataRow.add(sColumnNameComp.indexOf("Grassi"), 0);
@@ -555,7 +555,7 @@ public class RicettaComposizionePanel extends JPanel {
                                 dataRow.add(sColumnNameComp.indexOf("POD"), 0);
                                 dataRow.add(sColumnNameComp.indexOf("PAC"), 0);
                                 
-                                data.add(dataRow);      
+                                data.add(dataRow); 
                         }
                 }
                 
@@ -617,6 +617,31 @@ public class RicettaComposizionePanel extends JPanel {
         }
         
         /**
+         * Viene chiamata quando l'utente ricarica il pannello
+         */
+        public void AggiornaIngredienti()
+        {
+        	/**
+        	 * Ricavo la matrice dei dati che compone la tabella Composizione
+        	 */
+        	Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+        	
+        	data = tabellaComposizione.GetDataVector();
+        	if (data == null)
+        	{
+        		return;
+        	}
+        	
+        	/**
+        	 * Ciclo su tutti gli ingredienti e quelli presenti nel DB vengono ricaricati.
+        	 */
+        	for (int i=0; i<data.size(); i++)
+            {
+        		AggiungiIngrediente(Long.parseLong(data.get(i).get(tabellaComposizione.getColumnIndex("ID")).toString()), Double.parseDouble(data.get(i).get(tabellaComposizione.getColumnIndex("Quantita")).toString()));
+            }
+        }
+        
+        /**
          * Viene chiamata quando l'utente cambia il valore di una quantità nella tabella
          */
         private void CalcolaQuantity()
@@ -631,14 +656,14 @@ public class RicettaComposizionePanel extends JPanel {
                 for (i=0; i < tabellaComposizione.getRowCount(); i++)
                 {
                         Integer iColumn;
-                        iColumn = Integer.parseInt(tabellaComposizione.getColumnIndex("Quantità").toString());
+                        iColumn = Integer.parseInt(tabellaComposizione.getColumnIndex("Quantita").toString());
 
                         /**
                          * Controllo se la Quantità è impostata
                          */
                         if (tabellaComposizione.getValueAt(i, iColumn) != null)
                         {
-                                dQuant = Double.parseDouble(tabellaComposizione.getValueAt(i, tabellaComposizione.getColumnIndex("Quantità")).toString());
+                                dQuant = Double.parseDouble(tabellaComposizione.getValueAt(i, tabellaComposizione.getColumnIndex("Quantita")).toString());
                                 
                                 /**
                                  * Cerco lo stesso ingrediente in data_ing tramite l'ID
@@ -687,7 +712,7 @@ public class RicettaComposizionePanel extends JPanel {
                  */
                 Double dQuantTot, dPercAcqua, dPercZucchero, dPercGrassi, dPercSLNG, dPercAltriSolidi, dPercPOD, dPercPAC;
                 
-                dQuantTot = Arrotonda(tabellaComposizione.getSum("Quantità"));
+                dQuantTot = Arrotonda(tabellaComposizione.getSum("Quantita"));
                 dPercAcqua = Arrotonda(tabellaComposizione.getSum("Acqua") / dQuantTot * 100);
                 dPercZucchero = Arrotonda(tabellaComposizione.getSum("Zuccheri") / dQuantTot * 100);
                 dPercGrassi = Arrotonda(tabellaComposizione.getSum("Grassi") / dQuantTot * 100);
@@ -703,7 +728,7 @@ public class RicettaComposizionePanel extends JPanel {
                 Vector<Object> dataTotRow = new Vector<Object>();
                 
                 dataTotRow.add(tabellaTotali.getColumnIndex("Nome"), "Totali");
-                dataTotRow.add(tabellaTotali.getColumnIndex("Quantità"), dQuantTot);
+                dataTotRow.add(tabellaTotali.getColumnIndex("Quantita"), dQuantTot);
                 dataTotRow.add(tabellaTotali.getColumnIndex("Acqua"), dPercAcqua);
                 dataTotRow.add(tabellaTotali.getColumnIndex("Zuccheri"), dPercZucchero);
                 dataTotRow.add(tabellaTotali.getColumnIndex("Grassi"), dPercGrassi);
@@ -746,7 +771,7 @@ public class RicettaComposizionePanel extends JPanel {
                 Double dNewTot;
                 Double dQuant;
                 
-                dOldTot = Double.parseDouble(tabellaTotali.getValueAt(0, tabellaTotali.getColumnIndex("Quantità")).toString());
+                dOldTot = Double.parseDouble(tabellaTotali.getValueAt(0, tabellaTotali.getColumnIndex("Quantita")).toString());
                 dNewTot = Double.parseDouble(sNewTot);
                 
                 /**
@@ -757,8 +782,8 @@ public class RicettaComposizionePanel extends JPanel {
                         /**
                          * Modifico la Quantità
                          */
-                        dQuant = Double.parseDouble(tabellaComposizione.getValueAt(i, tabellaComposizione.getColumnIndex("Quantità")).toString());
-                        tabellaComposizione.setDataAt(Arrotonda(dQuant * dNewTot / dOldTot), i, tabellaComposizione.getColumnIndex("Quantità"));
+                        dQuant = Double.parseDouble(tabellaComposizione.getValueAt(i, tabellaComposizione.getColumnIndex("Quantita")).toString());
+                        tabellaComposizione.setDataAt(Arrotonda(dQuant * dNewTot / dOldTot), i, tabellaComposizione.getColumnIndex("Quantita"));
                 }
                 
                 /**
@@ -804,7 +829,7 @@ public class RicettaComposizionePanel extends JPanel {
                  */
                 Vector<String> sColumns = new Vector<String>();
                 sColumns.add("ID");
-                sColumns.add("Quantità");
+                sColumns.add("Quantita");
 
                 Vector<Vector<Object>> data = new Vector<Vector<Object>>();
                 data = tabellaComposizione.GetDataVector(sColumns, null, null);
@@ -829,7 +854,7 @@ public class RicettaComposizionePanel extends JPanel {
                 Vector<String> sColComp = new Vector<String>();
                 sColComp.add("ID");
                 sColComp.add("ID_Ing");
-                sColComp.add("Quantità");
+                sColComp.add("Quantita");
                 
                 for (int i=0; i < data.size(); i++)
                 {
@@ -963,13 +988,15 @@ public class RicettaComposizionePanel extends JPanel {
         {
         	if (bEditable == true)
         	{
-        		tabellaComposizione.setEditableColumns(new String[] {"Quantità"});
+        		tabellaComposizione.setEditableColumns(new String[] {"Quantita"});
         		tabellaComposizione.MostraDati();
+        		btnSalva.setVisible(true);
         	}
         	else
         	{
         		tabellaComposizione.setEditableColumns(new String[] {});
         		tabellaComposizione.MostraDati();
+        		btnSalva.setVisible(false);
         	}
         }
 }
