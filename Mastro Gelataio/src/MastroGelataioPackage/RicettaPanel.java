@@ -101,6 +101,7 @@ public class RicettaPanel extends JPanel {
         {       
                 pnlSelectIngredienti.CaricaIngredienti();
                 pnlComposizione.CaricaBasi();
+                pnlComposizione.AggiornaIngredienti();
         }
         
         public void TrovaIDNuovaRicetta()
