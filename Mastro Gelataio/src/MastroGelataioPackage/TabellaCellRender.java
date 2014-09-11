@@ -169,6 +169,10 @@ public class TabellaCellRender extends DefaultTableCellRenderer
         		c.setBackground(new java.awt.Color(255, 255, 255));	/* Bianco */
         	}
        	}
+       	else
+       	{
+    		c.setBackground(new java.awt.Color(255, 255, 255));	/* Bianco */
+    	}	
 	}
 	
 	private void ControllaIntervalloOutside(Component c, JTable table, Object value, int row, int column)
@@ -195,7 +199,7 @@ public class TabellaCellRender extends DefaultTableCellRenderer
         	Double dMax;
 	        
         	/**
-        	 * Se la soglia Min non è impostata la setto a 100 così la verifica non sarà mai soddisfatta
+        	 * Se la soglia Min non è impostata la setto a 0 così la verifica non sarà mai soddisfatta
         	 */
         	if(objOutsideMinVals.size() == 0)
         	{
@@ -207,7 +211,7 @@ public class TabellaCellRender extends DefaultTableCellRenderer
         	}
 	        
         	/**
-        	 * Se la soglia Max non è impostata la setto a 0 così la verifica non sarà mai soddisfatta
+        	 * Se la soglia Max non è impostata la setto a 100 così la verifica non sarà mai soddisfatta
         	 */
         	if (objOutsideMaxVals.size() == 0)
         	{
@@ -227,5 +231,9 @@ public class TabellaCellRender extends DefaultTableCellRenderer
         		c.setBackground(new java.awt.Color(255, 255, 255));	/* Bianco */
         	}
        	}
+       	else
+       	{
+    		c.setBackground(new java.awt.Color(255, 255, 255));	/* Bianco */
+    	}	
 	}
 }
