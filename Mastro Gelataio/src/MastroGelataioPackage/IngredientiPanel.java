@@ -408,9 +408,8 @@ public class IngredientiPanel extends JPanel {
                 if (iTipoIngViewed != -1)
                 {
                 	FiltraTabellaIngredienti((long)iTipoIngViewed);
+                	tabellaIngredienti.MostraDati();
                 }
-                
-                tabellaIngredienti.MostraDati();
         }
         
         private void TipoSelected()
@@ -644,13 +643,33 @@ public class IngredientiPanel extends JPanel {
                 data = tabellaIngredienti.GetDataVector();
                 
                 /**
-                 * Verifico che ogni tipo abbia un nome
+                 * Verifico che ogni ingrediente abbia un nome
                  */
                 for (int i=0; i < data.size(); i++)
                 {
                         if ((tabellaIngredienti.getValueAt(i, DBMgr.INGREDIENTI_Nome).toString() == null) || (tabellaIngredienti.getValueAt(i, DBMgr.INGREDIENTI_Nome).toString().trim().equals("")))
                         {
                                 JOptionPane.showMessageDialog(null, "Almeno un ingrediente non ha un nome definito.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                                return false;
+                        }
+                }
+                
+                /**
+                 * Verifico che la somma delle percentuali di ogni ingrediente sia 100%
+                 */
+                double dSomma;
+                
+                for (int i=0; i < data.size(); i++)
+                {
+                		dSomma = Double.parseDouble(tabellaIngredienti.getValueAt(i, DBMgrWrap.INGREDIENTI_Acqua).toString()) +  
+                				Double.parseDouble(tabellaIngredienti.getValueAt(i, DBMgrWrap.INGREDIENTI_Grassi).toString()) + 
+                				Double.parseDouble(tabellaIngredienti.getValueAt(i, DBMgrWrap.INGREDIENTI_Zuccheri).toString()) +
+                				Double.parseDouble(tabellaIngredienti.getValueAt(i, DBMgrWrap.INGREDIENTI_SLNG).toString()) +
+                				Double.parseDouble(tabellaIngredienti.getValueAt(i, DBMgrWrap.INGREDIENTI_AltriSolidi).toString());
+                		
+                		if (dSomma != 100)
+                        {
+                                JOptionPane.showMessageDialog(null, "La somma delle percentuali inserite è diversa da 100% in almeno un ingrediente", "Attenzione", JOptionPane.WARNING_MESSAGE);
                                 return false;
                         }
                 }
