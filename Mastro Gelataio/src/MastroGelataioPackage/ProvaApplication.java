@@ -3,6 +3,7 @@ package MastroGelataioPackage;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -17,6 +18,7 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JOptionPane;
+import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.JButton;
 import javax.swing.UIManager;
@@ -533,8 +535,16 @@ public class ProvaApplication {
          */
         private void btnRicettarioSelected()
         {
+	        	/**
+	        	 *  Se il ricettario Ë gi‡ il pannello correntemente visualizzato esco subito.
+	        	 */
+	        	if (pnlRicettario.isVisible() == true)
+	        	{
+	        		return;
+	        	}
+        	
                 /**
-                 * Se il pannello correntemente aperto √® quello degli ingredienti controllo se sono state
+                 * Se il pannello correntemente aperto Ë quello degli ingredienti controllo se sono state
                  * fatte delle modifiche e chiedo conferma.
                  */
                 if (pnlIngredienti.IsModified() == true)
@@ -547,7 +557,18 @@ public class ProvaApplication {
                 }
                 
                 pnlRicettario.CaricaRicette();
+                        
+                /**
+                 * Setto il colore di background dei pulsanti per indicare quello selezionato
+                 */
+                btnRicettario.setBackground(Color.yellow);
+                btnIngredienti.setBackground(UIManager.getColor("Panel.background"));
+                btnNuovaRicetta.setBackground(UIManager.getColor("Panel.background"));
+                btnImpostazioni.setBackground(UIManager.getColor("Panel.background"));
                 
+                /**
+                 * Setto il pannello visibile
+                 */
                 pnlRicettario.setVisible(true);
                 pnlIngredienti.setVisible(false);
                 pnlNuovaRicetta.setVisible(false);
@@ -560,7 +581,15 @@ public class ProvaApplication {
         private void btnIngredientiSelected()
         {
         	/**
-             * Se il pannello correntemente aperto √® quello del ricettario controllo se sono state
+        	 *  Se gli ingredienti Ë gi‡ il pannello correntemente visualizzato esco subito.
+        	 */
+        	if (pnlIngredienti.isVisible() == true)
+        	{
+        		return;
+        	}
+        	
+        	/**
+             * Se il pannello correntemente aperto Ë quello del ricettario controllo se sono state
              * fatte delle modifiche e chiedo conferma.
              */
             if (pnlRicettario.IsModified() == true)
@@ -571,12 +600,23 @@ public class ProvaApplication {
                             return; 
                     }
             }
-                pnlIngredienti.CaricaIngredienti();
+            pnlIngredienti.CaricaIngredienti();
                 
-                pnlNuovaRicetta.setVisible(false);
-                pnlIngredienti.setVisible(true);
-                pnlRicettario.setVisible(false);
-                pnlImpostazioni.setVisible(false);
+            /**
+             * Setto il colore di background dei pulsanti per indicare quello selezionato
+             */
+            btnRicettario.setBackground(UIManager.getColor("Panel.background"));
+            btnIngredienti.setBackground(Color.yellow);
+            btnNuovaRicetta.setBackground(UIManager.getColor("Panel.background"));
+            btnImpostazioni.setBackground(UIManager.getColor("Panel.background"));
+            
+            /**
+             * Setto il pannello visibile
+             */
+            pnlNuovaRicetta.setVisible(false);
+            pnlIngredienti.setVisible(true);
+            pnlRicettario.setVisible(false);
+            pnlImpostazioni.setVisible(false);
         }
         
         /**
@@ -584,8 +624,16 @@ public class ProvaApplication {
          */
         private void btnNuovaRicettaSelected()
         {
+	        	/**
+	        	 *  Se la Nuova ricetta Ë gi‡ il pannello correntemente visualizzato esco subito.
+	        	 */
+	        	if (pnlNuovaRicetta.isVisible() == true)
+	        	{
+	        		return;
+	        	}
+        	
                 /**
-                 * Se il pannello correntemente aperto √® quello degli ingredienti controllo se sono state
+                 * Se il pannello correntemente aperto Ë quello degli ingredienti controllo se sono state
                  * fatte delle modifiche e chiedo conferma.
                  */
                 if (pnlIngredienti.IsModified() == true)
@@ -598,7 +646,7 @@ public class ProvaApplication {
                 }
                 
                 /**
-                 * Se il pannello correntemente aperto √® quello del ricettario controllo se sono state
+                 * Se il pannello correntemente aperto Ë quello del ricettario controllo se sono state
                  * fatte delle modifiche e chiedo conferma.
                  */
                 if (pnlRicettario.IsModified() == true)
@@ -612,6 +660,17 @@ public class ProvaApplication {
                 
                 pnlNuovaRicetta.CaricaPannello();
                 
+                /**
+                 * Setto il colore di background dei pulsanti per indicare quello selezionato
+                 */
+                btnRicettario.setBackground(UIManager.getColor("Panel.background"));
+                btnIngredienti.setBackground(UIManager.getColor("Panel.background"));
+                btnNuovaRicetta.setBackground(Color.yellow);
+                btnImpostazioni.setBackground(UIManager.getColor("Panel.background"));
+                
+                /**
+                 * Setto il pannello visibile
+                 */
                 pnlRicettario.setVisible(false);
                 pnlIngredienti.setVisible(false);
                 pnlNuovaRicetta.setVisible(true);
@@ -622,9 +681,17 @@ public class ProvaApplication {
          * Funzione associata al Listener del bottone Impostazioni della JToolBar
          */
         private void btnImpostazioniSelected()
-        {               
+        {         
+	        	/**
+	        	 *  Se Impostazioni Ë gi‡ il pannello correntemente visualizzato esco subito.
+	        	 */
+	        	if (pnlImpostazioni.isVisible() == true)
+	        	{
+	        		return;
+	        	}
+	        	
                 /**
-                 * Se il pannello correntemente aperto √® quello degli ingredienti controllo se sono state
+                 * Se il pannello correntemente aperto Ë quello degli ingredienti controllo se sono state
                  * fatte delle modifiche e chiedo conferma.
                  */
                 if (pnlIngredienti.IsModified() == true)
@@ -637,7 +704,7 @@ public class ProvaApplication {
                 }
                 
                 /**
-                 * Se il pannello correntemente aperto √® quello del ricettario controllo se sono state
+                 * Se il pannello correntemente aperto Ë quello del ricettario controllo se sono state
                  * fatte delle modifiche e chiedo conferma.
                  */
                 if (pnlRicettario.IsModified() == true)
@@ -649,6 +716,17 @@ public class ProvaApplication {
                         }
                 }
                 
+                /**
+                 * Setto il colore di background dei pulsanti per indicare quello selezionato
+                 */
+                btnRicettario.setBackground(UIManager.getColor("Panel.background"));
+                btnIngredienti.setBackground(UIManager.getColor("Panel.background"));
+                btnNuovaRicetta.setBackground(UIManager.getColor("Panel.background"));
+                btnImpostazioni.setBackground(Color.yellow);
+                
+                /**
+                 * Setto il pannello visibile
+                 */
                 pnlRicettario.setVisible(false);
                 pnlIngredienti.setVisible(false);
                 pnlNuovaRicetta.setVisible(false);
@@ -665,7 +743,7 @@ public class ProvaApplication {
         	Vector<String> sColumns = new Vector<String>();
     		sColumns.add("ID");
     		sColumns.add("ID_Ing");
-    		sColumns.add("Quantit√†");
+    		sColumns.add("Quantit‡");
     		
         	pnlNuovaRicetta.ApriRicetta(evt.getSourceVector(), sColumns);
         	
