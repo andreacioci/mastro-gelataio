@@ -112,7 +112,7 @@ public class RicettaPanel extends JPanel {
         public void ApriRicetta(Vector<Vector<Object>> data_ing, Vector<String> sColumns)
         {
                 /**
-                 * Se il dato in ingresso √® null o vuoto allora svuoto la tabella
+                 * Se il dato in ingresso Ë null o vuoto allora svuoto la tabella
                  */
                 if (data_ing == null)
                 {
@@ -139,7 +139,7 @@ public class RicettaPanel extends JPanel {
                 pnlComposizione.setNote(RicavaNote(Long.parseLong(data_ing.get(0).get(sColumns.indexOf("ID")).toString())));
                 
                 /**
-                 * Carico gli ingredienti e le quantit√† in tabella di Composizione
+                 * Carico gli ingredienti e le quantit‡ in tabella di Composizione
                  */
                 pnlComposizione.SvuotaTabelle();
                 for (int i=0; i < data_ing.size(); i++)
@@ -148,7 +148,7 @@ public class RicettaPanel extends JPanel {
                         Double dQuant;
                         
                         iID = Long.parseLong(data_ing.get(i).get(sColumns.indexOf("ID_Ing")).toString());
-                        dQuant = Double.parseDouble(data_ing.get(i).get(sColumns.indexOf("Quantit√†")).toString());
+                        dQuant = Double.parseDouble(data_ing.get(i).get(sColumns.indexOf("Quantit‡")).toString());
                         
                         pnlComposizione.AggiungiIngrediente(iID, dQuant);       
                 }
