@@ -747,6 +747,17 @@ public class ProvaApplication {
     		
         	pnlNuovaRicetta.ApriRicetta(evt.getSourceVector(), sColumns);
         	
+        	/**
+             * Setto il colore di background dei pulsanti per indicare quello selezionato
+             */
+            btnRicettario.setBackground(UIManager.getColor("Panel.background"));
+            btnIngredienti.setBackground(UIManager.getColor("Panel.background"));
+            btnNuovaRicetta.setBackground(Color.yellow);
+            btnImpostazioni.setBackground(UIManager.getColor("Panel.background"));
+            
+        	/**
+             * Setto il pannello visibile
+             */
         	pnlRicettario.setVisible(false);
             pnlIngredienti.setVisible(false);
             pnlNuovaRicetta.setVisible(true);
