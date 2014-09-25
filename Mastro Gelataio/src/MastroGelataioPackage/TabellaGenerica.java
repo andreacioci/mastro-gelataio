@@ -115,6 +115,12 @@ public class TabellaGenerica implements TableModelListener {
                         
                         tabellaRenderer.setColumnName(sColumn);
                 }
+                else
+                {
+                		sColumnName = sColumn;
+                    
+                		tabellaRenderer.setColumnName(sColumn);
+                }
         }
         
         public Vector<String> getColumnName()
@@ -246,7 +252,7 @@ public class TabellaGenerica implements TableModelListener {
         }
         
         /**
-         * Ricava l'Integer più alto nella colonna sColumn
+         * Ricava l'Integer piu' alto nella colonna sColumn
          * @param sColumn - nome colonna
          * @return - valore max
          */
