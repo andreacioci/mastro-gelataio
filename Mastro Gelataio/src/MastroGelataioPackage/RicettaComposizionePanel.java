@@ -4,11 +4,13 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -114,7 +116,7 @@ public class RicettaComposizionePanel extends JPanel {
                 add(txtNomeRicetta);
                 
                 /**
-                 * Creo il bottone per il ricalcolo delle quantit√†
+                 * Creo il bottone per il ricalcolo delle quantita'†
                  */
                 btnRicalcola = new JButton("Ricalcola per gr.");
                 btnRicalcola.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
@@ -127,7 +129,7 @@ public class RicettaComposizionePanel extends JPanel {
                 });
                 
                 /**
-                 * Creo la JTextField per il ricalcolo delle quantit√†
+                 * Creo la JTextField per il ricalcolo delle quantita'†
                  */
                 txtRicalcola = new JTextField();
                 txtRicalcola.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
@@ -274,7 +276,7 @@ public class RicettaComposizionePanel extends JPanel {
                 tblTot_Width = tblCom_Width;
                 tblTot_Height = 50; 
                                 
-                txtRic_Width = 40;
+                txtRic_Width = 50;
                 txtRic_Height = 23;
                                 
                 btnRic_Y = 20;
@@ -710,7 +712,7 @@ public class RicettaComposizionePanel extends JPanel {
                 /**
                  * Calcolo il nuovo totale e le nuove percentuali
                  */
-                Double dQuantTot, dPercAcqua, dPercZucchero, dPercGrassi, dPercSLNG, dPercAltriSolidi, dPercPOD, dPercPAC;
+                double dQuantTot, dPercAcqua, dPercZucchero, dPercGrassi, dPercSLNG, dPercAltriSolidi, dPercPOD, dPercPAC;
                 
                 dQuantTot = Arrotonda(tabellaComposizione.getSum("Quantita"));
                 dPercAcqua = Arrotonda(tabellaComposizione.getSum("Acqua") / dQuantTot * 100);
@@ -743,7 +745,7 @@ public class RicettaComposizionePanel extends JPanel {
                 /**
                  * Aggiorno il totale nella JTextField per il ricalcolo
                  */
-                txtRicalcola.setText(dQuantTot.toString());
+                txtRicalcola.setText(String.valueOf((int)dQuantTot));
         }
         
         private Double Arrotonda(Double dInput)
@@ -760,11 +762,19 @@ public class RicettaComposizionePanel extends JPanel {
                 String sNewTot = txtRicalcola.getText();
                 
                 /**
-                 * Se la JTextField √® vuota esco subito
+                 * Se la JTextField e' vuota esco subito
                  */
                 if (sNewTot.isEmpty() == true)
                 {
                         return;
+                }
+                
+                /**
+                 * Se non ci sono ingredienti da ricalcolare esco subito
+                 */
+                if (tabellaComposizione.getHeight() == 0)
+                {
+                    return;
                 }
                 
                 Double dOldTot;
@@ -775,12 +785,12 @@ public class RicettaComposizionePanel extends JPanel {
                 dNewTot = Double.parseDouble(sNewTot);
                 
                 /**
-                 * Ciclo nella tabella di Composizione per cambiare le quantit√†
+                 * Ciclo nella tabella di Composizione per cambiare le quantita'†
                  */
                 for (int i=0; i < tabellaComposizione.getRowCount(); i++)
                 {
                         /**
-                         * Modifico la Quantit√†
+                         * Modifico la Quantita'†
                          */
                         dQuant = Double.parseDouble(tabellaComposizione.getValueAt(i, tabellaComposizione.getColumnIndex("Quantita")).toString());
                         tabellaComposizione.setDataAt(Arrotonda(dQuant * dNewTot / dOldTot), i, tabellaComposizione.getColumnIndex("Quantita"));
