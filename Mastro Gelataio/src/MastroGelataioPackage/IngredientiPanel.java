@@ -326,7 +326,7 @@ public class IngredientiPanel extends JPanel {
                 tabellaTipiIng.CaricaDati("Tipi_Ingredienti", null, DBMgr);
                 
                 /**
-                 * Ricavo l'ID piÃ¹ grande per determinare iNextIDTipo dei Tipi
+                 * Ricavo l'ID piu' grande per determinare iNextIDTipo dei Tipi
                  */
                 iNextIDTipo = tabellaTipiIng.getMaxInt("ID") + 1; 
                 
@@ -346,7 +346,7 @@ public class IngredientiPanel extends JPanel {
                 tabellaTipiIng.setRegexFilter(new String[] {"^(?!Y)"}, new String[] {"Deleted"});
                 
                 /**
-                 * Marco che ciÃ² che Ã¨ stato modificato Ã¨ salvato
+                 * Marco che cio' che e' stato modificato e' salvato
                  */
                 bModificato = false;
                 
@@ -363,18 +363,28 @@ public class IngredientiPanel extends JPanel {
         }
         
         public void CaricaDettagliIng()
-        {
-                /**
-                 * Ricavo l'header della tabella Ingredienti
-                 */
-                Vector<String> sColumnName = new Vector<String>();
-                sColumnName = DBMgr.RicavaNomiColonne("Ingredienti");
-                tabellaIngredienti.setColumnName(sColumnName);
-                
+        {       
                 /**
                  * Estraggo tutti gli Ingredienti dal DB
                  */
                 tabellaIngredienti.CaricaDati("Ingredienti", null, DBMgr);
+                
+                /**
+                 * Sovrascrivo il nome delle colonne per aggiungere il simbolo (%)
+                 */
+                Vector<String> sColumnName = new Vector<String>();
+                sColumnName.add("ID");
+                sColumnName.add("Nome");
+                sColumnName.add("Acqua (%)");
+                sColumnName.add("Zuccheri (%)");
+                sColumnName.add("Grassi (%)");
+                sColumnName.add("SLNG (%)");
+                sColumnName.add("AltriSolidi (%)");
+                sColumnName.add("Deleted");
+                sColumnName.add("TipoIngID");
+                sColumnName.add("POD");
+                sColumnName.add("PAC");
+                tabellaIngredienti.setColumnName(sColumnName);
                 
                 /**
                  * Ricavo l'ID pi� grande per determinare iNextIDIng degli Ingredienti
@@ -396,7 +406,7 @@ public class IngredientiPanel extends JPanel {
                 /**
                  * Imposto la larghezza delle colonne
                  */
-                String[] sWidthColumns = new String[] {"Acqua", "Zuccheri", "Grassi", "SLNG", "AltriSolidi"};
+                String[] sWidthColumns = new String[] {"Acqua (%)", "Zuccheri (%)", "Grassi (%)", "SLNG (%)", "AltriSolidi (%)"};
                 Integer[] iWidthCols = new Integer[] {20, 20, 20, 20, 20};
                 tabellaIngredienti.setColumnWidth(sWidthColumns, iWidthCols);
                 

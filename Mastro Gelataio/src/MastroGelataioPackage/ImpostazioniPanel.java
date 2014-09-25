@@ -257,6 +257,16 @@ public class ImpostazioniPanel extends JPanel {
                 {
                         tabellaSoglie.CaricaDati("Soglie", " WHERE ID=" + objTipiBasi.get(iBase).get(0), DBMgr);
                         txtNomeBase.setText(objTipiBasi.get(iBase).get(1).toString());
+                        
+                        /**
+                         * Cambio il nome della colonne per inserire il simbolo (%)
+                         */
+                        Vector<String> sColumns = new Vector<String>();
+                        sColumns.add("ID");
+                        sColumns.add("Composizione");
+                        sColumns.add("Min (%)");
+                        sColumns.add("Max (%)");
+                        tabellaSoglie.setColumnName(sColumns);
                 }
                 else
                 {
@@ -273,7 +283,7 @@ public class ImpostazioniPanel extends JPanel {
                 /**
                  * Imposto quali colonne possono essere editate
                  */
-                String[] sEditableColumns = new String[] {"Min", "Max"};
+                String[] sEditableColumns = new String[] {"Min (%)", "Max (%)"};
                 tabellaSoglie.setEditableColumns(sEditableColumns);
                 
                 /**
@@ -295,11 +305,11 @@ public class ImpostazioniPanel extends JPanel {
                  * Creo le colonne della tabella
                  */
                 Vector<String> sColumns = new Vector<String>();
-                
+         
                 sColumns.add("ID");
                 sColumns.add("Composizione");
-                sColumns.add("Min");
-                sColumns.add("Max");
+                sColumns.add("Min (%)");
+                sColumns.add("Max (%)");
                 
                 /**
                  * Creo i dati della tabella

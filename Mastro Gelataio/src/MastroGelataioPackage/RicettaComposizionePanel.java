@@ -347,12 +347,12 @@ public class RicettaComposizionePanel extends JPanel {
                 
                 sColumnNameComp.add("ID");
                 sColumnNameComp.add("Nome");
-                sColumnNameComp.add("Quantita");
-                sColumnNameComp.add("Acqua");
-                sColumnNameComp.add("Zuccheri");
-                sColumnNameComp.add("Grassi");
-                sColumnNameComp.add("SLNG");
-                sColumnNameComp.add("AltriSolidi");
+                sColumnNameComp.add("Quantita (g)");
+                sColumnNameComp.add("Acqua (g)");
+                sColumnNameComp.add("Zuccheri (g)");
+                sColumnNameComp.add("Grassi (g)");
+                sColumnNameComp.add("SLNG (g)");
+                sColumnNameComp.add("AltriSolidi (g)");
                 sColumnNameComp.add("Deleted");
                 sColumnNameComp.add("POD");
                 sColumnNameComp.add("PAC");
@@ -360,7 +360,7 @@ public class RicettaComposizionePanel extends JPanel {
                 tabellaComposizione.setColumnName(sColumnNameComp);
                 
                 tabellaComposizione.setInvisibleColumn(new String[] {"ID", "Deleted"});
-                tabellaComposizione.setEditableColumns(new String[] {"Quantita"});
+                tabellaComposizione.setEditableColumns(new String[] {"Quantita (g)"});
                 tabellaComposizione.setRegexFilter(null, null);
 
                 Vector<String> sColorCols = new Vector<String>();
@@ -377,12 +377,12 @@ public class RicettaComposizionePanel extends JPanel {
                 sColumnNameTot = new Vector<String>();  
                 
                 sColumnNameTot.add("Nome");
-                sColumnNameTot.add("Quantita");
-                sColumnNameTot.add("Acqua");
-                sColumnNameTot.add("Zuccheri");
-                sColumnNameTot.add("Grassi");
-                sColumnNameTot.add("SLNG");
-                sColumnNameTot.add("AltriSolidi");
+                sColumnNameTot.add("Quantita (g)");
+                sColumnNameTot.add("Acqua (%)");
+                sColumnNameTot.add("Zuccheri (%)");
+                sColumnNameTot.add("Grassi (%)");
+                sColumnNameTot.add("SLNG (%)");
+                sColumnNameTot.add("AltriSolidi (%)");
                 sColumnNameTot.add("POD");
                 sColumnNameTot.add("PAC");
                 
@@ -394,8 +394,8 @@ public class RicettaComposizionePanel extends JPanel {
                 sColumnNameSoglie = new Vector<String>();  
                 sColumnNameSoglie.add("ID");
                 sColumnNameSoglie.add("Composizione");
-                sColumnNameSoglie.add("Min");
-                sColumnNameSoglie.add("Max");
+                sColumnNameSoglie.add("Min (%)");
+                sColumnNameSoglie.add("Max (%)");
                 
                 tabellaSoglie.setColumnName(sColumnNameSoglie);
         }
@@ -448,6 +448,16 @@ public class RicettaComposizionePanel extends JPanel {
                 }
                 
                 /**
+                 * Cambio il nome delle colonne per aggiungere il simbolo (%)
+                 */
+                Vector<String> sColumns = new Vector<String>();
+        		sColumns.add("ID");
+        		sColumns.add("Composizione");
+        		sColumns.add("Min (%)");
+        		sColumns.add("Max (%)");
+        		tabellaSoglie.setColumnName(sColumns);
+                
+                /**
                  * Imposto quali colonne non devono essere visualizzate
                  */
                 String[] sInvisibleColumns = new String[] {"ID"};
@@ -487,25 +497,25 @@ public class RicettaComposizionePanel extends JPanel {
                  * Verifico la composizione della ricetta contro le nuove soglie
                  */
                 Vector<String> sCols = new Vector<String>();
-                sCols.add("Acqua");
-                sCols.add("Zuccheri");
-                sCols.add("Grassi");
-                sCols.add("SLNG");
-                sCols.add("AltriSolidi");
+                sCols.add("Acqua (%)");
+                sCols.add("Zuccheri (%)");
+                sCols.add("Grassi (%)");
+                sCols.add("SLNG (%)");
+                sCols.add("AltriSolidi (%)");
                 
                 Vector<Object> dMinValues = new Vector<Object>();
-                dMinValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Acqua"), "Composizione"), tabellaSoglie.getColumnIndex("Min")));
-                dMinValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Zuccheri"), "Composizione"), tabellaSoglie.getColumnIndex("Min")));
-                dMinValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Grassi"), "Composizione"), tabellaSoglie.getColumnIndex("Min")));
-                dMinValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "SLNG"), "Composizione"), tabellaSoglie.getColumnIndex("Min")));
-                dMinValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Altri Solidi"), "Composizione"), tabellaSoglie.getColumnIndex("Min")));
+                dMinValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Acqua"), "Composizione"), tabellaSoglie.getColumnIndex("Min (%)")));
+                dMinValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Zuccheri"), "Composizione"), tabellaSoglie.getColumnIndex("Min (%)")));
+                dMinValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Grassi"), "Composizione"), tabellaSoglie.getColumnIndex("Min (%)")));
+                dMinValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "SLNG"), "Composizione"), tabellaSoglie.getColumnIndex("Min (%)")));
+                dMinValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Altri Solidi"), "Composizione"), tabellaSoglie.getColumnIndex("Min (%)")));
                 
                 Vector<Object> dMaxValues = new Vector<Object>();
-                dMaxValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Acqua"), "Composizione"), tabellaSoglie.getColumnIndex("Max")));
-                dMaxValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Zuccheri"), "Composizione"), tabellaSoglie.getColumnIndex("Max")));
-                dMaxValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Grassi"), "Composizione"), tabellaSoglie.getColumnIndex("Max")));
-                dMaxValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "SLNG"), "Composizione"), tabellaSoglie.getColumnIndex("Max")));
-                dMaxValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Altri Solidi"), "Composizione"), tabellaSoglie.getColumnIndex("Max")));
+                dMaxValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Acqua"), "Composizione"), tabellaSoglie.getColumnIndex("Max (%)")));
+                dMaxValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Zuccheri"), "Composizione"), tabellaSoglie.getColumnIndex("Max (%)")));
+                dMaxValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Grassi"), "Composizione"), tabellaSoglie.getColumnIndex("Max (%)")));
+                dMaxValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "SLNG"), "Composizione"), tabellaSoglie.getColumnIndex("Max (%)")));
+                dMaxValues.add(tabellaSoglie.getValueAt(tabellaSoglie.getDataRowFromTableRow(tabellaSoglie.getRow("Composizione", "Altri Solidi"), "Composizione"), tabellaSoglie.getColumnIndex("Max (%)")));
                 
                 tabellaTotali.setColorOutsideConditions(sCols, dMinValues, dMaxValues);
                 tabellaTotali.MostraDati();
@@ -547,12 +557,12 @@ public class RicettaComposizionePanel extends JPanel {
                         {
                                 dataRow.add(sColumnNameComp.indexOf("ID"), data_tmp.get(i).get(0));
                                 dataRow.add(sColumnNameComp.indexOf("Nome"), data_tmp.get(i).get(1));
-                                dataRow.add(sColumnNameComp.indexOf("Quantita"), dQuant);
-                                dataRow.add(sColumnNameComp.indexOf("Acqua"), 0);
-                                dataRow.add(sColumnNameComp.indexOf("Zuccheri"), 0);
-                                dataRow.add(sColumnNameComp.indexOf("Grassi"), 0);
-                                dataRow.add(sColumnNameComp.indexOf("SLNG"), 0);
-                                dataRow.add(sColumnNameComp.indexOf("AltriSolidi"), 0);
+                                dataRow.add(sColumnNameComp.indexOf("Quantita (g)"), dQuant);
+                                dataRow.add(sColumnNameComp.indexOf("Acqua (g)"), 0);
+                                dataRow.add(sColumnNameComp.indexOf("Zuccheri (g)"), 0);
+                                dataRow.add(sColumnNameComp.indexOf("Grassi (g)"), 0);
+                                dataRow.add(sColumnNameComp.indexOf("SLNG (g)"), 0);
+                                dataRow.add(sColumnNameComp.indexOf("AltriSolidi (g)"), 0);
                                 dataRow.add(sColumnNameComp.indexOf("Deleted"), data_tmp.get(i).get(7));
                                 dataRow.add(sColumnNameComp.indexOf("POD"), 0);
                                 dataRow.add(sColumnNameComp.indexOf("PAC"), 0);
@@ -639,7 +649,7 @@ public class RicettaComposizionePanel extends JPanel {
         	 */
         	for (int i=0; i<data.size(); i++)
             {
-        		AggiungiIngrediente(Long.parseLong(data.get(i).get(tabellaComposizione.getColumnIndex("ID")).toString()), Double.parseDouble(data.get(i).get(tabellaComposizione.getColumnIndex("Quantita")).toString()));
+        		AggiungiIngrediente(Long.parseLong(data.get(i).get(tabellaComposizione.getColumnIndex("ID")).toString()), Double.parseDouble(data.get(i).get(tabellaComposizione.getColumnIndex("Quantita (g)")).toString()));
             }
         }
         
@@ -658,14 +668,14 @@ public class RicettaComposizionePanel extends JPanel {
                 for (i=0; i < tabellaComposizione.getRowCount(); i++)
                 {
                         Integer iColumn;
-                        iColumn = Integer.parseInt(tabellaComposizione.getColumnIndex("Quantita").toString());
+                        iColumn = Integer.parseInt(tabellaComposizione.getColumnIndex("Quantita (g)").toString());
 
                         /**
                          * Controllo se la Quantit√† √® impostata
                          */
                         if (tabellaComposizione.getValueAt(i, iColumn) != null)
                         {
-                                dQuant = Double.parseDouble(tabellaComposizione.getValueAt(i, tabellaComposizione.getColumnIndex("Quantita")).toString());
+                                dQuant = Double.parseDouble(tabellaComposizione.getValueAt(i, tabellaComposizione.getColumnIndex("Quantita (g)")).toString());
                                 
                                 /**
                                  * Cerco lo stesso ingrediente in data_ing tramite l'ID
@@ -695,11 +705,11 @@ public class RicettaComposizionePanel extends JPanel {
                 Double newPOD = Arrotonda(newZucchero * data_ing.get(iIngRow).getPOD() / 100);
                 Double newPAC = Arrotonda(newZucchero * data_ing.get(iIngRow).getPAC() / 100);
                 
-                tabellaComposizione.setDataAt(newAcqua, iTblRow, tabellaComposizione.getColumnIndex("Acqua"));
-                tabellaComposizione.setDataAt(newZucchero, iTblRow, tabellaComposizione.getColumnIndex("Zuccheri"));
-                tabellaComposizione.setDataAt(newGrassi, iTblRow, tabellaComposizione.getColumnIndex("Grassi"));
-                tabellaComposizione.setDataAt(newSLNG, iTblRow, tabellaComposizione.getColumnIndex("SLNG"));
-                tabellaComposizione.setDataAt(newAltriSolidi, iTblRow, tabellaComposizione.getColumnIndex("AltriSolidi"));
+                tabellaComposizione.setDataAt(newAcqua, iTblRow, tabellaComposizione.getColumnIndex("Acqua (g)"));
+                tabellaComposizione.setDataAt(newZucchero, iTblRow, tabellaComposizione.getColumnIndex("Zuccheri (g)"));
+                tabellaComposizione.setDataAt(newGrassi, iTblRow, tabellaComposizione.getColumnIndex("Grassi (g)"));
+                tabellaComposizione.setDataAt(newSLNG, iTblRow, tabellaComposizione.getColumnIndex("SLNG (g)"));
+                tabellaComposizione.setDataAt(newAltriSolidi, iTblRow, tabellaComposizione.getColumnIndex("AltriSolidi (g)"));
                 tabellaComposizione.setDataAt(newPOD, iTblRow, tabellaComposizione.getColumnIndex("POD"));
                 tabellaComposizione.setDataAt(newPAC, iTblRow, tabellaComposizione.getColumnIndex("PAC"));
         }
@@ -714,12 +724,12 @@ public class RicettaComposizionePanel extends JPanel {
                  */
                 double dQuantTot, dPercAcqua, dPercZucchero, dPercGrassi, dPercSLNG, dPercAltriSolidi, dPercPOD, dPercPAC;
                 
-                dQuantTot = Arrotonda(tabellaComposizione.getSum("Quantita"));
-                dPercAcqua = Arrotonda(tabellaComposizione.getSum("Acqua") / dQuantTot * 100);
-                dPercZucchero = Arrotonda(tabellaComposizione.getSum("Zuccheri") / dQuantTot * 100);
-                dPercGrassi = Arrotonda(tabellaComposizione.getSum("Grassi") / dQuantTot * 100);
-                dPercSLNG = Arrotonda(tabellaComposizione.getSum("SLNG") / dQuantTot * 100);
-                dPercAltriSolidi = Arrotonda(tabellaComposizione.getSum("AltriSolidi") / dQuantTot * 100);
+                dQuantTot = Arrotonda(tabellaComposizione.getSum("Quantita (g)"));
+                dPercAcqua = Arrotonda(tabellaComposizione.getSum("Acqua (g)") / dQuantTot * 100);
+                dPercZucchero = Arrotonda(tabellaComposizione.getSum("Zuccheri (g)") / dQuantTot * 100);
+                dPercGrassi = Arrotonda(tabellaComposizione.getSum("Grassi (g)") / dQuantTot * 100);
+                dPercSLNG = Arrotonda(tabellaComposizione.getSum("SLNG (g)") / dQuantTot * 100);
+                dPercAltriSolidi = Arrotonda(tabellaComposizione.getSum("AltriSolidi (g)") / dQuantTot * 100);
                 dPercPOD = Arrotonda(tabellaComposizione.getSum("POD") / dQuantTot * 100);
                 dPercPAC = Arrotonda(tabellaComposizione.getSum("PAC") / dQuantTot * 100);
                 
@@ -730,12 +740,12 @@ public class RicettaComposizionePanel extends JPanel {
                 Vector<Object> dataTotRow = new Vector<Object>();
                 
                 dataTotRow.add(tabellaTotali.getColumnIndex("Nome"), "Totali");
-                dataTotRow.add(tabellaTotali.getColumnIndex("Quantita"), dQuantTot);
-                dataTotRow.add(tabellaTotali.getColumnIndex("Acqua"), dPercAcqua);
-                dataTotRow.add(tabellaTotali.getColumnIndex("Zuccheri"), dPercZucchero);
-                dataTotRow.add(tabellaTotali.getColumnIndex("Grassi"), dPercGrassi);
-                dataTotRow.add(tabellaTotali.getColumnIndex("SLNG"), dPercSLNG);
-                dataTotRow.add(tabellaTotali.getColumnIndex("AltriSolidi"), dPercAltriSolidi);
+                dataTotRow.add(tabellaTotali.getColumnIndex("Quantita (g)"), dQuantTot);
+                dataTotRow.add(tabellaTotali.getColumnIndex("Acqua (%)"), dPercAcqua);
+                dataTotRow.add(tabellaTotali.getColumnIndex("Zuccheri (%)"), dPercZucchero);
+                dataTotRow.add(tabellaTotali.getColumnIndex("Grassi (%)"), dPercGrassi);
+                dataTotRow.add(tabellaTotali.getColumnIndex("SLNG (%)"), dPercSLNG);
+                dataTotRow.add(tabellaTotali.getColumnIndex("AltriSolidi (%)"), dPercAltriSolidi);
                 dataTotRow.add(tabellaTotali.getColumnIndex("POD"), dPercPOD);
                 dataTotRow.add(tabellaTotali.getColumnIndex("PAC"), dPercPAC);
                 
@@ -781,7 +791,7 @@ public class RicettaComposizionePanel extends JPanel {
                 Double dNewTot;
                 Double dQuant;
                 
-                dOldTot = Double.parseDouble(tabellaTotali.getValueAt(0, tabellaTotali.getColumnIndex("Quantita")).toString());
+                dOldTot = Double.parseDouble(tabellaTotali.getValueAt(0, tabellaTotali.getColumnIndex("Quantita (g)")).toString());
                 dNewTot = Double.parseDouble(sNewTot);
                 
                 /**
@@ -792,8 +802,8 @@ public class RicettaComposizionePanel extends JPanel {
                         /**
                          * Modifico la Quantita'†
                          */
-                        dQuant = Double.parseDouble(tabellaComposizione.getValueAt(i, tabellaComposizione.getColumnIndex("Quantita")).toString());
-                        tabellaComposizione.setDataAt(Arrotonda(dQuant * dNewTot / dOldTot), i, tabellaComposizione.getColumnIndex("Quantita"));
+                        dQuant = Double.parseDouble(tabellaComposizione.getValueAt(i, tabellaComposizione.getColumnIndex("Quantita (g)")).toString());
+                        tabellaComposizione.setDataAt(Arrotonda(dQuant * dNewTot / dOldTot), i, tabellaComposizione.getColumnIndex("Quantita (g)"));
                 }
                 
                 /**
@@ -839,7 +849,7 @@ public class RicettaComposizionePanel extends JPanel {
                  */
                 Vector<String> sColumns = new Vector<String>();
                 sColumns.add("ID");
-                sColumns.add("Quantita");
+                sColumns.add("Quantita (g)");
 
                 Vector<Vector<Object>> data = new Vector<Vector<Object>>();
                 data = tabellaComposizione.GetDataVector(sColumns, null, null);
@@ -990,7 +1000,7 @@ public class RicettaComposizionePanel extends JPanel {
         }
         
         /**
-         * Setto la colonna Quantit√† come editabile o no. Questo viene utilizzato per 
+         * Setto la colonna Quantita'† come editabile o no. Questo viene utilizzato per 
          * consultare o modificare una ricetta.
          * @param bEditable - true = editabile, false = altrimenti
          */
@@ -998,7 +1008,7 @@ public class RicettaComposizionePanel extends JPanel {
         {
         	if (bEditable == true)
         	{
-        		tabellaComposizione.setEditableColumns(new String[] {"Quantita"});
+        		tabellaComposizione.setEditableColumns(new String[] {"Quantita (g)"});
         		tabellaComposizione.MostraDati();
         		btnSalva.setVisible(true);
         	}
