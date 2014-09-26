@@ -229,6 +229,16 @@ public class Ricettario extends JPanel {
 		return pnlSelectRicetta.IsModified();
 	}
 	
+	/**
+	 * Viene chiamata per settare se sono state fatte modifiche al ricettario
+	 * (tipo eliminare una ricetta) senza aver salvato.
+	 * @return - true = modifica fatta ma non salvata, false = altrimenti
+	 */
+	public void SetModified(boolean bInput)
+	{
+		pnlSelectRicetta.SetModified(bInput);
+	}
+	
 	private void fireMyEvent(MioEvento evt) 
 	{
 		Object[] listeners = listenerList.getListenerList();
