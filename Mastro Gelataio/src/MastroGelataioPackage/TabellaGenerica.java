@@ -508,7 +508,7 @@ public class TabellaGenerica implements TableModelListener {
                 if (TblModel.getColumnCount() == 0)
                 {
                         TblModel.setColumnIdentifiers(sColumnName);     
-                        table.getTableHeader().setFont(new Font("Comic Sans MS" , Font.PLAIN, 13 ));
+                        table.getTableHeader().setFont(new Font("Comic Sans MS" , Font.PLAIN, 12 ));
                         TableCellRenderer renderer = table.getTableHeader().getDefaultRenderer();
                         JLabel label = (JLabel)renderer;
                         label.setHorizontalAlignment(JLabel.CENTER);
