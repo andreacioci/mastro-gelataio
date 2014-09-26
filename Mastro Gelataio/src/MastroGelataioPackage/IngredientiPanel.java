@@ -290,9 +290,21 @@ public class IngredientiPanel extends JPanel {
                 btnSalva.setBounds(btnSave_X, btnSave_Y, btnSave_W, btnSave_H);
         }
         
+        /**
+         * Leggo la variabile che tiene conto se sono state fatte delle modifiche ai tipi o agli ingredienti
+         * @return boolean
+         */
         public boolean IsModified()
         {
                 return bModificato;
+        }
+        
+        /**
+         * Setto la variabile che tiene conto se sono state fatte delle modifiche ai tipi o agli ingredienti
+         */
+        public void SetModified(boolean bInput)
+        {
+                bModificato = bInput;
         }
         
         /**
@@ -455,10 +467,10 @@ public class IngredientiPanel extends JPanel {
                 /**
                  * Seleziono la nuova riga
                  */
-                tabellaTipiIng.setSelectedCell("Quantità", "ID", iNextIDTipo - 1, true);
+                tabellaTipiIng.setSelectedCell("Nome", "ID", iNextIDTipo - 1, true);
                 
                 /**
-                 * Svuoto la tabella Ingredienti perchÃ¨ il tipo selezionato Ã¨ quello nuovo
+                 * Svuoto la tabella Ingredienti perche' il tipo selezionato e' quello nuovo
                  */
                 FiltraTabellaIngredienti(Long.parseLong(tabellaTipiIng.getSelectedValue("ID").toString()));
                 tabellaIngredienti.MostraDati();
@@ -508,7 +520,7 @@ public class IngredientiPanel extends JPanel {
                         tabellaIngredienti.MostraDati();
                         
                         /**
-                         * Marco che ciò che è stato modificato non è stato salvato
+                         * Marco che ciò che e' stato modificato non e' stato salvato
                          */
                         bModificato = true;
                         
@@ -552,6 +564,11 @@ public class IngredientiPanel extends JPanel {
                  * Marco che ciò che è stato modificato non è stato salvato
                  */
                 bModificato = true;
+                
+                /**
+                 * Seleziono la nuova riga
+                 */
+                tabellaIngredienti.setSelectedCell("Nome", "ID", iNextIDIng - 1, true);
         }
         
         /**
@@ -600,6 +617,7 @@ public class IngredientiPanel extends JPanel {
                  */
                 if (SalvaTipo() == false)
                 {
+                	JOptionPane.showMessageDialog(null, "Si sono verificati problemi nel salvataggio delle classi di ingredienti!", "", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 
@@ -608,8 +626,14 @@ public class IngredientiPanel extends JPanel {
                  */
                 if (SalvaIng() == false)
                 {
+                	JOptionPane.showMessageDialog(null, "Si sono verificati problemi nel salvataggio degli ingredienti!", "", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
+                
+                /**
+                 * Notifico che gli ingredienti sono stati salvati.
+                 */
+                JOptionPane.showMessageDialog(null, "Ricetta salvata!", "", JOptionPane.INFORMATION_MESSAGE);
         }
         
         private boolean SalvaTipo()
