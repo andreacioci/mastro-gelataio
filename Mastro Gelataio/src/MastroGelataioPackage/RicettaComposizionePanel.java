@@ -112,7 +112,7 @@ public class RicettaComposizionePanel extends JPanel {
                  */
                 txtNomeRicetta = new JTextField();
                 txtNomeRicetta.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
-                txtNomeRicetta.setDocument(new FixedSizeDocument(50));
+                txtNomeRicetta.setDocument(new FixedSizeDocument(35));
                 add(txtNomeRicetta);
                 
                 /**
@@ -133,6 +133,7 @@ public class RicettaComposizionePanel extends JPanel {
                  */
                 txtRicalcola = new JTextField();
                 txtRicalcola.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
+                txtRicalcola.setDocument(new FixedSizeDocument(5));
                 add(txtRicalcola);
         }
 
