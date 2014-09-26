@@ -347,8 +347,21 @@ public class SelezionaRicettaPanel extends JPanel {
                 ModificaRicetta();
         }
         
+        /**
+         * Verifico se sono state fatte modifiche all'elenco ricette senza essere salvate
+         * @return true = sono presenti modifiche non salvate, false = altrimenti
+         */
         public boolean IsModified()
         {
         	return bModificato;
+        }
+        
+        /**
+         * Setto se sono state fatte modifiche all'elenco ricette senza essere salvate
+         * @param bInput - true = modifiche presenti e non salvate, false = altrimenti
+         */
+        public void SetModified(boolean bInput)
+        {
+        	bModificato = bInput;
         }
 }
