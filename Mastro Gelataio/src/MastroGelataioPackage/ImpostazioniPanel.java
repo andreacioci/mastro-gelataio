@@ -193,7 +193,7 @@ public class ImpostazioniPanel extends JPanel {
                 btnEsportaDB = new JButton("Esporta");
                 btnEsportaDB.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
                 btnEsportaDB.setBounds(30, 50 + 50, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
-                pnlDB.add(btnEsportaDB);
+                //pnlDB.add(btnEsportaDB);
                 
                 btnEsportaDB.addActionListener (new ActionListener () {
                     public void actionPerformed(ActionEvent e) {
@@ -207,7 +207,7 @@ public class ImpostazioniPanel extends JPanel {
                 btnImportaDB = new JButton("Importa");
                 btnImportaDB.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
                 btnImportaDB.setBounds(30, 50 + 100, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
-                pnlDB.add(btnImportaDB);
+                //pnlDB.add(btnImportaDB);
                 
                 btnImportaDB.addActionListener (new ActionListener () {
                     public void actionPerformed(ActionEvent e) {
@@ -456,7 +456,7 @@ public class ImpostazioniPanel extends JPanel {
                  */
                 if(txtNomeBase.getText().isEmpty() == true)
                 {
-                        JOptionPane.showMessageDialog(this, "Impossibile salvare le soglie. Il nome non è impostato", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Impossibile salvare le soglie. Il nome non e' impostato", "Attenzione", JOptionPane.WARNING_MESSAGE);
                         return;
                 }
                 
