@@ -118,7 +118,7 @@ public class RicettaComposizionePanel extends JPanel {
                 /**
                  * Creo il bottone per il ricalcolo delle quantita' 
                  */
-                btnRicalcola = new JButton("Ricalcola per gr.");
+                btnRicalcola = new JButton("Ricalcola gr.");
                 btnRicalcola.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
                 add(btnRicalcola);
                 
@@ -494,6 +494,7 @@ public class RicettaComposizionePanel extends JPanel {
                 {
                         return;
                 }
+                
                 /**
                  * Verifico la composizione della ricetta contro le nuove soglie
                  */
