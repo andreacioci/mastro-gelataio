@@ -19,7 +19,6 @@ public class SelezionaRicettaPanel extends JPanel {
         private TabellaGenerica tabellaRicette;
         private JButton btnCancellaRicetta;
         private JButton btnModificaRicetta;
-        private JButton btnSalva;
         private Integer iRicettaViewed;
         
         private int listRic_X, listRic_Y, listRic_W, listRic_H;
@@ -92,20 +91,6 @@ public class SelezionaRicettaPanel extends JPanel {
                 });
                 
                 /**
-                 * Creo il bottone per le modifiche alla lista delle ricette nel DB
-                 */
-                btnSalva = new JButton("Salva");
-                btnSalva.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-                btnSalva.setEnabled(false);
-                add(btnSalva);
-                
-                btnSalva.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent arg0) {
-                                Salva();        
-                        }
-                });
-                
-                /**
                  * Creo il listener per l'evento di selezione della ricetta.
                  * Questo evento viene scatenato dalla tabella stessa.
                  */
@@ -143,7 +128,6 @@ public class SelezionaRicettaPanel extends JPanel {
                 tabellaRicette.setBounds(listRic_X, listRic_Y, listRic_W, listRic_H);
                 btnCancellaRicetta.setBounds(listRic_X, listRic_Y + listRic_H + 10, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
                 btnModificaRicetta.setBounds(listRic_X + listRic_W - Globals.BUTTON_WIDTH, listRic_Y + listRic_H + 10, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
-                btnSalva.setBounds(iX + (iWidth - Globals.BUTTON_WIDTH)/2 , iY + iHeight - Globals.BUTTON_HEIGHT - 10, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
                 lblRicettario.setBounds(lblRic_X, lblRic_Y, lblRic_W, lblRic_H);
         }
         
@@ -173,11 +157,6 @@ public class SelezionaRicettaPanel extends JPanel {
                 	tabellaRicette.setSelectedRow("ID", iRicettaViewed);
                 	ApriRicetta();
                 }
-                
-                /**
-                 * Disabilito il pulsante di salvataggio perchè ho appena ricaricato l'elenco delle ricette dal DB.
-                 */
-                btnSalva.setEnabled(false);
         }
         
         /**
@@ -278,14 +257,9 @@ public class SelezionaRicettaPanel extends JPanel {
             /**
              * Notifico all'utente che il salvataggio è avvenuto con successo
              */
-            JOptionPane.showMessageDialog(null, "Salvataggio riuscito!", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ricetta eliminata!", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
             
             bModificato = false;
-            
-            /**
-             * Disabilito il pulsante Salva perchè l'elenco ricette è allineato al DB.
-             */
-            btnSalva.setEnabled(false);
         }
         
         private void fireMyEvent(MioEvento evt) 
@@ -313,6 +287,15 @@ public class SelezionaRicettaPanel extends JPanel {
 		                
 		        if (iRow != -1)
 		        {
+		        		/**
+		        		 * Chiedo conferma che la ricetta deve essere eliminata dal DB.
+		        		 */
+		        		int option = JOptionPane.showConfirmDialog(null, "La ricetta verrà eliminata definitivamente. Continuare?", "Attenzione", JOptionPane.YES_NO_OPTION);
+		        		if (option == JOptionPane.NO_OPTION)
+		        		{
+		        			return; 
+		        		}
+                    
 		                /**
 		                 * Ricavo la riga selezionata nella matrice "data"
 		                 */
@@ -334,11 +317,14 @@ public class SelezionaRicettaPanel extends JPanel {
 		                    fireMyEvent(evt);   
 		                    
 		                    iRicettaViewed = -1;
-		                }
-		                      
-		                btnSalva.setEnabled(true);
+		                }	
 		                
 		                bModificato = true;
+		                
+		                /**
+		                 * Salvo nel DB
+		                 */
+		                Salva();
 		        }
         }
    
