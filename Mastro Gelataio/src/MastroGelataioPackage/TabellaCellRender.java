@@ -139,26 +139,29 @@ public class TabellaCellRender extends DefaultTableCellRenderer
         	/**
         	 * Se la soglia Min non è impostata la setto a 100 così la verifica non sarà mai soddisfatta
         	 */
-        	if(objInsideMinVals.size() == 0)
+        	/*if(objInsideMinVals.size() == 0)
         	{
         		dMin = 100.0;
         	}
         	else
         	{
         		dMin = Double.parseDouble(objInsideMinVals.get(iIndex).toString());
-        	}
+        	}*/
 	        
         	/**
         	 * Se la soglia Max non è impostata la setto a 0 così la verifica non sarà mai soddisfatta
         	 */
-        	if (objInsideMaxVals.size() == 0)
+        	/*if (objInsideMaxVals.size() == 0)
         	{
         		dMax = 0.0;
         	}
         	else
         	{
         		dMax = Double.parseDouble(objInsideMaxVals.get(iIndex).toString());
-        	}
+        	}*/
+        	
+        	dMin = Double.parseDouble(objInsideMinVals.get(iIndex).toString());
+        	dMax = Double.parseDouble(objInsideMaxVals.get(iIndex).toString());
         	
         	if ((Double.parseDouble(value.toString()) > dMin) && (Double.parseDouble(value.toString()) < dMax))
         	{
@@ -201,26 +204,29 @@ public class TabellaCellRender extends DefaultTableCellRenderer
         	/**
         	 * Se la soglia Min non è impostata la setto a 0 così la verifica non sarà mai soddisfatta
         	 */
-        	if(objOutsideMinVals.size() == 0)
+        	/*if(objOutsideMinVals.size() == 0)
         	{
         		dMin = 0.0;
         	}
         	else
         	{
         		dMin = Double.parseDouble(objOutsideMinVals.get(iIndex).toString());
-        	}
+        	}*/
 	        
         	/**
         	 * Se la soglia Max non è impostata la setto a 100 così la verifica non sarà mai soddisfatta
         	 */
-        	if (objOutsideMaxVals.size() == 0)
+        	/*if (objOutsideMaxVals.size() == 0)
         	{
         		dMax = 100.0;
         	}
         	else
         	{
         		dMax = Double.parseDouble(objOutsideMaxVals.get(iIndex).toString());
-        	}
+        	}*/
+        	
+        	dMin = Double.parseDouble(objOutsideMinVals.get(iIndex).toString());
+        	dMax = Double.parseDouble(objOutsideMaxVals.get(iIndex).toString());
         	
         	if ((Double.parseDouble(value.toString()) < dMin) || (Double.parseDouble(value.toString()) > dMax))
         	{
