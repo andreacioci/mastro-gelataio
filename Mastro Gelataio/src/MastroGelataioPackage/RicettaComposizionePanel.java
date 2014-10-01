@@ -39,6 +39,7 @@ public class RicettaComposizionePanel extends JPanel {
         private Vector<String> sColumnNameComp;
         private Vector<String> sColumnNameTot;
         private Vector<String> sColumnNameSoglie;
+        private JLabel lblBasi;
         private JComboBox<String> cbbTipoBase;
         private DefaultComboBoxModel<String> cbbModel;
         private Vector<Vector<Object>> objTipiBasi;
@@ -56,6 +57,7 @@ public class RicettaComposizionePanel extends JPanel {
         private int btnSta_X, btnSta_Y, btnSta_Width, btnSta_Height;
         private int btnSal_X, btnSal_Y, btnSal_Width, btnSal_Height;
         private int tblSog_X, tblSog_Y, tblSog_Width, tblSog_Height;
+        private int lblBas_X, lblBas_Y, lblBas_Width, lblBas_Height;
         private int cbbBas_X, cbbBas_Y, cbbBas_Width, cbbBas_Height;
         private int lblNot_X, lblNot_Y, lblNot_Width, lblNot_Height;
         private int txtNot_X, txtNot_Y, txtNot_Width, txtNot_Height;
@@ -156,8 +158,8 @@ public class RicettaComposizionePanel extends JPanel {
                 /**
                  * Creo la JLabel "Composizione"
                  */
-                lblComposizione = new JLabel("Composizione");
-                lblComposizione.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+                lblComposizione = new JLabel("Composizione:");
+                lblComposizione.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
                 add(lblComposizione);
                 
                 /**
@@ -168,8 +170,8 @@ public class RicettaComposizionePanel extends JPanel {
                 /**
                  * Creo la JLabel "Totali"
                  */
-                lblTotali = new JLabel("Totali");
-                lblTotali.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+                lblTotali = new JLabel("Totali:");
+                lblTotali.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
                 add(lblTotali);
                 
                 /**
@@ -181,7 +183,7 @@ public class RicettaComposizionePanel extends JPanel {
                  * Creo la JLabel per le Note
                  */
                  lblNote = new JLabel("Note:");
-                 lblNote.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
+                 lblNote.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
                  add(lblNote);
                  
                 /**
@@ -254,6 +256,13 @@ public class RicettaComposizionePanel extends JPanel {
                                 Stampa();       
                         }
                 });
+                
+                /**
+                 * Creo la JLabel "Valori di Controllo"
+                 */
+                lblBasi = new JLabel("Valori di Controllo:");
+                lblBasi.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
+                add(lblBasi);
                 
                 /**
                  * Creo la JComboBox per le Basi e la riempio con i le basi nel DB
@@ -343,6 +352,11 @@ public class RicettaComposizionePanel extends JPanel {
                 btnSta_Height = 40;
                 btnSta_X = btnSal_X - Globals.BUTTON_WIDTH - 20;
                 
+                lblBas_X = txtNot_X;
+                lblBas_Y = txtNot_Y + txtNot_Height + 20;;
+                lblBas_Width = 200;
+                lblBas_Height = 20;
+                
                 cbbBas_X = txtNot_X;
                 cbbBas_Y = txtNot_Y + txtNot_Height + 40;
                 cbbBas_Width = 120; 
@@ -370,6 +384,7 @@ public class RicettaComposizionePanel extends JPanel {
                 btnSalva.setBounds(btnSal_X, btnSal_Y, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
                 btnStampa.setBounds(btnSta_X, btnSta_Y, Globals.BUTTON_WIDTH, Globals.BUTTON_HEIGHT);
                 txtRicalcola.setBounds(txtRic_X, txtRic_Y, txtRic_Width, txtRic_Height);
+                lblBasi.setBounds(lblBas_X, lblBas_Y, lblBas_Width, lblBas_Height);
                 cbbTipoBase.setBounds(cbbBas_X, cbbBas_Y, cbbBas_Width, cbbBas_Height);
                 lblNote.setBounds(lblNot_X,lblNot_Y, lblNot_Width, lblNot_Height);
                 scrollPane.setBounds(txtNot_X, txtNot_Y, txtNot_Width, txtNot_Height);
