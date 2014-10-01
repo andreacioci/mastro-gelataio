@@ -22,7 +22,9 @@ public class RicettaComposizionePanel extends JPanel {
 
         private JLabel lblRicetta;
         private JTextField txtNomeRicetta;
+        private JLabel lblComposizione;
         private TabellaGenerica tabellaComposizione;
+        private JLabel lblTotali;
         private TabellaGenerica tabellaTotali;
         private TabellaGenerica tabellaSoglie;
         private JButton btnRicalcola;
@@ -41,10 +43,14 @@ public class RicettaComposizionePanel extends JPanel {
         private DefaultComboBoxModel<String> cbbModel;
         private Vector<Vector<Object>> objTipiBasi;
         private Integer iIDRicettaViewed;
+        private Integer iIDBaseViewed;
+        private boolean bCbbListenerActive;
         
         private int tblCom_X, tblCom_Y, tblCom_Width, tblCom_Height;
         private int tblTot_X, tblTot_Y, tblTot_Width, tblTot_Height;
         private int lblNom_X, lblNom_Y, lblNom_Width, lblNom_Height;
+        private int lblCom_X, lblCom_Y, lblCom_Width, lblCom_Height;
+        private int lblTot_X, lblTot_Y, lblTot_Width, lblTot_Height;
         private int txtNom_X, txtNom_Y, txtNom_Width, txtNom_Height;
         private int btnRic_X, btnRic_Y, btnRic_Width, btnRic_Height;
         private int btnSta_X, btnSta_Y, btnSta_Width, btnSta_Height;
@@ -69,6 +75,8 @@ public class RicettaComposizionePanel extends JPanel {
                 DBMgr = prtDBMgr;
                 
                 iIDRicettaViewed = -1;
+                iIDBaseViewed = -1;
+                bCbbListenerActive = true;
                 
                 CalcolaCoordinate();
 
@@ -146,9 +154,23 @@ public class RicettaComposizionePanel extends JPanel {
                 data_ing = DBMgr.SelectIngredienti("WHERE Deleted='N'");
                 
                 /**
+                 * Creo la JLabel "Composizione"
+                 */
+                lblComposizione = new JLabel("Composizione");
+                lblComposizione.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+                add(lblComposizione);
+                
+                /**
                  * Creo la tabella della composizione della Ricetta
                  */
                 tabellaComposizione = new TabellaGenerica(this, tblCom_X, tblCom_Y, tblCom_Width, tblCom_Height);
+                
+                /**
+                 * Creo la JLabel "Totali"
+                 */
+                lblTotali = new JLabel("Totali");
+                lblTotali.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+                add(lblTotali);
                 
                 /**
                  * Creo la tabella dei totali 
@@ -176,7 +198,7 @@ public class RicettaComposizionePanel extends JPanel {
                 add(scrollPane);
                 
                 /**
-                 * Creo il listener per l'evento di aggiornamento delle quantit√† in tabella
+                 * Creo il listener per l'evento di aggiornamento delle quantita'† in tabella
                  */
                 tabellaComposizione.addMioEventoListener(new MioEventoListener() {
                     public void myEventOccurred(MioEvento evt) {
@@ -245,7 +267,10 @@ public class RicettaComposizionePanel extends JPanel {
                 
                 cbbTipoBase.addActionListener (new ActionListener () {
                     public void actionPerformed(ActionEvent e) {
-                        CaricaTabellaSoglie();
+                    	if (bCbbListenerActive)
+                    	{
+                    		CaricaTabellaSoglie();
+                    	}
                     }
                 });
                 
@@ -266,14 +291,24 @@ public class RicettaComposizionePanel extends JPanel {
                 txtNom_Y = lblNom_Y;
                 txtNom_Width = 250;
                 txtNom_Height = 23;
-                                
+                           
+                lblCom_X = 20;
+                lblCom_Y = lblNom_Height + 30;
+                lblCom_Width = 100;
+                lblCom_Height = 23;
+                
                 tblCom_X = 20;
-                tblCom_Y = txtNom_Y + txtNom_Height + 30;
+                tblCom_Y = lblCom_Y + lblCom_Height;
                 tblCom_Width = getWidth() - (tblCom_X * 2);
                 tblCom_Height = 150;
                 
-                tblTot_X = tblCom_X;
-                tblTot_Y = tblCom_Y + tblCom_Height + 10;
+                lblTot_X = 20;
+                lblTot_Y = tblCom_Y + tblCom_Height + 10;
+                lblTot_Width = 100;
+                lblTot_Height = 23;
+                
+                tblTot_X = 20;
+                tblTot_Y = lblTot_Y + lblTot_Height;
                 tblTot_Width = tblCom_Width;
                 tblTot_Height = 50; 
                                 
@@ -326,7 +361,9 @@ public class RicettaComposizionePanel extends JPanel {
                 CalcolaCoordinate();
                 lblRicetta.setBounds(lblNom_X, lblNom_Y, lblNom_Width, lblNom_Height);
                 txtNomeRicetta.setBounds(txtNom_X, txtNom_Y, txtNom_Width, txtNom_Height);
+                lblComposizione.setBounds(lblCom_X, lblCom_Y, lblCom_Width, lblCom_Height);
                 tabellaComposizione.setBounds(tblCom_X, tblCom_Y, tblCom_Width, tblCom_Height);
+                lblTotali.setBounds(lblTot_X, lblTot_Y, lblTot_Width, lblTot_Height);
                 tabellaTotali.setBounds(tblTot_X, tblTot_Y, tblTot_Width, tblTot_Height);
                 tabellaSoglie.setBounds(tblSog_X, tblSog_Y, tblSog_Width, tblSog_Height);
                 btnRicalcola.setBounds(btnRic_X, btnRic_Y, btnRic_Width, btnRic_Height);
@@ -418,7 +455,21 @@ public class RicettaComposizionePanel extends JPanel {
                 {       
                         for (int i=0; i < objTipiBasi.size(); i++)
                         {
+                        		bCbbListenerActive = false;
                                 cbbModel.addElement(objTipiBasi.get(i).get(1).toString());
+                                bCbbListenerActive = true;
+                                
+                                /**
+                                 * Se avevo gi‡ visualizzato una base, riapro il pannello con la stessa selezione di prima
+                                 */
+                                if (iIDBaseViewed == Integer.parseInt(objTipiBasi.get(i).get(0).toString()))
+                        		{
+                        			cbbTipoBase.setSelectedIndex(i);
+                        		}
+                                else if (iIDBaseViewed == -1)
+                                {
+                        			cbbTipoBase.setSelectedIndex(0);
+                        		}
                         }
                 }       
         }
@@ -435,6 +486,14 @@ public class RicettaComposizionePanel extends JPanel {
                 iBase = cbbTipoBase.getSelectedIndex();
                 
                 /**
+                 * Salvo la base selezionata nel caso in cui cambiassi pannello
+                 */
+                if (iBase >= 0)
+                {
+                	iIDBaseViewed = Integer.parseInt(objTipiBasi.get(iBase).get(0).toString());
+                }
+                
+                /**
                  * Ripulisco la visualizzazione corrente
                  */
                 tabellaSoglie.SvuotaDati();
@@ -445,7 +504,14 @@ public class RicettaComposizionePanel extends JPanel {
                  */
                 if ((objTipiBasi != null) && (objTipiBasi.size() != 0) && (iBase < objTipiBasi.size()) && (iBase != -1))
                 {
-                        tabellaSoglie.CaricaDati("Soglie", " WHERE ID=" + objTipiBasi.get(iBase).get(0), DBMgr);
+                	if (iIDBaseViewed == -1)
+                	{
+                		tabellaSoglie.CaricaDati("Soglie", " WHERE ID=" + objTipiBasi.get(iBase).get(0), DBMgr);
+                	}
+                	else
+                	{
+                		tabellaSoglie.CaricaDati("Soglie", " WHERE ID=" + iIDBaseViewed, DBMgr);
+                	}
                 }
                 
                 /**
