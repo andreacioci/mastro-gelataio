@@ -584,7 +584,7 @@ public class IngredientiPanel extends JPanel {
                 iRow = tabellaIngredienti.getSelectedRow();
                 
                 if (iRow != -1)
-                {
+                {	
                         /**
                          * Ricavo la riga selezionata nella matrice "data"
                          */
@@ -617,7 +617,6 @@ public class IngredientiPanel extends JPanel {
                  */
                 if (SalvaTipo() == false)
                 {
-                	JOptionPane.showMessageDialog(null, "Si sono verificati problemi nel salvataggio delle classi di ingredienti!", "", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 
@@ -626,14 +625,13 @@ public class IngredientiPanel extends JPanel {
                  */
                 if (SalvaIng() == false)
                 {
-                	JOptionPane.showMessageDialog(null, "Si sono verificati problemi nel salvataggio degli ingredienti!", "", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 
                 /**
                  * Notifico che gli ingredienti sono stati salvati.
                  */
-                JOptionPane.showMessageDialog(null, "Ricetta salvata!", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Salvataggio riuscito!", "", JOptionPane.INFORMATION_MESSAGE);
         }
         
         private boolean SalvaTipo()
@@ -652,7 +650,7 @@ public class IngredientiPanel extends JPanel {
                         if ((tabellaTipiIng.getValueAt(i, DBMgr.TIPI_ING_Nome).toString() == null) || (tabellaTipiIng.getValueAt(i, DBMgr.TIPI_ING_Nome).toString().trim().equals("")))
                         {
                                 JOptionPane.showMessageDialog(null, "Almeno una classe di ingredienti non ha un nome definito.", "Attenzione", JOptionPane.WARNING_MESSAGE);
-                        return false;
+                                return false;
                         }
                 }
                 
