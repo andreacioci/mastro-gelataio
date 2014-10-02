@@ -329,19 +329,19 @@ public class ImpostazioniPanel extends JPanel {
                                 dataRow.add("Acqua");
                                 break;
                         case 1:
-                                dataRow.add("Solidi");
+                        		dataRow.add("Altri Solidi");
                                 break;
                         case 2:
-                                dataRow.add("Zuccheri");
+                        		dataRow.add("Grassi");
                                 break;
                         case 3:
-                                dataRow.add("Grassi");
+                        		dataRow.add("SLNG");
                                 break;
                         case 4:
-                                dataRow.add("SLNG");
+                        		dataRow.add("Solidi");
                                 break;
                         case 5:
-                                dataRow.add("Altri Solidi");
+                        		dataRow.add("Zuccheri");
                                 break;
                         default:
                                 break;
@@ -452,7 +452,7 @@ public class ImpostazioniPanel extends JPanel {
                 boolean bModifcaBase = false;
                 
                 /**
-                 * Se il nome della base non Ã¨ stato impostato avviso con una finestra e esco
+                 * Se il nome della base non e' stato impostato avviso con una finestra e esco
                  */
                 if(txtNomeBase.getText().isEmpty() == true)
                 {
@@ -461,28 +461,49 @@ public class ImpostazioniPanel extends JPanel {
                 }
                 
                 /**
-                 * Ricavo l'ID della base e lo imposto nella tabella se si tratta di una nuova base
+                 * Ricavo l'ID della base e il nome
                  */
-                Vector<String> sCols = new Vector<String>();
-                sCols.add("ID");
-                
                 Vector<Object> objValues = new Vector<Object>();
                 objValues.add(tabellaSoglie.getValueAt(0, tabellaSoglie.getColumnIndex("ID")));
-                
-                /**
-                 * Controllo se esiste una base con lo stesso ID
-                 */
-                bModifcaBase = DBMgr.IsPresent("Basi", sCols, objValues);
-                sCols.add("Nome");
                 objValues.add(txtNomeBase.getText());
                 
                 /**
-                 * Controllo se esiste una base con lo stesso ID e stesso Nome
+                 * Controllo se esiste una base con lo stesso ID e stesso Nome. Questo vuol dire che sto modificando
+                 * una base esistente.
                  */
-                bModifcaBase = bModifcaBase && DBMgr.IsPresent("Basi", sCols, objValues);
+                Vector<String> sCols = new Vector<String>();
+                sCols.add("ID");
+                sCols.add("Nome");
+                bModifcaBase = DBMgr.IsPresent("Basi", sCols, objValues);
+                
+                if(bModifcaBase == true)
+                {
+                	int option = JOptionPane.showConfirmDialog(null, "Stai salvando una modifica ad una base esistente. Continuare?", "Attenzione", JOptionPane.YES_NO_OPTION);
+                    if (option == JOptionPane.NO_OPTION)
+                    {
+                            return; 
+                    }
+                }
+                else
+                {
+                	/**
+                     * Controllo se esiste una base con lo stesso Nome. Questo vuol dire che sto cercando di salvare 
+                     * una nuova base con un nome già esistente.
+                     */
+                	sCols.clear();
+                	objValues.clear();
+                	sCols.add("Nome");
+                	objValues.add(txtNomeBase.getText());
+                	bModifcaBase = DBMgr.IsPresent("Basi", sCols, objValues);
+                	if (bModifcaBase == true)
+                	{
+                		JOptionPane.showMessageDialog(this, "Impossibile salvare la base. Il nome e' già in uso", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                        return;
+                	}
+                }
                 
                 /**
-                 * Se Ã¨ una nuova base devo determinare il nuovo ID
+                 * Se e' una nuova base devo determinare il nuovo ID
                  */
                 Integer iID = -1;
                 if (bModifcaBase == false)
@@ -506,7 +527,7 @@ public class ImpostazioniPanel extends JPanel {
                 DBMgr.UpdateSoglieTable(data);
                 
                 /**
-                 * Se Ã¨ una nuova base devo anche aggiornare la tabella Basi
+                 * Se e' una nuova base devo anche aggiornare la tabella Basi
                  */
                 if (bModifcaBase == false)
                 {
