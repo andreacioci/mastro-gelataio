@@ -198,6 +198,7 @@ public class Ricettario extends JPanel {
 	public void CaricaRicette()
 	{
 		pnlSelectRicetta.CaricaRicette();
+		pnlComposizione.CaricaBasi();
 	}
 	
 	/**
