@@ -1,0 +1,1 @@
+Software per calcolare il bilanciamento degli ingredienti di un gelato.
